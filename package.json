@@ -1,0 +1,23 @@
+{
+  "name": "almacen-conocimiento",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Biblioteca personal para guardar, organizar y recuperar enlaces, vídeos, ideas y notas. PWA local, sin servidor.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "fake-indexeddb": "^6.2.5",
+    "vite": "^5.4.21",
+    "vitest": "^2.1.9"
+  }
+}
