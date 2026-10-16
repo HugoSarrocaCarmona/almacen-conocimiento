@@ -6,6 +6,8 @@ Biblioteca personal para guardar, organizar y recuperar enlaces, vídeos, artíc
 - Los datos se guardan en tu navegador (IndexedDB), y puedes exportarlos e importarlos en JSON.
 - Se instala en la pantalla de inicio del iPhone (PWA) y se abre sin conexión.
 
+**App publicada:** https://hugosarrocacarmona.github.io/almacen-conocimiento/ (se actualiza sola con cada cambio que se sube a `main`).
+
 ## Comandos
 
 Hacen falta [Node.js](https://nodejs.org) 18 o superior.
