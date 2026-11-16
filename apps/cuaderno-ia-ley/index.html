@@ -1,0 +1,1020 @@
+<title>Cuaderno IA y Ley</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Sistema Hugo Sarroca · variante Apps (como Puertas Diarias). Teal = hecho; azul = acción y foco; ámbar = plazo cerca.
+   Una columna de móvil: pestañas fijas (Hoy, Cuaderno, Radar, Progreso). Hoy = puerta de 2 min + sesión de 5 movimientos. */
+:root{
+  --bg:#f1f5f9; --surface:#ffffff; --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --soft:#e8eef5;
+  --accent:#14b8a6; --accent-ink:#042f2e; --deep:#2563eb; --on-deep:#ffffff; --warn:#b45309; --dead:#94a3b8;
+  --display:Manrope,"Helvetica Neue",Arial,sans-serif;
+  --body:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1120; --surface:#111a2e; --ink:#e5ecf6; --muted:#94a3b8; --line:#1e293b; --soft:#16213a;
+    --accent:#2dd4bf; --accent-ink:#042f2e; --deep:#60a5fa; --on-deep:#0b1120; --warn:#fbbf24; --dead:#64748b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1120; --surface:#111a2e; --ink:#e5ecf6; --muted:#94a3b8; --line:#1e293b; --soft:#16213a;
+  --accent:#2dd4bf; --accent-ink:#042f2e; --deep:#60a5fa; --on-deep:#0b1120; --warn:#fbbf24; --dead:#64748b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.5}
+:focus-visible{outline:3px solid var(--deep);outline-offset:2px}
+a{color:var(--deep)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+.app{max-width:40rem;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 72px;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;flex-direction:column;gap:2px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.eyebrow{margin:0;color:var(--muted);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.hs-m{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:6px;background:var(--deep);color:var(--on-deep);font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:-.02em}
+.hs-m::after{content:"_";color:var(--accent)}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding-block:8px;border-bottom:1px solid var(--line)}
+.tab{display:block;text-align:center;text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem;padding:9px 2px;border-radius:10px}
+.tab[aria-current="page"]{background:var(--surface);color:var(--ink);box-shadow:inset 0 -3px 0 var(--deep)}
+.notice{margin:0;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.875rem}
+#view{display:flex;flex-direction:column;gap:16px;min-width:0}
+
+/* Hero */
+.hero{display:flex;align-items:center;gap:18px;padding-top:4px}
+.ring{flex:none;width:104px;height:104px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{fill:none;stroke:var(--soft);stroke-width:11}
+.ring .fill{fill:none;stroke:var(--accent);stroke-width:11;stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+.ring .count{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:1.6rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.ring .count small{font-size:.95rem;color:var(--muted);font-weight:500}
+.heroText{min-width:0;display:flex;flex-direction:column;gap:4px}
+.heroText h2{margin:0;font-family:var(--display);font-weight:800;font-size:1.35rem;line-height:1.15;text-wrap:balance}
+.heroText p{margin:0;color:var(--muted);font-size:.95rem}
+
+/* Tira de 7 días */
+.strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.sd{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0 8px;border-radius:12px;border:1px solid transparent}
+.sd.now{background:var(--surface);border-color:var(--line)}
+.sd span{font-size:.7rem;color:var(--muted);font-weight:600;letter-spacing:.06em}
+.sd b{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums}
+.marks{display:flex;gap:4px;align-items:center}
+.sq{display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--soft);border:1px solid var(--line)}
+.sq.on{background:var(--accent);border-color:var(--accent)}
+.dt{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--line)}
+.dt.on{background:var(--deep)}
+.legend{margin:-8px 0 0;font-size:.78rem;color:var(--muted);display:flex;gap:6px 12px;align-items:center;justify-content:center;flex-wrap:wrap}
+.legend span{display:inline-flex;gap:5px;align-items:center}
+
+/* Tarjetas y controles */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card.focus{border:1.5px solid var(--deep)}
+.card.done{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.cardHead{display:flex;justify-content:space-between;align-items:center;gap:8px 10px;flex-wrap:wrap}
+.cardHead h3,.card h3{margin:0;font-family:var(--display);font-weight:700;font-size:1.1rem;line-height:1.25}
+.kicker{margin:0;font-size:.74rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.task{margin:0;max-width:62ch}
+.muted{color:var(--muted);margin:0}
+.small{font-size:.84rem}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 7px;white-space:nowrap;background:var(--surface)}
+.pill.ok{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pill.warn{border-color:var(--warn);color:var(--warn)}
+.pill.now{border-color:var(--deep);color:var(--deep)}
+.pill.dead{border-style:dashed;color:var(--dead);text-decoration:line-through}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field>span{font-weight:600;font-size:.9rem}
+.field input,.field textarea,.field select{background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+.field textarea{resize:vertical;line-height:1.45}
+.field input[type=range]{padding:0;border:0;background:none;accent-color:var(--deep)}
+.actions{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center}
+.btn{border:0;border-radius:10px;padding:11px 18px;font-weight:600;background:var(--deep);color:var(--on-deep)}
+.btn.ghost{background:none;border:1.5px solid var(--line);color:var(--ink)}
+.link{background:none;border:0;padding:4px 0;color:var(--deep);font-weight:600;font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;font-size:.88rem;font-weight:600;text-align:left}
+.chip[aria-pressed="true"]{background:var(--deep);border-color:var(--deep);color:var(--on-deep)}
+.tag{display:inline-block;font-size:.72rem;color:var(--muted);background:var(--soft);border-radius:5px;padding:1px 7px}
+.empty{margin:0;padding:22px 16px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:14px}
+.plan{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+.plan .cue{color:var(--muted)}
+.plan .arr{color:var(--deep);font-weight:700}
+
+/* Puerta */
+.gateRow{display:grid;grid-template-columns:52px minmax(0,1fr);gap:14px;align-items:center}
+.chk{width:52px;height:52px;border-radius:50%;border:2.5px solid var(--line);background:var(--bg);display:grid;place-items:center}
+.chk svg{width:24px;height:24px;stroke:var(--accent-ink);stroke-width:3.2;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.chk.on{background:var(--accent);border-color:var(--accent)}
+.chk.on svg{opacity:1;animation:pop .45s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{0%{transform:scale(.5)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.reveal{margin:0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent) 14%,var(--surface));border-left:3px solid var(--accent)}
+
+/* Sesión */
+.runHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.runHead h2{margin:2px 0 0;font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.2;text-wrap:balance}
+.stepWrap{overflow-x:auto;margin-inline:-2px;padding:2px}
+.stepper{list-style:none;margin:0;padding:0;display:flex;gap:6px;width:max-content}
+.stepper li{display:flex;align-items:center;gap:6px;padding:5px 10px 5px 6px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;color:var(--muted);white-space:nowrap}
+.stepper li .mono{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--soft);font-size:.72rem}
+.stepper li.past{color:var(--ink)}
+.stepper li.past .mono{background:var(--accent);color:var(--accent-ink)}
+.stepper li.now{border-color:var(--deep);color:var(--ink);font-weight:600}
+.stepper li.now .mono{background:var(--deep);color:var(--on-deep)}
+.prose{max-width:65ch;overflow-wrap:anywhere}
+.prose p{margin:0 0 10px}
+.prose ul,.prose ol{margin:0 0 10px;padding-left:1.25rem}
+.prose li{margin-bottom:4px}
+.prose .h{font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1.25}
+.prose>*:last-child{margin-bottom:0}
+.fichaT{margin:0;font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.2}
+.sub{margin:0;color:var(--deep);font-weight:600}
+.refs{display:flex;flex-direction:column;gap:6px;padding:10px 12px;background:var(--bg);border-radius:12px}
+.refs a,.refs span{font-size:.88rem}
+.case{display:flex;flex-direction:column;gap:6px;padding:12px 14px;background:var(--bg);border-radius:12px;border-left:3px solid var(--deep)}
+.case p{margin:0}
+.smoke{margin:0;padding:12px 14px;background:var(--bg);border-radius:12px;border-left:3px solid var(--warn)}
+.smoke p{margin:0}
+.qs{margin:0;padding-left:1.25rem;display:flex;flex-direction:column;gap:6px}
+.convo{display:flex;flex-direction:column;gap:10px}
+.msg{border-radius:12px;padding:12px 14px;min-width:0;overflow-wrap:anywhere}
+.msg.ai{background:var(--soft)}
+.msg.me{border-left:3px solid var(--deep);background:var(--bg);border-radius:4px 12px 12px 4px}
+.msg p{margin:0 0 8px}
+.msg>*:last-child{margin-bottom:0}
+.msg ul,.msg ol{margin:0 0 8px;padding-left:1.25rem}
+.msg .h{font-family:var(--display);font-weight:800}
+.who{font-size:.72rem!important;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:4px!important}
+.live{outline:1.5px dashed var(--line)}
+.thinking{color:var(--muted)}
+.grade{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px!important}
+.score{font-family:var(--mono);font-weight:500;background:var(--deep);color:var(--on-deep);border-radius:6px;padding:1px 7px;font-size:.84rem;white-space:nowrap}
+details.orig{border-top:1px solid var(--line);padding-top:8px}
+details.orig summary{cursor:pointer;font-weight:600;color:var(--deep);font-size:.9rem}
+details.orig .prose{padding-top:8px}
+.calib{margin:0;font-size:.9rem;padding:8px 11px;border-radius:10px;background:color-mix(in srgb,var(--deep) 12%,var(--surface))}
+.sumList{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.sumList li{display:flex;justify-content:space-between;gap:10px;font-size:.92rem;padding:6px 0;border-top:1px solid var(--line)}
+.sumList li:first-child{border-top:0}
+
+/* Cuaderno */
+.qlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.q.pick{border:1.5px solid var(--deep)}
+.qText{margin:0;font-weight:600;line-height:1.35}
+.qMeta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.8rem;color:var(--muted)}
+.qAct{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.pickRow{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;background:none;border:0;padding:0}
+.radio{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);margin-top:2px;display:grid;place-items:center}
+.radio.on{border-color:var(--deep)}
+.radio.on::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--deep)}
+
+/* Radar */
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.timeline li{display:grid;grid-template-columns:6.2rem minmax(0,1fr);gap:4px 12px;padding:9px 0;border-top:1px solid var(--line);align-items:baseline}
+.timeline li:first-child{border-top:0}
+.timeline .mono{font-size:.84rem;color:var(--deep)}
+.timeline .soon .mono{color:var(--warn);font-weight:500}
+.tlText{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tlText b{font-weight:600;font-size:.92rem}
+.tlText span{font-size:.84rem;color:var(--muted)}
+.reg{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.reg>*+*{margin-top:10px}
+.reg summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.reg summary::-webkit-details-marker{display:none}
+.reg .more{color:var(--deep);font-weight:600;font-size:.84rem;text-decoration:underline;text-underline-offset:3px}
+.reg .more::after{content:"Ver detalles"}
+.reg[open] .more::after{content:"Ocultar"}
+.regHead{display:flex;justify-content:space-between;gap:8px 10px;align-items:flex-start;flex-wrap:wrap}
+.regHead h3{margin:0;font-family:var(--display);font-weight:700;font-size:1.05rem;line-height:1.25;min-width:0;flex:1 1 14rem}
+.regPills{display:flex;gap:6px;flex-wrap:wrap}
+.reg p{margin:0;font-size:.94rem}
+.reg .what{padding:8px 11px;border-radius:10px;background:var(--bg)}
+.dates{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:.86rem}
+.dates li{display:grid;grid-template-columns:6.2rem minmax(0,1fr);gap:10px}
+.dates li.past{color:var(--muted)}
+.regFoot{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:.82rem;color:var(--muted)}
+.nov{display:flex;flex-direction:column;gap:6px;padding:12px 0;border-top:1px solid var(--line)}
+.nov:first-of-type{border-top:0;padding-top:0}
+.nov b{font-weight:600}
+.nov p{margin:0;font-size:.92rem}
+
+/* Progreso */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0}
+.stats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
+.stats dt{font-size:.7rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.stats dd{margin:2px 0 0;font-size:1.35rem;font-weight:500;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:var(--soft);overflow:hidden}
+.bar u{display:block;height:100%;background:var(--accent);border-radius:4px}
+.bars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.bars li{display:grid;grid-template-columns:minmax(0,11rem) minmax(0,1fr) 2rem;gap:10px;align-items:center;font-size:.86rem}
+.bars .bar u{background:var(--deep)}
+.bars .mono{text-align:right}
+.cal{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.cal li{display:grid;grid-template-columns:4.2rem minmax(0,1fr) auto;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:.88rem;align-items:center}
+.cal li:first-child{border-top:0}
+.cal .q2{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.hi{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.hiHead{width:100%;background:none;border:0;padding:12px 14px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left}
+.hiHead .mono{font-size:.8rem;color:var(--muted)}
+.hiT{display:flex;flex-direction:column;min-width:0}
+.hiT b{font-weight:600;line-height:1.3}
+.hiT span{font-size:.8rem;color:var(--muted)}
+.hiBody{padding:0 14px 14px;display:flex;flex-direction:column;gap:10px}
+.hiBody h4{margin:6px 0 0;font-size:.74rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.setGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.setGrid .wide{grid-column:1/-1}
+
+details.how{border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:.92rem}
+details.how summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details.how ol{margin:10px 0 0;padding-left:1.2rem;display:flex;flex-direction:column;gap:9px;max-width:65ch}
+details.how b{color:var(--ink)}
+details.how blockquote{margin:12px 0 0;padding-left:12px;border-left:3px solid var(--accent);font-style:italic}
+.toast{position:fixed;left:16px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin-inline:auto;max-width:28rem;background:var(--ink);color:var(--bg);padding:11px 14px;border-radius:12px;font-size:.9rem;text-align:center;z-index:9}
+@media (max-width:520px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .setGrid{grid-template-columns:minmax(0,1fr)}
+  .bars li{grid-template-columns:minmax(0,1fr) 5rem 2rem}
+  .timeline li,.dates li{grid-template-columns:5.6rem minmax(0,1fr)}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="brandrow"><p class="eyebrow" id="dateLabel">&nbsp;</p><span class="hs-m" aria-hidden="true">hs</span></div>
+    <h1>Cuaderno IA y Ley</h1>
+  </header>
+  <nav class="tabs" aria-label="Secciones">
+    <a class="tab" id="tab-hoy" href="#hoy">Hoy</a>
+    <a class="tab" id="tab-cuaderno" href="#cuaderno">Cuaderno</a>
+    <a class="tab" id="tab-radar" href="#radar">Radar</a>
+    <a class="tab" id="tab-progreso" href="#progreso">Progreso</a>
+  </nav>
+  <p class="notice" id="notice" hidden></p>
+  <main id="view"><p class="empty">Abriendo tu cuaderno…</p></main>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- utilidades ---------- */
+var $=function(id){return document.getElementById(id)};
+function pad(n){return String(n).padStart(2,'0')}
+function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function parse(s){var p=String(s).split('-');return new Date(+p[0],+p[1]-1,+p[2],12)}
+function shift(s,n){var d=parse(s);d.setDate(d.getDate()+n);return ymd(d)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function fmtLong(s){return parse(s).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'})}
+function fmtDate(s){return parse(s).toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'})}
+function fmtShort(s){return parse(s).toLocaleDateString('es-ES',{day:'numeric',month:'short'})}
+function fmtNum(n,d){return String(Math.round(n*Math.pow(10,d||0))/Math.pow(10,d||0)).replace('.',',')}
+function newId(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function vals(o){return Object.keys(o||{}).map(function(k){return o[k]})}
+function str(x,max){x=x==null?'':String(x).trim();return max&&x.length>max?x.slice(0,max):x}
+function arr(x){return Array.isArray(x)?x:[]}
+function safeUrl(u){u=String(u||'');return /^https:\/\/[^\s"'<>]+$/.test(u)?u:''}
+
+/* Texto de Claude: markdown mínimo y seguro */
+function md(t){
+  var lines=String(t||'').replace(/\r/g,'').split('\n'),out=[],list=null;
+  function inline(s){return esc(s)
+    .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>')}
+  function close(){if(list){out.push('</'+list+'>');list=null}}
+  lines.forEach(function(l){
+    var m;
+    if(/^\s*$/.test(l)||/^\s*-{3,}\s*$/.test(l)){close();return}
+    if((m=l.match(/^\s*#{1,6}\s+(.*)$/))){close();out.push('<p class="h">'+inline(m[1])+'</p>');return}
+    if((m=l.match(/^\s*[-*•]\s+(.*)$/))){if(list!=='ul'){close();out.push('<ul>');list='ul'}out.push('<li>'+inline(m[1])+'</li>');return}
+    if((m=l.match(/^\s*\d+[.)]\s+(.*)$/))){if(list!=='ol'){close();out.push('<ol>');list='ol'}out.push('<li>'+inline(m[1])+'</li>');return}
+    close();out.push('<p>'+inline(l)+'</p>');
+  });
+  close();return out.join('');
+}
+function paras(t){return String(t||'').split(/\n+/).filter(function(x){return x.trim()}).map(function(x){return '<p>'+esc(x)+'</p>'}).join('')}
+function clean(t){return String(t||'').replace(/^[ \t]*[*_]*[ \t]*(NOTA|RECUPERADO|VEREDICTO|RESPONDIDA)[ \t]*:.*$/gmi,'').trim()}
+function numOf(t,label){var re=new RegExp(label+'\\s*:\\s*[*_]*\\s*(\\d{1,2}(?:[.,]\\d+)?)\\s*\\/\\s*10','gi'),m,r=null;while((m=re.exec(String(t||''))))r=Math.max(0,Math.min(10,parseFloat(m[1].replace(',','.'))));return r}
+function tagOf(t,label){var m=String(t||'').match(new RegExp(label+'\\s*:\\s*[*_]*\\s*([A-Za-zÁÉÍÓÚÑáéíóúñ]+)','i'));return m?m[1].toUpperCase():null}
+
+/* ---------- método y catálogos ---------- */
+var AREAS={personas:'Personas y RR. HH.',clientes:'Atención al cliente',marketing:'Marketing y personalización',decisiones:'Decisiones automatizadas',contenido:'Contenido generado con IA',datos:'Datos para IA',proveedores:'Proveedores y contratos',agentes:'Agentes y automatización',ciber:'Ciberseguridad e incidentes',producto:'Productos y responsabilidad',gobernanza:'Gobernanza y cumplimiento'};
+var JURIS={UE:'UE',ES:'España',CAT:'Cataluña',GLOBAL:'Global'};
+var ESTADOS={vigente:{t:'En vigor',c:'ok'},parcial:{t:'Aplicación escalonada',c:'now'},plazo:{t:'Plazo próximo',c:'warn'},tramitacion:{t:'En tramitación',c:''},propuesta:{t:'Propuesta',c:''},caducado:{t:'Caducado',c:'dead'},guia:{t:'Guía o criterio',c:''}};
+var STEP={
+  pregunta:{n:'Pregunta',min:2,move:'Movimiento 1 · Empieza por una pregunta'},
+  ficha:{n:'Lectura',min:6,move:'Una sola fuente, a fondo'},
+  reconstruir:{n:'Reconstruir',min:4,move:'Movimiento 2 · Reconstrúyelo de memoria'},
+  fuente:{n:'Texto oficial',min:8,move:'Compara con el original'},
+  comprobar:{n:'Comprobar',min:5,move:'Movimiento 3 · Que alguien te corrija'},
+  humo:{n:'Detector de humo',min:14,move:'Que no te la cuelen'},
+  ensenar:{n:'Enseñar',min:3,move:'Movimiento 4 · Enséñalo en público'},
+  cierre:{n:'Gancho',min:1,move:'Movimiento 5 · Mañana, a la misma hora'}
+};
+function stepsFor(min){var s=['pregunta','ficha','reconstruir'];if(min>=30)s.push('fuente');s.push('comprobar');if(min>=45)s.push('humo');s.push('ensenar','cierre');return s}
+var INTERVALS=[1,3,7,16,35,80];
+var GOAL_H=120, MAX_ACTIVE=5;
+var DEF_SET={hora:'19:00',ancla:'Cuando sean las 19:00 y me siente en mi mesa',puerta:'abro el Cuaderno y hago la puerta de 2 minutos',minutos:20};
+
+var PROFILE='Hugo estudia 2.º de Derecho en la Universitat de Barcelona. Quiere especializarse en legaltech, derecho digital y cumplimiento normativo de la IA, y construye agentes jurídicos con Claude Code. Este cuaderno entrena una sola cosa: cómo deben adaptar las empresas sus procesos (IA, automatizaciones y uso legítimo de datos) a la regulación vigente en la UE, España y Cataluña, con un ojo en el resto del mundo.';
+var RULES='Reglas: escribe en español de España y tutea a Hugo. Sé exigente y honesto, sin halagos vacíos. Cita siempre norma y artículo concretos. Para fechas, vigencia y estado de tramitación usa SOLO el estado regulatorio verificado que te doy; si algo no está ahí y no estás seguro, dilo y pide comprobarlo en EUR-Lex o en el BOE. No inventes artículos, sentencias, guías ni fechas. Formato: párrafos cortos y listas con guiones, sin tablas.';
+var METHOD='Método del cuaderno: lo que se siente como aprender no siempre lo es (Deslauriers y cols., 2019). Cada sesión trabaja UNA pregunta a fondo y obliga a Hugo a producir: predecir, reconstruir de memoria, ser corregido y enseñar. No le des la respuesta antes de que lo intente.';
+
+/* ---------- estado ---------- */
+var S={today:ymd(new Date()),view:'hoy',mode:'loading',loaded:{},
+  questions:{},sessions:{},hooks:{},days:{},radar:{},novedades:{},banco:{},meta:{},
+  run:null,pickQ:null,pickMin:null,busy:null,stream:'',ctl:null,ai:'pending',
+  gateReveal:null,bankArea:'all',juris:'all',openSess:null,openReg:{},checkQ:null,armDel:null,copyBox:null,prefill:null,showAllNov:false};
+var db=null,sample=null,running={},dirty={},renderPending=false;
+var USERCOLS=['questions','sessions','hooks','days','meta'];
+
+function settings(){return Object.assign({},DEF_SET,S.meta.settings||{})}
+function loaded(){return S.mode==='local'||(S.mode==='cloud'&&USERCOLS.every(function(c){return S.loaded[c]}))}
+function list(col){return vals(S[col])}
+function activeQs(){return list('questions').filter(function(q){return q.estado==='activa'}).sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0)})}
+function doneSessions(){return list('sessions').filter(function(s){return s.done}).sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0)})}
+function openSession(){return list('sessions').filter(function(s){return !s.done}).sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0)})[0]}
+function todaySession(){return list('sessions').filter(function(s){return s.date===S.today}).sort(function(a,b){return (b.createdAt||0)-(a.createdAt||0)})[0]}
+function dueHook(){return list('hooks').filter(function(h){return h.due&&h.due<=S.today}).sort(function(a,b){return a.due<b.due?-1:a.due>b.due?1:0})[0]}
+function radarList(){return list('radar').sort(function(a,b){return (a.orden||99)-(b.orden||99)})}
+function novList(){return list('novedades').sort(function(a,b){return a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0})}
+function isSunday(){return parse(S.today).getDay()===0}
+function weekStart(){var d=parse(S.today);return shift(S.today,-((d.getDay()+6)%7))}
+
+/* ---------- contexto para Claude ---------- */
+function radarCtx(prefer){
+  prefer=prefer||[];
+  var rs=radarList().slice().sort(function(a,b){return (prefer.indexOf(a.id)>=0?0:1)-(prefer.indexOf(b.id)>=0?0:1)});
+  if(!rs.length)return '(El radar todavía no tiene datos: no afirmes fechas de aplicación sin advertir que hay que comprobarlas.)';
+  var out='';
+  rs.forEach(function(r){
+    var line='['+r.id+'] '+(r.titulo||'')+' ('+(JURIS[r.juris]||r.juris||'')+'). Estado: '+((ESTADOS[r.estado]||{}).t||r.estado||'')+(r.estadoTxt?' — '+r.estadoTxt:'')+'.';
+    var f=arr(r.fechas).map(function(x){return x.f+': '+x.t}).join('; ');
+    if(f)line+=' Fechas: '+f+'.';
+    if(r.empresa)line+=' Para empresas: '+r.empresa;
+    line+=' (verificado '+(r.verificado||'?')+')\n';
+    if(out.length+line.length<14000)out+=line;
+  });
+  return out;
+}
+function novCtx(){var n=novList().slice(0,5);return n.length?n.map(function(x){return '- '+x.fecha+': '+x.titulo+'. '+(x.resumen||'')}).join('\n'):'(sin novedades registradas)'}
+function hooksCtx(area){
+  var hs=list('hooks').sort(function(a,b){return (a.area===area?0:1)-(b.area===area?0:1)||(b.createdAt||0)-(a.createdAt||0)}).slice(0,6);
+  return hs.length?hs.map(function(h){return '- '+h.texto}).join('\n'):'(todavía ninguno: es su primera semana; las primeras sesiones cuestan más, es normal)';
+}
+function prevCtx(qid){var ss=doneSessions().filter(function(s){return s.qid===qid&&s.plan}).slice(0,5);return ss.length?ss.map(function(s){return '- '+s.plan.subpregunta}).join('\n'):'(ninguna)'}
+function baseCtx(s){
+  return ['Hoy es '+fmtLong(S.today)+' ('+S.today+').',PROFILE,METHOD,
+    'Pregunta del cuaderno de Hugo (área: '+(AREAS[s.area]||'general')+'): «'+s.qtext+'»',
+    'Ideas que Hugo ya domina (ganchos; conecta lo nuevo con ellas cuando venga al caso):\n'+hooksCtx(s.area),
+    'Estado regulatorio verificado (úsalo para fechas y vigencia):\n'+radarCtx((S.questions[s.qid]||{}).normas),
+    'Novedades recientes del radar:\n'+novCtx(),RULES].join('\n\n');
+}
+function planPrompt(s){
+  var wantF=s.steps.indexOf('fuente')>=0, wantH=s.steps.indexOf('humo')>=0;
+  var shape='{"titulo":"…","subpregunta":"…","ficha":"…","claves":["…"],"normas":[{"norma":"…","articulo":"…","radar":"…"}],"caso":{"enunciado":"…","pide":"…","criterios":["…"]}'
+    +(wantF?',"fuente":{"norma":"…","articulo":"…","radar":"…","preguntas":["…","…"]}':'')
+    +(wantH?',"humo":{"quien":"…","afirmacion":"…","errores":["…"]}':'')+'}';
+  return baseCtx(s)+'\n\n'
+    +'Lo que Hugo cree ANTES de leer (no lo corrijas aquí; úsalo para enfocar la ficha en su hueco): «'+(s.pred||'(no escribió nada)')+'»\n\n'
+    +'Subpreguntas ya trabajadas en sesiones anteriores (elige otro ángulo):\n'+prevCtx(s.qid)+'\n\n'
+    +'TAREA: prepara la sesión de hoy ('+s.min+' minutos). Elige UNA subpregunta concreta de la pregunta del cuaderno que se pueda trabajar a fondo hoy: profundidad, no amplitud.\n'
+    +'Responde SOLO con un objeto JSON con esta forma:\n'+shape+'\n'
+    +'- titulo: 8 palabras como máximo.\n'
+    +'- subpregunta: la pregunta concreta de hoy, en una frase.\n'
+    +'- ficha: 250-400 palabras en Markdown sencillo (párrafos cortos, guiones, **negritas**), dirigida a Hugo. Explica la regla, a quién obliga y desde cuándo (según el estado verificado), y un proceso de empresa antes y después de adaptarlo. Termina con «**Qué haría una empresa mañana:**» y tres pasos.\n'
+    +'- claves: de 3 a 5 reglas clave, una frase cada una.\n'
+    +'- normas: de 1 a 4 referencias exactas. En "radar" pon el id entre corchetes del estado verificado si corresponde, o "".\n'
+    +'- caso: una empresa concreta (sector, tamaño y lo que quiere hacer con IA o datos). "pide": qué debe responder Hugo en 8-12 líneas. "criterios": de 3 a 5 puntos que debe tener una buena respuesta (Hugo no los verá).\n'
+    +(wantF?'- fuente: el artículo oficial que Hugo debe abrir y leer; "preguntas": 2 preguntas que solo se responden leyendo el texto literal de ese artículo.\n':'')
+    +(wantH?'- humo: "quien" es quién lo dice (por ejemplo, la web de un proveedor de software o un post de LinkedIn); "afirmacion" es una afirmación verosímil pero engañosa sobre este tema, de 2-3 frases; "errores" son los errores que contiene, con la regla correcta (Hugo no los verá).\n':'')
+    +'No inventes artículos ni fechas. Si un dato depende de algo que no está en el estado verificado, dilo en la ficha como pendiente de comprobar.';
+}
+function sanitizePlan(r){
+  var p={titulo:str(r.titulo,120),subpregunta:str(r.subpregunta,300),ficha:str(r.ficha,6000),claves:arr(r.claves).map(function(x){return str(x,300)}).slice(0,6),
+    normas:arr(r.normas).slice(0,5).map(function(n){return {norma:str(n&&n.norma,160),articulo:str(n&&n.articulo,80),radar:str(n&&n.radar,60).replace(/[\[\]]/g,'')}}),
+    caso:{enunciado:str(r.caso&&r.caso.enunciado,2500),pide:str(r.caso&&r.caso.pide,600),criterios:arr(r.caso&&r.caso.criterios).map(function(x){return str(x,300)}).slice(0,6)}};
+  if(r.fuente&&typeof r.fuente==='object')p.fuente={norma:str(r.fuente.norma,160),articulo:str(r.fuente.articulo,80),radar:str(r.fuente.radar,60).replace(/[\[\]]/g,''),preguntas:arr(r.fuente.preguntas).map(function(x){return str(x,400)}).slice(0,3)};
+  if(r.humo&&typeof r.humo==='object')p.humo={quien:str(r.humo.quien,160),afirmacion:str(r.humo.afirmacion,1200),errores:arr(r.humo.errores).map(function(x){return str(x,400)}).slice(0,5)};
+  return p;
+}
+function fbPrompt(s,kind,ans){
+  var p=s.plan||{},B=baseCtx(s)+'\n\nSubpregunta de hoy: «'+(p.subpregunta||s.qtext)+'»\n\n';
+  if(kind==='rebuild')return B+'Ficha que Hugo leyó:\n"""\n'+p.ficha+'\n"""\nReglas clave:\n- '+arr(p.claves).join('\n- ')+'\n\nHugo ha cerrado la ficha y la ha reconstruido de memoria:\n"""\n'+ans+'\n"""\n\nCompara su versión con la ficha, como hacía Franklin con sus ensayos: 1) **Lo que has recuperado bien** (breve); 2) **Lo que falta o está mal**, con la regla correcta; 3) **Tu hueco**: en una frase, lo que todavía tienes que aprender. No reescribas la ficha entera. Termina con una línea exacta "RECUPERADO: n/10" según la proporción de reglas clave que recuperó correctamente.';
+  if(kind==='fuente'){var f=p.fuente||{};return B+'Hugo ha abierto el texto oficial ('+f.norma+', '+f.articulo+') para contrastarlo con lo que reconstruyó. Preguntas:\n- '+arr(f.preguntas).join('\n- ')+'\n\nSus respuestas:\n"""\n'+ans+'\n"""\n\nComprueba si reflejan lo que dice el artículo. Si no estás seguro de la literalidad exacta, dilo. Señala un matiz del texto oficial que no estaba en la ficha. Termina con una línea exacta "NOTA: n/10".'}
+  if(kind==='case'){var c=p.caso||{};return B+'Caso:\n"""\n'+c.enunciado+'\n"""\nSe pide: '+c.pide+'\nCriterios de una buena respuesta (no los conoce):\n- '+arr(c.criterios).join('\n- ')+'\n\nRespuesta de Hugo:\n"""\n'+ans+'\n"""\nAntes de ver la corrección, Hugo cree que sacará un '+s.conf+'/10.\n\nCorrige: 1) lo que está bien; 2) lo que falla o falta, citando la norma; 3) cómo mejorarla sin reescribirla entera; 4) una pregunta para seguir pensando. Comenta en una línea su calibración (si se ha sobrestimado o subestimado y por qué importa). Termina con una línea exacta "NOTA: n/10".'}
+  if(kind==='humo'){var h=p.humo||{};return B+'Afirmación de '+h.quien+':\n"""\n'+h.afirmacion+'\n"""\nErrores que contiene (Hugo no los conoce):\n- '+arr(h.errores).join('\n- ')+'\n\nHugo explica qué está mal y por qué:\n"""\n'+ans+'\n"""\n\nEvalúa si ha detectado los errores reales y si los justifica con la norma. Explica los que se le escaparon. Termina con una línea exacta "NOTA: n/10".'}
+  if(kind==='teach')return B+'Hugo explica lo que ha aprendido a alguien que no es jurista (un post corto o el guion de una nota de voz de 2 minutos):\n"""\n'+ans+'\n"""\n\nRevísalo como un experto que lo leería en público: 1) errores jurídicos o frases que podrían confundir (lo más importante); 2) claridad para alguien que no es jurista; 3) una mejora concreta. Termina con una línea exacta "VEREDICTO: LISTO" si se puede publicar tal cual o "VEREDICTO: REVISAR" si tiene algún error.';
+  return B;
+}
+function sundayPrompt(ans){
+  var ws=weekStart();
+  var hs=list('hooks').filter(function(h){return h.fecha>=ws}).map(function(h){return '- '+h.texto}).join('\n')||'(sin ganchos esta semana)';
+  var ss=doneSessions().filter(function(s){return s.date>=ws&&s.plan}).map(function(s){return '- '+s.plan.subpregunta}).join('\n')||'(sin sesiones esta semana)';
+  return ['Hoy es '+fmtLong(S.today)+'.',PROFILE,'Estado regulatorio verificado:\n'+radarCtx(),RULES,
+    'LA PRUEBA DEL DOMINGO. Lo que Hugo ha trabajado esta semana:\nGanchos:\n'+hs+'\nSubpreguntas:\n'+ss,
+    'Sin mirar el móvil ni los apuntes, Hugo explica una idea de la semana:\n"""\n'+ans+'\n"""',
+    'Evalúa si la explicación es correcta, completa y se podría contar en voz alta a otra persona: 1) lo que está bien; 2) lo que falta o está mal, con la norma; 3) una pregunta para la semana que viene. Termina con una línea exacta "NOTA: n/10".'].join('\n\n');
+}
+function checkPrompt(q,ans){
+  return ['Hoy es '+fmtLong(S.today)+'.',PROFILE,'Estado regulatorio verificado:\n'+radarCtx(q.normas),RULES,
+    'Pregunta del cuaderno de Hugo: «'+q.texto+'»','Hugo la responde sin mirar nada:\n"""\n'+ans+'\n"""',
+    '¿Podría defender esta respuesta ante un cliente o en un examen? 1) lo que está bien; 2) lo que falta o está mal, con la norma; 3) lo que tendría que repasar. Termina con una línea exacta "NOTA: n/10" y otra línea exacta "RESPONDIDA: SÍ" si la nota es 7 o más, o "RESPONDIDA: NO" si no.'].join('\n\n');
+}
+
+/* ---------- guardado ---------- */
+function persistLocal(){try{var o={};USERCOLS.forEach(function(c){o[c]=S[c]});localStorage.setItem('cuaderno-local',JSON.stringify(o))}catch(e){}}
+function loadLocal(){try{var j=JSON.parse(localStorage.getItem('cuaderno-local')||'null');if(j)USERCOLS.forEach(function(c){S[c]=j[c]||{}})}catch(e){}}
+function save(col,id){
+  if(S.mode!=='cloud'){persistLocal();return}
+  var key=col+'/'+id;dirty[key]=true;if(running[key])return;running[key]=true;
+  (async function(){
+    while(dirty[key]){
+      dirty[key]=false;
+      var body=S[col][id];
+      try{
+        if(body===undefined)await db.doc(key).delete();
+        else{var b=JSON.parse(JSON.stringify(body));delete b.id;await db.doc(key).set(b)}
+      }catch(e){
+        toast(e&&e.code==='quota_exceeded'?'El almacenamiento está lleno. Borra sesiones antiguas que no necesites.':'No se ha podido guardar. Revisa la conexión y vuelve a intentarlo.');
+        break;
+      }
+    }
+    running[key]=false;
+  })();
+}
+function put(col,id,patch){S[col][id]=Object.assign({},S[col][id],patch,{updatedAt:Date.now()});save(col,id)}
+function getDraft(id){try{return localStorage.getItem('cuaderno-d-'+id)||''}catch(e){return ''}}
+function setDraft(id,v){try{if(v)localStorage.setItem('cuaderno-d-'+id,v);else localStorage.removeItem('cuaderno-d-'+id)}catch(e){}}
+function canW(){if(!loaded()){toast('Espera un momento: tu cuaderno aún se está cargando.');return false}return true}
+function markDay(patch){var d=Object.assign({date:S.today},S.days[S.today],patch);S.days[S.today]=d;save('days',S.today)}
+
+/* ---------- Claude ---------- */
+function copyFor(code){
+  if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].indexOf(code)>=0){S.ai='off';return 'Claude no está disponible en esta página. Puedes seguir sin corrección o usar «Copiar para un chat».'}
+  if(code==='rate_limited')return 'Has llegado al límite de uso por ahora. Vuelve a intentarlo más tarde.';
+  if(code==='session_expired')return 'Tu sesión ha caducado. Vuelve a iniciar sesión en Claude.';
+  if(code==='invalid_json')return 'La ficha no llegó completa. Pulsa el botón otra vez.';
+  if(code==='prompt_too_large')return 'Hay demasiado contexto. Archiva preguntas o ganchos antiguos y vuelve a probar.';
+  return 'No ha llegado la respuesta. Vuelve a pulsar el botón.';
+}
+async function ask(key,prompt,json){
+  if(!sample){toast(S.ai==='pending'?'Conectando con Claude… prueba en unos segundos.':'Claude no está disponible en esta vista.');return null}
+  if(S.busy){toast('Espera a que termine la respuesta en curso.');return null}
+  S.busy=key;S.stream='';S.ctl=new AbortController();renderNow();
+  try{
+    var o={signal:S.ctl.signal,cache:false};
+    if(json)return await sample.json(prompt,o);
+    o.onText=function(u){S.stream=u.text;var el=$('stream');if(el)el.innerHTML=md(clean(u.text))};
+    var r=await sample(prompt,o);
+    if(r.truncated)toast('La respuesta se cortó. Lo que ves está incompleto.');
+    return r.text;
+  }catch(e){
+    if(!e||e.code!=='cancelled')toast(copyFor(e&&e.code));
+    return null;
+  }finally{S.busy=null;S.stream='';S.ctl=null}
+}
+function copyText(txt,k){
+  var ok=function(){toast('Copiado.')},fail=function(){S.copyBox={k:k,t:txt};renderNow();var el=$('copybox');if(el){el.focus();el.select()}};
+  try{var p=navigator.clipboard&&navigator.clipboard.writeText(txt);if(p&&p.then)p.then(ok,fail);else fail()}catch(e){fail()}
+}
+
+/* ---------- acciones: sesión ---------- */
+function startSession(){
+  if(!canW())return;
+  var qs=activeQs(),q=S.questions[S.pickQ]||qs[0];
+  if(!q){location.hash='#cuaderno';return}
+  var min=S.pickMin||settings().minutos||20,id=newId('s'),now=Date.now();
+  S.sessions[id]={date:S.today,qid:q.id,qtext:q.texto,area:q.area,min:min,steps:stepsFor(min),step:0,createdAt:now,updatedAt:now};
+  save('sessions',id);S.run=id;renderNow();window.scrollTo(0,0);
+}
+function nextStep(id){var s=S.sessions[id];if(!s)return;put('sessions',id,{step:Math.min(s.step+1,s.steps.length-1)});renderNow();window.scrollTo(0,0)}
+function fieldVal(id){var el=$(id);return el?el.value.trim():''}
+async function doPlan(id){
+  if(!canW())return;
+  var s=S.sessions[id],v=fieldVal('pred-'+id);
+  put('sessions',id,{pred:v});setDraft('pred-'+id,'');
+  var r=await ask(id+':plan',planPrompt(S.sessions[id]),true);
+  if(r&&typeof r==='object'&&r.ficha&&r.caso&&r.caso.enunciado){
+    var s2=S.sessions[id];put('sessions',id,{plan:sanitizePlan(r),step:s2.step+1});window.scrollTo(0,0);
+  }else if(r)toast('La ficha llegó incompleta. Pulsa «Preparar la lectura» otra vez.');
+  renderNow();
+}
+var FB={rebuild:{ans:'rebuild',fb:'rebuildFb'},fuente:{ans:'fuenteAns',fb:'fuenteFb'},case:{ans:'caseAns',fb:'caseFb'},humo:{ans:'humoAns',fb:'humoFb'},teach:{ans:'teach',fb:'teachFb'}};
+async function doFeedback(id,kind){
+  if(!canW())return;
+  var f=FB[kind],v=fieldVal(kind+'-'+id);
+  if(!v){toast('Escribe tu respuesta antes de enviarla.');return}
+  var patch={};patch[f.ans]=v;
+  if(kind==='case'){var c=$('conf-'+id);patch.conf=c?+c.value:5;setDraft('conf-'+id,'')}
+  put('sessions',id,patch);setDraft(kind+'-'+id,'');
+  if(!sample){renderNow();return}
+  var t=await ask(id+':'+kind,fbPrompt(S.sessions[id],kind,v));
+  if(t!=null){
+    var p={};p[f.fb]=t;
+    if(kind==='rebuild')p.rebuildScore=numOf(t,'RECUPERADO');
+    if(kind==='fuente')p.fuenteScore=numOf(t,'NOTA');
+    if(kind==='case')p.score=numOf(t,'NOTA');
+    if(kind==='humo')p.humoScore=numOf(t,'NOTA');
+    if(kind==='teach')p.ready=tagOf(t,'VEREDICTO')==='LISTO';
+    put('sessions',id,p);
+  }
+  renderNow();
+}
+function finishSession(id){
+  if(!canW())return;
+  var s=S.sessions[id],hook=fieldVal('hook-'+id);
+  if(!hook){toast('Escribe tu gancho: la idea de hoy en una frase.');return}
+  var now=Date.now(),hid=newId('g');
+  S.hooks[hid]={texto:str(hook,300),pista:(s.plan&&s.plan.subpregunta)||s.qtext,qid:s.qid,area:s.area,fecha:S.today,due:shift(S.today,1),ivl:0,reps:[],createdAt:now,updatedAt:now};
+  save('hooks',hid);setDraft('hook-'+id,'');
+  put('sessions',id,{hook:str(hook,300),done:true,doneAt:now});
+  var d=S.days[S.today]||{};markDay({sesion:true,min:(d.min||0)+(s.min||20)});
+  if(S.questions[s.qid])put('questions',s.qid,{sesiones:(S.questions[s.qid].sesiones||0)+1});
+  S.run=null;renderNow();window.scrollTo(0,0);
+  toast('Sesión guardada. Mañana a las '+settings().hora+', la siguiente.');
+}
+
+/* ---------- acciones: puerta, domingo, cuaderno ---------- */
+function rateHook(id,r){
+  if(!canW())return;
+  var h=S.hooks[id];if(!h)return;
+  var i=h.ivl||0,next;
+  if(r==='si')next=Math.min(i+1,INTERVALS.length-1);else if(r==='medio')next=i;else next=0;
+  put('hooks',id,{ivl:next,due:shift(S.today,INTERVALS[next]),reps:arr(h.reps).concat([{d:S.today,r:r}]).slice(-20)});
+  markDay({puerta:true,puertaTipo:'gancho',puertaTxt:fieldVal('gate-ans')});setDraft('gate-ans','');
+  S.gateReveal=null;renderNow();
+}
+function gatePrev(){
+  if(!canW())return;var v=fieldVal('gate-ans');if(!v){toast('Escribe al menos una línea.');return}
+  markDay({puerta:true,puertaTipo:'previo',puertaTxt:v});setDraft('gate-ans','');renderNow();
+}
+function addQuestion(texto,area,normas,origen,bancoId){
+  if(!canW())return false;
+  texto=str(texto,400);if(!texto){toast('Escribe la pregunta.');return false}
+  var exists=list('questions').some(function(q){return (bancoId&&q.bancoId===bancoId)||q.texto===texto});
+  if(exists){toast('Esa pregunta ya está en tu cuaderno.');return false}
+  var id=newId('q'),act=activeQs().length<MAX_ACTIVE,now=Date.now();
+  S.questions[id]={texto:texto,area:AREAS[area]?area:'gobernanza',normas:arr(normas),origen:origen||'propia',bancoId:bancoId||'',estado:act?'activa':'pendiente',sesiones:0,checks:[],createdAt:now,updatedAt:now};
+  save('questions',id);
+  toast(act?'Añadida a tus preguntas activas.':'Ya tienes '+MAX_ACTIVE+' activas: la guardo en pendientes.');
+  return true;
+}
+function gateQuestion(){
+  var v=fieldVal('gate-ans');
+  if(addQuestion(v,($('gate-area')||{}).value||'gobernanza',[],'propia')){markDay({puerta:true,puertaTipo:'pregunta',puertaTxt:v});setDraft('gate-ans','')}
+  renderNow();
+}
+async function doSunday(){
+  if(!canW())return;var v=fieldVal('sun-ans');if(!v){toast('Escribe tu explicación antes de enviarla.');return}
+  markDay({domingoTxt:v});setDraft('sun-ans','');
+  if(!sample){markDay({domingo:true});renderNow();return}
+  var t=await ask('sunday',sundayPrompt(v));
+  if(t!=null)markDay({domingo:true,domingoFb:t,domingoNota:numOf(t,'NOTA')});
+  renderNow();
+}
+async function doCheck(qid){
+  if(!canW())return;var q=S.questions[qid],v=fieldVal('chk-'+qid);if(!v){toast('Escribe tu respuesta.');return}
+  setDraft('chk-'+qid,'');
+  var t=await ask('check:'+qid,checkPrompt(q,v));
+  if(t!=null){
+    var nota=numOf(t,'NOTA'),ok=tagOf(t,'RESPONDIDA');ok=ok==='SÍ'||ok==='SI'||(ok==null&&nota!=null&&nota>=7);
+    var patch={checks:arr(q.checks).concat([{d:S.today,ans:v,fb:t,nota:nota}]).slice(-6)};
+    if(ok){patch.estado='respondida';patch.respondida=S.today}
+    put('questions',qid,patch);
+    if(ok)toast('Respondida. Ahora es un gancho para lo siguiente.');
+  }
+  renderNow();
+}
+function setQState(qid,estado){
+  if(!canW())return;
+  if(estado==='activa'&&activeQs().length>=MAX_ACTIVE){toast('Ya tienes '+MAX_ACTIVE+' preguntas activas. Pausa una antes.');return}
+  put('questions',qid,{estado:estado});renderNow();
+}
+function saveSettings(){
+  if(!canW())return;
+  var h=fieldVal('set-hora')||DEF_SET.hora,m=+(($('set-min')||{}).value||20);
+  S.meta.settings=Object.assign({},settings(),{hora:h,ancla:fieldVal('set-ancla')||DEF_SET.ancla,puerta:fieldVal('set-puerta')||DEF_SET.puerta,minutos:[20,30,45].indexOf(m)>=0?m:20,updatedAt:Date.now()});
+  save('meta','settings');toast('Ajustes guardados.');renderNow();
+}
+
+/* ---------- piezas de interfaz ---------- */
+function pill(t,c){return '<span class="pill '+(c||'')+'">'+esc(t)+'</span>'}
+function areaTag(a){return '<span class="tag">'+esc(AREAS[a]||a||'General')+'</span>'}
+function streamHtml(label){return '<article class="msg ai live" id="stream" aria-live="polite">'+(S.stream?md(clean(S.stream)):'<p class="thinking">'+esc(label||'Claude está pensando…')+'</p>')+'</article>'}
+function ta(id,label,rows,val,ro){return '<label class="field" for="'+id+'"><span>'+label+'</span><textarea id="'+id+'" data-draft rows="'+(rows||5)+'"'+(ro?' readonly':'')+'>'+esc(val!=null&&val!==''?val:getDraft(id))+'</textarea></label>'}
+function radarLink(rid,label){var r=S.radar[rid],u=r&&r.fuente&&safeUrl(r.fuente.url);return u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(label)+'</a>':'<span>'+esc(label)+'</span>'}
+function normasHtml(ns){
+  ns=arr(ns);if(!ns.length)return '';
+  return '<div class="refs"><p class="kicker">Normas de hoy</p>'+ns.map(function(n){return radarLink(n.radar,(n.norma||'')+(n.articulo?' · '+n.articulo:''))}).join('')+'</div>';
+}
+function copyBoxHtml(k){return S.copyBox&&S.copyBox.k===k?'<label class="field" for="copybox"><span>Copia este texto</span><textarea id="copybox" rows="6" readonly>'+esc(S.copyBox.t)+'</textarea></label>':''}
+function ring(done,tot){
+  var C=326.73,off=C*(1-(tot?Math.min(1,done/tot):0));
+  return '<div class="ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="52"/><circle class="fill" cx="60" cy="60" r="52" stroke-dasharray="'+C+'" stroke-dashoffset="'+off.toFixed(2)+'"/></svg><div class="count">'+done+'<small>/'+tot+'</small></div></div>';
+}
+
+/* ---------- vista: Hoy ---------- */
+function heroHtml(){
+  var st=settings(),d=S.days[S.today]||{},s=todaySession(),now=new Date(),hm=pad(now.getHours())+':'+pad(now.getMinutes());
+  var steps=s?s.steps.length:stepsFor(st.minutos).length,tot=steps+1,done=(d.puerta?1:0)+(s?(s.done?steps:s.step):0);
+  var t,sub;
+  if(!loaded()){t='Abriendo tu cuaderno…';sub='Un momento.'}
+  else if(s&&s.done){t='Sesión hecha';sub='Mañana a las '+st.hora+', la siguiente pregunta.'}
+  else if(s){t='Sesión en curso';sub='Paso '+(s.step+1)+' de '+steps+': '+STEP[s.steps[s.step]].n+'.'}
+  else if(d.puerta){t='Puerta cruzada';sub='Con esto el día ya cuenta. Si tienes '+st.minutos+' minutos, sigue con la sesión.'}
+  else if(hm>=st.hora){t='Es tu hora';sub='Son más de las '+st.hora+'. Empieza por la puerta: 2 minutos.'}
+  else{t='Hoy a las '+st.hora;sub=st.ancla+' → '+st.puerta+'.'}
+  if(loaded()&&isSunday()&&!d.domingo)sub+=' Hoy toca la prueba del domingo.';
+  return '<section class="hero" aria-live="polite">'+ring(done,tot)+'<div class="heroText"><h2>'+esc(t)+'</h2><p>'+esc(sub)+'</p></div></section>';
+}
+function stripHtml(){
+  var L=['D','L','M','X','J','V','S'],h='<div class="strip" aria-label="Últimos 7 días">';
+  for(var i=6;i>=0;i--){var x=shift(S.today,-i),d=S.days[x]||{},dt=parse(x);
+    h+='<div class="sd'+(i===0?' now':'')+'" aria-label="'+esc(fmtLong(x))+': '+(d.puerta?'puerta hecha':'sin puerta')+', '+(d.sesion?'sesión hecha':'sin sesión')+'"><span>'+L[dt.getDay()]+'</span><b>'+dt.getDate()+'</b><span class="marks"><i class="sq'+(d.puerta?' on':'')+'"></i><i class="dt'+(d.sesion?' on':'')+'"></i></span></div>'}
+  return h+'</div><p class="legend"><span><i class="sq on"></i>puerta</span><span><i class="dt on"></i>sesión</span></p>';
+}
+function gateHtml(){
+  var d=S.days[S.today]||{};
+  var head='<div class="gateRow"><div class="chk'+(d.puerta?' on':'')+'" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div><p class="kicker">Puerta · 2 minutos</p><h3>';
+  if(d.puerta){
+    var lab={gancho:'Has recuperado un gancho de memoria.',previo:'Has escrito lo que ya sabías antes de estudiar.',pregunta:'Has añadido una pregunta a tu cuaderno.'}[d.puertaTipo]||'Hecha.';
+    return '<section class="card done">'+head+'Puerta cruzada</h3></div></div><p class="muted small">'+esc(lab)+' Con esto el día cuenta.</p></section>';
+  }
+  var h=dueHook(),qs=activeQs();
+  if(h){
+    var rev=S.gateReveal===h.id;
+    var body='<p class="task">Sin mirar nada: <b>'+esc(h.pista)+'</b></p>'+ta('gate-ans','Tu respuesta de memoria',3);
+    if(!rev)body+='<div class="actions"><button type="button" class="btn" data-act="gate-reveal" data-id="'+h.id+'">Comparar con mi gancho</button></div>';
+    else body+='<p class="reveal"><span class="kicker">Tu gancho del '+esc(fmtShort(h.fecha))+'</span><br>'+esc(h.texto)+'</p><p class="muted small">¿Lo tenías?</p><div class="actions"><button type="button" class="btn" data-act="gate-rate" data-id="'+h.id+'" data-v="si">Lo tenía</button><button type="button" class="btn ghost" data-act="gate-rate" data-id="'+h.id+'" data-v="medio">A medias</button><button type="button" class="btn ghost" data-act="gate-rate" data-id="'+h.id+'" data-v="no">No lo tenía</button></div>';
+    return '<section class="card focus">'+head+'Recupera un gancho</h3></div></div>'+body+'</section>';
+  }
+  if(!qs.length){
+    var opts=Object.keys(AREAS).map(function(k){return '<option value="'+k+'">'+esc(AREAS[k])+'</option>'}).join('');
+    return '<section class="card focus">'+head+'Escribe una pregunta que de verdad quieras responder</h3></div></div><p class="muted small">Sobre IA, automatización o datos en una empresa. Una pregunta es donde aterriza todo lo que aprendas después.</p>'
+      +ta('gate-ans','Tu pregunta',2)+'<label class="field" for="gate-area"><span>Área</span><select id="gate-area">'+opts+'</select></label><div class="actions"><button type="button" class="btn" data-act="gate-q">Añadir al cuaderno</button></div></section>';
+  }
+  var q=S.questions[S.pickQ]||qs[0];
+  return '<section class="card focus">'+head+'¿Qué sabes ya?</h3></div></div><p class="task">Sin mirar nada, escribe en dos líneas lo que ya sabes de: <b>'+esc(q.texto)+'</b></p>'+ta('gate-ans','Lo que sé ahora',3)+'<div class="actions"><button type="button" class="btn" data-act="gate-prev">Cruzar la puerta</button></div></section>';
+}
+function sundayHtml(){
+  if(!isSunday())return '';
+  var d=S.days[S.today]||{},busy=S.busy==='sunday';
+  var h='<section class="card'+(d.domingo?' done':' focus')+'"><p class="kicker">La prueba del domingo</p><h3>¿Qué idea de esta semana puedes explicar sin el móvil?</h3>';
+  if(d.domingoFb&&!busy)return h+'<div class="convo"><article class="msg me"><p class="who">Tú</p>'+paras(d.domingoTxt)+'</article><article class="msg ai">'+md(clean(d.domingoFb))+(d.domingoNota!=null?'<p class="grade"><span class="score">'+fmtNum(d.domingoNota,1)+'/10</span></p>':'')+'</article></div></section>';
+  if(d.domingo)return h+'<p class="muted small">Hecha.</p></section>';
+  h+='<p class="muted small">Elige una y explícala como si se la contaras a alguien en la cena. Nada de mirar apuntes.</p>'+ta('sun-ans','Tu explicación',6,busy?d.domingoTxt:null,busy);
+  if(busy)h+=streamHtml();
+  h+='<div class="actions">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="sunday">Enviar a comprobar</button>')+'</div>';
+  return h+'</section>';
+}
+function sessionCardHtml(){
+  var st=settings(),open=openSession(),ts=todaySession(),qs=activeQs();
+  var h='<section class="card"><div class="cardHead"><div><p class="kicker">Sesión · 5 movimientos</p><h3>';
+  if(open){
+    return h+'Tienes una sesión a medias</h3></div>'+pill(fmtShort(open.date),'now')+'</div><p class="task">'+esc(open.qtext)+'</p><p class="muted small">Paso '+(open.step+1)+' de '+open.steps.length+': '+esc(STEP[open.steps[open.step]].n)+'.</p><div class="actions"><button type="button" class="btn" data-act="resume" data-id="'+open.id+'">Continuar</button></div></section>';
+  }
+  if(!qs.length)return h+'Primero, tus preguntas</h3></div></div><p class="task">Cada sesión trabaja una pregunta de tu cuaderno. Elige o escribe hasta '+MAX_ACTIVE+'.</p><div class="actions"><a class="btn" href="#cuaderno">Abrir el cuaderno</a></div></section>';
+  var min=S.pickMin||st.minutos,pq=S.questions[S.pickQ]&&S.questions[S.pickQ].estado==='activa'?S.pickQ:qs[0].id;
+  h+=(ts&&ts.done?'Hoy ya has hecho una. ¿Otra?':'Sesión de hoy')+'</h3></div></div>';
+  h+='<div class="field"><span>Duración</span><div class="chips">'+[20,30,45].map(function(m){return '<button type="button" class="chip" data-act="min" data-v="'+m+'" aria-pressed="'+(m===min)+'">'+m+' min</button>'}).join('')+'</div></div>';
+  h+='<p class="muted small">'+stepsFor(min).map(function(k){return STEP[k].n}).join(' → ')+'</p>';
+  h+='<div class="field"><span>Pregunta</span><ul class="qlist">'+qs.map(function(q){var on=q.id===pq;return '<li class="q'+(on?' pick':'')+'"><button type="button" class="pickRow" data-act="pickq" data-id="'+q.id+'" aria-pressed="'+on+'"><span class="radio'+(on?' on':'')+'"></span><span><span class="qText">'+esc(q.texto)+'</span><br>'+areaTag(q.area)+'</span></button></li>'}).join('')+'</ul></div>';
+  h+='<div class="actions"><button type="button" class="btn" data-act="start">Empezar sesión</button></div>';
+  if(S.ai==='off')h+='<p class="muted small">Claude no está disponible en esta vista: la ficha y las correcciones necesitan Claude.</p>';
+  return h+'</section>';
+}
+function radarTeaser(){
+  var n=novList()[0],up=upcoming(1)[0],m=S.meta.radar;
+  if(!n&&!up)return '';
+  var h='<section class="card"><div class="cardHead"><p class="kicker">Radar regulatorio</p><a class="link" href="#radar">Ver radar</a></div>';
+  if(up)h+='<p class="small"><span class="mono">'+esc(fmtDate(up.f))+'</span> · '+esc(up.t)+' <span class="muted">('+esc(up.r.corto||up.r.titulo)+')</span></p>';
+  if(n)h+='<p class="small"><b>Novedad:</b> '+esc(n.titulo)+'</p>';
+  if(m&&m.ultimaRevision)h+='<p class="muted small">Revisado el '+esc(fmtDate(m.ultimaRevision))+'.</p>';
+  return h+'</section>';
+}
+function planCardHtml(){var st=settings();return '<section class="card"><p class="kicker">Tu hora y tu lugar</p><p class="plan"><span class="cue">'+esc(st.ancla)+'</span><span class="arr" aria-hidden="true">→</span><span>'+esc(st.puerta)+'</span></p><p class="muted small">Sesión de '+st.minutos+' minutos. '+st.minutos+' minutos al día suman unas '+Math.round(st.minutos*365/60)+' horas al año. <a href="#progreso">Cambiar</a></p></section>'}
+function methodHtml(){
+  return '<details class="how"><summary>Por qué funciona así</summary><ol>'
+  +'<li><b>Sentir que aprendes no es aprender.</b> En un estudio de Harvard (Deslauriers y cols., 2019), los alumnos creían aprender más con clases pulidas, pero sacaban mejores notas con aprendizaje activo. Aquí siempre produces algo, y el esfuerzo es buena señal.</li>'
+  +'<li><b>1. Empieza por una pregunta, no por un curso.</b> La curiosidad es un hueco entre lo que sabes y lo que quieres saber (Loewenstein, 1994). Feynman llevaba un cuaderno de «cosas que no sé». El tuyo tiene hasta '+MAX_ACTIVE+' preguntas, y antes de leer escribes lo que crees.</li>'
+  +'<li><b>2. Reconstrúyelo de memoria.</b> Franklin resumía ensayos, los apartaba y los reescribía. Lo que generas tú se recuerda mejor que lo que lees (Slamecka y Graf, 1978). La ficha se cierra y la reconstruyes: el hueco es lo que te falta.</li>'
+  +'<li><b>3. Que alguien te corrija.</b> Faraday mandó sus apuntes a Davy. Mejorar exige práctica con feedback claro (Ericsson). Sin él, los errores se convierten en seguridad (Kruger y Dunning, 1999). Por eso predices tu nota antes de la corrección y la app mide tu calibración.</li>'
+  +'<li><b>4. Enséñalo en público.</b> Quien explica una lección la recuerda mejor una semana después (Fiorella y Mayer, 2013). Cinco líneas para alguien que no es jurista. Si lo publicas, quien sabe más puede corregirte.</li>'
+  +'<li><b>5. Dale una hora y un lugar.</b> Los planes «cuando pase X, hago Y» aumentan mucho el cumplimiento (Gollwitzer y Sheeran, 2006). 20 minutos al día son más de 120 horas al año.</li>'
+  +'<li><b>Profundidad, no picoteo.</b> «Estar en todas partes es no estar en ninguna» (Séneca). Una pregunta, una ficha y un texto oficial por sesión.</li>'
+  +'<li><b>El conocimiento se acumula.</b> Lo que ya sabes decide cuánto entiendes de lo nuevo (Recht y Leslie, 1988; efecto Mateo). Tus ganchos vuelven en la puerta a los 1, 3, 7 y 16 días, y Claude conecta cada ficha con ellos. Las primeras semanas son las más caras.</li>'
+  +'<li><b>Sin puntos ni premios.</b> Premiar una actividad que ya interesa reduce las ganas de hacerla (efecto de sobrejustificación; Lepper, Greene y Nisbett, 1973). Aquí solo ves información sobre lo que sabes. La curiosidad pone al cerebro en modo aprender (Gruber, Gelman y Ranganath, 2014).</li>'
+  +'<li><b>Lo que cambia es la ley.</b> El radar se revisa cada semana y Claude usa ese estado verificado para fechas y vigencia. Así es más difícil que te cuelen una afirmación falsa.</li>'
+  +'</ol><blockquote>La mente no es un vaso que haya que llenar, sino leña que hay que encender. — Plutarco</blockquote></details>';
+}
+function hoyHtml(){
+  if(S.run&&S.sessions[S.run]&&!S.sessions[S.run].done)return runHtml(S.sessions[S.run]);
+  return heroHtml()+stripHtml()+sundayHtml()+gateHtml()+sessionCardHtml()+radarTeaser()+planCardHtml()+methodHtml();
+}
+
+/* ---------- vista: sesión en curso ---------- */
+function stepperHtml(s){return '<div class="stepWrap"><ol class="stepper" aria-label="Pasos">'+s.steps.map(function(k,i){return '<li class="'+(i<s.step?'past':i===s.step?'now':'')+'"'+(i===s.step?' aria-current="step"':'')+'><span class="mono">'+(i+1)+'</span>'+esc(STEP[k].n)+'</li>'}).join('')+'</ol></div>'}
+function nextBtn(s){var n=s.steps[s.step+1];return n?'<div class="actions"><button type="button" class="btn" data-act="next" data-id="'+s.id+'">Siguiente: '+esc(STEP[n].n)+'</button></div>':''}
+function skipBtn(s){return '<button type="button" class="link" data-act="next" data-id="'+s.id+'">Saltar este paso</button>'}
+function xchg(s,kind,label,btn,rows,extra,gradeHtml,after){
+  var f=FB[kind],busy=S.busy===s.id+':'+kind,id=kind+'-'+s.id;
+  if(s[f.fb]&&!busy)return '<div class="convo"><article class="msg me"><p class="who">Tú</p>'+paras(s[f.ans])+'</article><article class="msg ai">'+md(clean(s[f.fb]))+(gradeHtml||'')+'</article></div>'+(after||'')+nextBtn(s);
+  if(!busy&&s[f.ans]&&S.ai==='off')return '<div class="convo"><article class="msg me"><p class="who">Tú</p>'+paras(s[f.ans])+'</article></div><p class="muted small">Sin Claude en esta vista: compáralo tú y sigue.</p>'+(after||'')+nextBtn(s);
+  var h=ta(id,label,rows,busy?s[f.ans]:null,busy)+(busy?'':(extra||''));
+  if(busy)h+=streamHtml();
+  h+='<div class="actions">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="fb" data-k="'+kind+'" data-id="'+s.id+'">'+esc(btn)+'</button>'+skipBtn(s))+'</div>';
+  return h;
+}
+function stepBody(s,k){
+  var p=s.plan||{};
+  if(k==='pregunta'){
+    var busy=S.busy===s.id+':plan';
+    var h='<p class="task">Antes de leer nada, escribe qué crees que responde la ley. Aunque no estés seguro: el hueco entre lo que crees y lo que es, es justo lo que vas a aprender hoy.</p>'+ta('pred-'+s.id,'Lo que creo ahora',4,busy?s.pred:null,busy);
+    if(busy)h+='<article class="msg ai live" aria-live="polite"><p class="thinking">Preparando tu ficha con el estado regulatorio actual… suele tardar entre 20 y 60 segundos.</p></article><div class="actions"><button type="button" class="btn ghost" data-act="stop">Parar</button></div>';
+    else h+='<div class="actions"><button type="button" class="btn" data-act="plan" data-id="'+s.id+'">Preparar la lectura</button>'+(S.ai==='off'?'<button type="button" class="link" data-act="copy-plan" data-id="'+s.id+'">Copiar para un chat</button>':'')+'</div>'+copyBoxHtml('plan');
+    return h;
+  }
+  if(k==='ficha')return '<h3 class="fichaT">'+esc(p.titulo)+'</h3><p class="sub">'+esc(p.subpregunta)+'</p><div class="prose">'+md(p.ficha)+'</div>'+normasHtml(p.normas)+'<p class="muted small">Lee con calma. Al pasar, la ficha se cierra y la reconstruyes de memoria.</p><div class="actions"><button type="button" class="btn" data-act="next" data-id="'+s.id+'">Cerrar la ficha y reconstruir</button></div>';
+  if(k==='reconstruir'){
+    var orig='<details class="orig"><summary>Ver la ficha original</summary><div class="prose">'+md(p.ficha)+'</div></details>';
+    var task=s.rebuildFb?'':'<p class="task">La ficha está cerrada. Escribe de memoria la idea principal y las reglas clave, con tus palabras.</p>';
+    return task+xchg(s,'rebuild','Tu reconstrucción','Comparar con la ficha',7,'',s.rebuildScore!=null?'<p class="grade"><span class="score">Recuperado '+fmtNum(s.rebuildScore,1)+'/10</span></p>':'',orig);
+  }
+  if(k==='fuente'){
+    var f=p.fuente;
+    if(!f)return '<p class="muted">Hoy no hay texto oficial preparado.</p>'+nextBtn(s);
+    var top='<p class="task">Abre el texto oficial y compáralo con lo que has reconstruido: '+radarLink(f.radar,(f.norma||'')+(f.articulo?' · '+f.articulo:''))+'</p><ol class="qs">'+arr(f.preguntas).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol>';
+    return top+xchg(s,'fuente','Tus respuestas, leyendo el texto','Comprobar',5,'',s.fuenteScore!=null?'<p class="grade"><span class="score">'+fmtNum(s.fuenteScore,1)+'/10</span></p>':'');
+  }
+  if(k==='comprobar'){
+    var c=p.caso||{};
+    var caseH='<div class="case"><p class="kicker">Caso</p><div class="prose">'+md(c.enunciado)+'</div><p><b>Se pide:</b> '+esc(c.pide)+'</p></div>';
+    var cv=getDraft('conf-'+s.id)||'5';
+    var conf='<label class="field" for="conf-'+s.id+'"><span>Antes de enviarlo: ¿qué nota crees que vas a sacar? <b class="mono" id="confv">'+esc(cv)+'</b>/10</span><input type="range" id="conf-'+s.id+'" data-draft min="0" max="10" step="1" value="'+esc(cv)+'"></label>';
+    var g='';
+    if(s.score!=null){var diff=s.score-(s.conf||0);g='<p class="grade"><span class="score">'+fmtNum(s.score,1)+'/10</span></p>';
+      var cal='<p class="calib">Creías un '+fmtNum(s.conf||0)+', has sacado un '+fmtNum(s.score,1)+'. '+(Math.abs(diff)<=1?'Bien calibrado.':diff<0?'Te has sobrestimado en '+fmtNum(-diff,1)+' puntos: justo el punto ciego que solo se ve con feedback.':'Sabías más de lo que creías ('+fmtNum(diff,1)+' puntos).')+'</p>';
+      return caseH+xchg(s,'case','','','','',g,cal);}
+    return caseH+xchg(s,'case','Tu respuesta (8-12 líneas)','Enviar a corregir',9,conf);
+  }
+  if(k==='humo'){
+    var hm=p.humo;
+    if(!hm)return '<p class="muted">Hoy no hay detector preparado.</p>'+nextBtn(s);
+    var top2='<blockquote class="smoke"><p class="who">'+esc(hm.quien)+'</p><p>«'+esc(hm.afirmacion)+'»</p></blockquote><p class="task">¿Qué está mal o engaña? Justifícalo con la norma.</p>';
+    return top2+xchg(s,'humo','Tu análisis','Comprobar',6,'',s.humoScore!=null?'<p class="grade"><span class="score">'+fmtNum(s.humoScore,1)+'/10</span></p>':'');
+  }
+  if(k==='ensenar'){
+    var top3=s.teachFb?'':'<p class="task">Explícalo en cinco líneas para alguien que no es jurista: un post, o el guion de una nota de voz de 2 minutos. Si lo compartes, alguien que sabe más puede corregirte.</p>';
+    var gr=s.teachFb?'<p class="grade">'+(s.ready?pill('Listo para publicar','ok'):pill('Revisa antes de publicar','warn'))+'</p>':'';
+    var after='<div class="actions"><button type="button" class="btn ghost" data-act="copy-teach" data-id="'+s.id+'">Copiar texto</button><button type="button" class="chip" data-act="shared" data-id="'+s.id+'" aria-pressed="'+!!s.shared+'">'+(s.shared?'Compartido':'Lo he compartido')+'</button></div>'+copyBoxHtml('teach');
+    return top3+xchg(s,'teach','Tu explicación','Revisar antes de publicar',6,'',gr,after);
+  }
+  if(k==='cierre'){
+    var rows=[];
+    if(s.rebuildScore!=null)rows.push(['Reconstrucción',fmtNum(s.rebuildScore,1)+'/10']);
+    if(s.fuenteScore!=null)rows.push(['Texto oficial',fmtNum(s.fuenteScore,1)+'/10']);
+    if(s.score!=null)rows.push(['Caso (creías '+fmtNum(s.conf||0)+')',fmtNum(s.score,1)+'/10']);
+    if(s.humoScore!=null)rows.push(['Detector de humo',fmtNum(s.humoScore,1)+'/10']);
+    if(s.teachFb)rows.push(['Explicación',s.ready?'Lista':'Por revisar']);
+    var sum=rows.length?'<ul class="sumList">'+rows.map(function(r){return '<li><span>'+esc(r[0])+'</span><span class="mono">'+esc(r[1])+'</span></li>'}).join('')+'</ul>':'';
+    return sum+'<label class="field" for="hook-'+s.id+'"><span>Tu gancho de hoy: la idea en una frase, con tus palabras</span><input type="text" id="hook-'+s.id+'" data-draft maxlength="300" autocomplete="off" value="'+esc(getDraft('hook-'+s.id))+'"></label><p class="muted small">Volverá a la puerta mañana y, si la recuerdas, a los 3, 7 y 16 días.</p><div class="actions"><button type="button" class="btn" data-act="finish" data-id="'+s.id+'">Terminar sesión</button></div>';
+  }
+  return '';
+}
+function runHtml(s){
+  var k=s.steps[s.step];
+  return '<section class="runHead"><div><p class="eyebrow">Sesión de '+s.min+' min · '+esc(AREAS[s.area]||'')+'</p><h2>'+esc(s.qtext)+'</h2></div><button type="button" class="link" data-act="leave">Salir</button></section>'
+    +stepperHtml(s)+'<article class="card focus"><p class="kicker">'+esc(STEP[k].move)+' · ≈ '+STEP[k].min+' min</p>'+stepBody(s,k)+'</article>'
+    +'<p class="muted small">Todo se guarda solo: puedes salir y continuar más tarde.</p>';
+}
+
+/* ---------- vista: Cuaderno ---------- */
+function qItem(q){
+  var hooks=list('hooks').filter(function(h){return h.qid===q.id}).length,last=arr(q.checks)[arr(q.checks).length-1];
+  var h='<li class="q"><p class="qText">'+esc(q.texto)+'</p><div class="qMeta">'+areaTag(q.area)+'<span>'+(q.sesiones||0)+(q.sesiones===1?' sesión':' sesiones')+'</span><span>'+hooks+(hooks===1?' gancho':' ganchos')+'</span>'+(q.estado==='respondida'?pill('Respondida','ok'):'')+(last&&last.nota!=null?'<span class="mono">última prueba '+fmtNum(last.nota,1)+'/10</span>':'')+'</div>';
+  if(S.checkQ===q.id){
+    var busy=S.busy==='check:'+q.id;
+    h+=ta('chk-'+q.id,'Respóndela sin mirar nada',6,null,busy)+(busy?streamHtml():'')+'<div class="qAct">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="check-send" data-id="'+q.id+'">Comprobar</button><button type="button" class="link" data-act="check" data-id="">Cancelar</button>')+'</div>';
+  }else if(last&&last.fb&&S.openSess==='q:'+q.id){
+    h+='<article class="msg ai">'+md(clean(last.fb))+'</article>';
+  }
+  if(S.checkQ!==q.id){
+    h+='<div class="qAct">';
+    if(q.estado==='activa')h+='<button type="button" class="link" data-act="study" data-id="'+q.id+'">Estudiar hoy</button><button type="button" class="link" data-act="check" data-id="'+q.id+'">Responder sin mirar</button><button type="button" class="link" data-act="qstate" data-v="pendiente" data-id="'+q.id+'">Pausar</button>';
+    if(q.estado==='pendiente')h+='<button type="button" class="link" data-act="qstate" data-v="activa" data-id="'+q.id+'">Activar</button>';
+    if(q.estado==='respondida')h+='<button type="button" class="link" data-act="qstate" data-v="activa" data-id="'+q.id+'">Volver a trabajarla</button>';
+    if(last&&last.fb)h+='<button type="button" class="link" data-act="qfb" data-id="'+q.id+'">'+(S.openSess==='q:'+q.id?'Ocultar corrección':'Ver última corrección')+'</button>';
+    if(q.estado!=='activa')h+='<button type="button" class="link" data-act="qdel" data-id="'+q.id+'">'+(S.armDel===q.id?'¿Seguro? Borrar':'Borrar')+'</button>';
+    h+='</div>';
+  }
+  return h+'</li>';
+}
+function cuadernoHtml(){
+  var act=activeQs(),pend=list('questions').filter(function(q){return q.estado==='pendiente'}),resp=list('questions').filter(function(q){return q.estado==='respondida'});
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Movimiento 1</p><h2>Cosas que no sé</h2><p>Como el cuaderno de Feynman: hasta '+MAX_ACTIVE+' preguntas que de verdad quieras responder. Cada sesión trabaja una, y cada dato nuevo tiene dónde aterrizar.</p></div></section>';
+  h+='<section class="card"><div class="cardHead"><h3>Activas</h3><span class="mono">'+act.length+'/'+MAX_ACTIVE+'</span></div>'+(act.length?'<ul class="qlist">'+act.map(qItem).join('')+'</ul>':'<p class="empty">Aún no tienes preguntas. Escribe la tuya abajo o elige del banco.</p>')+'</section>';
+  var pf=S.prefill||{},opts=Object.keys(AREAS).map(function(k){return '<option value="'+k+'"'+(pf.area===k?' selected':'')+'>'+esc(AREAS[k])+'</option>'}).join('');
+  h+='<section class="card"><h3>Escribe tu propia pregunta</h3>'+(pf.norma?'<p class="muted small">Sobre: '+esc(pf.norma)+'</p>':'')+ta('new-q','Pregunta',2)+'<label class="field" for="new-area"><span>Área de la empresa</span><select id="new-area">'+opts+'</select></label><div class="actions"><button type="button" class="btn" data-act="q-add">Añadir</button>'+(pf.norma?'<button type="button" class="link" data-act="prefill-clear">Quitar norma</button>':'')+'</div></section>';
+  var bank=list('banco').filter(function(b){return S.bankArea==='all'||b.area===S.bankArea}).sort(function(a,b){return (a.orden||99)-(b.orden||99)});
+  var have={};list('questions').forEach(function(q){if(q.bancoId)have[q.bancoId]=1});
+  var areasIn={};list('banco').forEach(function(b){areasIn[b.area]=1});
+  h+='<section class="card"><h3>Banco de preguntas</h3><p class="muted small">Preguntas reales de empresas, agrupadas por proceso. Se amplía cuando cambia la regulación.</p>';
+  h+='<div class="chips"><button type="button" class="chip" data-act="barea" data-v="all" aria-pressed="'+(S.bankArea==='all')+'">Todas</button>'+Object.keys(AREAS).filter(function(k){return areasIn[k]}).map(function(k){return '<button type="button" class="chip" data-act="barea" data-v="'+k+'" aria-pressed="'+(S.bankArea===k)+'">'+esc(AREAS[k])+'</button>'}).join('')+'</div>';
+  if(!list('banco').length)h+='<p class="empty">El banco se está cargando o aún no tiene preguntas.</p>';
+  else h+='<ul class="qlist">'+bank.map(function(b){return '<li class="q"><p class="qText">'+esc(b.texto)+'</p><div class="qMeta">'+areaTag(b.area)+arr(b.normas).slice(0,3).map(function(n){var r=S.radar[n];return r?'<span>'+esc(r.corto||r.titulo)+'</span>':''}).join('')+'</div><div class="qAct">'+(have[b.id]?pill('En tu cuaderno','ok'):'<button type="button" class="link" data-act="bank-add" data-id="'+b.id+'">Añadir al cuaderno</button>')+'</div></li>'}).join('')+'</ul>';
+  h+='</section>';
+  if(pend.length)h+='<section class="card"><h3>Pendientes</h3><ul class="qlist">'+pend.map(qItem).join('')+'</ul></section>';
+  if(resp.length)h+='<section class="card done"><h3>Respondidas</h3><p class="muted small">Ya son ganchos: lo nuevo se engancha a ellas.</p><ul class="qlist">'+resp.map(qItem).join('')+'</ul></section>';
+  return h;
+}
+
+/* ---------- vista: Radar ---------- */
+function upcoming(n){
+  var out=[];radarList().forEach(function(r){arr(r.fechas).forEach(function(f){if(f.f&&f.f>=S.today)out.push({f:f.f,t:f.t,r:r})})});
+  out.sort(function(a,b){return a.f<b.f?-1:a.f>b.f?1:0});return out.slice(0,n);
+}
+function regCard(r){
+  var e=ESTADOS[r.estado]||{t:r.estado||'',c:''};
+  var h='<details class="reg" data-id="'+esc(r.id)+'"'+(S.openReg[r.id]?' open':'')+'><summary><div class="regHead"><h3>'+esc(r.titulo)+'</h3><div class="regPills">'+pill(JURIS[r.juris]||r.juris||'')+pill(e.t,e.c)+'</div></div>';
+  if(r.estadoTxt)h+='<p class="small muted">'+esc(r.estadoTxt)+'</p>';
+  h+='<span class="more"></span></summary>';
+  if(r.resumen)h+='<p>'+esc(r.resumen)+'</p>';
+  if(r.empresa)h+='<p class="what"><b>Qué significa para una empresa:</b> '+esc(r.empresa)+'</p>';
+  var fs=arr(r.fechas);if(fs.length)h+='<ul class="dates">'+fs.map(function(f){return '<li class="'+(f.f<S.today?'past':'')+'"><span class="mono">'+esc(fmtDate(f.f))+'</span><span>'+esc(f.t)+'</span></li>'}).join('')+'</ul>';
+  var ar=arr(r.procesos);if(ar.length)h+='<div class="chips">'+ar.map(function(a){return areaTag(a)}).join('')+'</div>';
+  var srcs=[r.fuente].concat(arr(r.fuentes)).filter(function(x){return x&&safeUrl(x.url)});
+  h+='<div class="regFoot">'+srcs.map(function(x){return '<a href="'+esc(safeUrl(x.url))+'" target="_blank" rel="noopener">'+esc(x.t||'Fuente')+'</a>'}).join('')+'<span>Verificado el '+esc(r.verificado?fmtDate(r.verificado):'?')+'</span>'+(r.confianza==='media'?pill('Contrastar con el texto oficial','warn'):'')+'<button type="button" class="link" data-act="study-norm" data-id="'+esc(r.id)+'">Preguntar sobre esto</button></div>';
+  return h+'</details>';
+}
+function radarHtml(){
+  var m=S.meta.radar||{},rs=radarList().filter(function(r){return S.juris==='all'||r.juris===S.juris});
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Regulación vigente</p><h2>Radar</h2><p>'+(m.ultimaRevision?'Revisado el '+esc(fmtDate(m.ultimaRevision))+(m.proxima?' · próxima revisión el '+esc(fmtDate(m.proxima)):''):'Aún no hay revisión registrada.')+'</p></div></section>';
+  if(m.resumen)h+='<section class="card"><p class="kicker">Resumen de la última revisión</p><div class="prose">'+md(m.resumen)+'</div></section>';
+  var up=upcoming(10);
+  if(up.length)h+='<section class="card"><h3>Próximas fechas</h3><ul class="timeline">'+up.map(function(u){var soon=u.f<=shift(S.today,45);return '<li class="'+(soon?'soon':'')+'"><span class="mono">'+esc(fmtDate(u.f))+'</span><span class="tlText"><b>'+esc(u.t)+'</b><span>'+esc(u.r.corto||u.r.titulo)+' · '+esc(JURIS[u.r.juris]||'')+'</span></span></li>'}).join('')+'</ul></section>';
+  var nv=novList();
+  if(nv.length){var shown=S.showAllNov?nv:nv.slice(0,5);
+    h+='<section class="card"><h3>Novedades</h3>'+shown.map(function(n){var u=n.fuente&&safeUrl(n.fuente.url);return '<div class="nov"><p class="small"><span class="mono">'+esc(fmtDate(n.fecha))+'</span> · '+pill(JURIS[n.juris]||n.juris||'')+'</p><b>'+esc(n.titulo)+'</b><p>'+esc(n.resumen||'')+'</p>'+(n.impacto?'<p class="muted small"><b>Impacto:</b> '+esc(n.impacto)+'</p>':'')+(u?'<p class="small"><a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(n.fuente.t||'Fuente')+'</a></p>':'')+'</div>'}).join('')+(nv.length>5?'<button type="button" class="link" data-act="allnov">'+(S.showAllNov?'Ver menos':'Ver las '+nv.length)+'</button>':'')+'</section>';}
+  h+='<div class="chips" role="group" aria-label="Filtrar por ámbito"><button type="button" class="chip" data-act="juris" data-v="all" aria-pressed="'+(S.juris==='all')+'">Todo</button>'+Object.keys(JURIS).map(function(k){return '<button type="button" class="chip" data-act="juris" data-v="'+k+'" aria-pressed="'+(S.juris===k)+'">'+esc(JURIS[k])+'</button>'}).join('')+'</div>';
+  h+=rs.length?rs.map(regCard).join(''):'<p class="empty">'+(list('radar').length?'Nada en este ámbito.':'El radar se está cargando. Si sigue vacío, la revisión semanal lo rellenará.')+'</p>';
+  return h;
+}
+
+/* ---------- vista: Progreso ---------- */
+function progresoHtml(){
+  var yr=S.today.slice(0,4),ds=doneSessions(),dsY=ds.filter(function(s){return s.date.slice(0,4)===yr});
+  var mins=dsY.reduce(function(a,s){return a+(s.min||0)},0)+list('days').filter(function(d){return d.puerta&&String(d.date||'').slice(0,4)===yr}).length*2;
+  var hrs=mins/60,hooks=list('hooks'),puertas=list('days').filter(function(d){return d.puerta}).length;
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Progreso</p><h2>Lo que ya sabes</h2><p>Información, no premios: cuánto has practicado, si te calibras bien y dónde tienes ganchos.</p></div></section>';
+  h+='<dl class="stats"><div><dt>Horas '+yr+'</dt><dd>'+fmtNum(hrs,1)+'</dd></div><div><dt>Sesiones</dt><dd>'+ds.length+'</dd></div><div><dt>Puertas</dt><dd>'+puertas+'</dd></div><div><dt>Ganchos</dt><dd>'+hooks.length+'</dd></div></dl>';
+  h+='<section class="card"><div class="cardHead"><h3>Hacia 120 horas</h3><span class="mono">'+fmtNum(hrs,1)+' / '+GOAL_H+' h</span></div><div class="bar"><u style="width:'+Math.min(100,Math.round(hrs/GOAL_H*100))+'%"></u></div><p class="muted small">20 minutos al día durante un año son unas 120 horas: suficiente para pasar de principiante a solvente.</p></section>';
+  var gr=ds.filter(function(s){return s.score!=null&&s.conf!=null}).slice(0,12);
+  h+='<section class="card"><h3>Calibración</h3>';
+  if(gr.length){var bias=gr.reduce(function(a,s){return a+(s.conf-s.score)},0)/gr.length;
+    h+='<p class="calib">'+(Math.abs(bias)<=1?'Bien calibrado: tu predicción se separa de tu nota real '+fmtNum(Math.abs(bias),1)+' puntos de media.':bias>0?'Te sobrestimas '+fmtNum(bias,1)+' puntos de media. Sin corrección, esos errores se convertirían en seguridad.':'Te subestimas '+fmtNum(-bias,1)+' puntos de media: sabes más de lo que crees.')+'</p>';
+    h+='<ul class="cal">'+gr.map(function(s){var d=s.score-s.conf;return '<li><span class="mono">'+esc(fmtShort(s.date))+'</span><span class="q2">'+esc((s.plan&&s.plan.titulo)||s.qtext)+'</span><span class="mono">'+fmtNum(s.conf)+' → '+fmtNum(s.score,1)+' ('+(d>0?'+':'')+fmtNum(d,1)+')</span></li>'}).join('')+'</ul>';
+  }else h+='<p class="muted small">Aparecerá cuando corrijan tu primer caso: antes de cada corrección predices tu nota.</p>';
+  h+='</section>';
+  var byA={};hooks.forEach(function(g){byA[g.area]=(byA[g.area]||0)+1});
+  var ks=Object.keys(byA).sort(function(a,b){return byA[b]-byA[a]}),mx=ks.length?byA[ks[0]]:1;
+  h+='<section class="card"><h3>Ganchos por área</h3><p class="muted small">Cada idea que entiendes de verdad es un gancho para la siguiente. Donde hay más, aprendes más rápido.</p>'+(ks.length?'<ul class="bars">'+ks.map(function(a){return '<li><span>'+esc(AREAS[a]||a)+'</span><span class="bar"><u style="width:'+Math.round(byA[a]/mx*100)+'%"></u></span><span class="mono">'+byA[a]+'</span></li>'}).join('')+'</ul>':'<p class="muted small">Todavía ninguno.</p>')+'</section>';
+  var taught=ds.filter(function(s){return s.teach});
+  if(taught.length)h+='<section class="card"><h3>Lo que has enseñado</h3><ul class="sumList">'+taught.slice(0,8).map(function(s){return '<li><span>'+esc((s.plan&&s.plan.titulo)||s.qtext)+'</span><span>'+(s.shared?pill('Compartido','ok'):s.ready?pill('Listo','now'):pill('Por revisar'))+'</span></li>'}).join('')+'</ul></section>';
+  h+='<section class="card"><h3>Historial</h3>'+(ds.length?'<ul class="hist">'+ds.slice(0,40).map(histItem).join('')+'</ul>':'<p class="muted small">Tus sesiones aparecerán aquí.</p>')+'</section>';
+  var st=settings();
+  h+='<section class="card" id="ajustes"><h3>Tu hora y tu lugar</h3><p class="muted small">Un plan «cuando pase X, hago Y». Cuanto más concreta la señal, mejor funciona.</p><div class="setGrid">'
+    +'<label class="field" for="set-hora"><span>Hora</span><input type="time" id="set-hora" value="'+esc(st.hora)+'"></label>'
+    +'<label class="field" for="set-min"><span>Duración por defecto</span><select id="set-min">'+[20,30,45].map(function(m){return '<option value="'+m+'"'+(m===st.minutos?' selected':'')+'>'+m+' minutos</option>'}).join('')+'</select></label>'
+    +'<label class="field wide" for="set-ancla"><span>Cuando…</span><input type="text" id="set-ancla" maxlength="120" value="'+esc(st.ancla)+'"></label>'
+    +'<label class="field wide" for="set-puerta"><span>…entonces (puerta de 2 minutos)</span><input type="text" id="set-puerta" maxlength="120" value="'+esc(st.puerta)+'"></label>'
+    +'</div><div class="actions"><button type="button" class="btn" data-act="save-set">Guardar</button></div></section>';
+  return h;
+}
+function histItem(s){
+  var open=S.openSess===s.id,p=s.plan||{};
+  var h='<li class="hi'+(open?' open':'')+'"><button type="button" class="hiHead" data-act="sess" data-id="'+s.id+'" aria-expanded="'+open+'"><span class="mono">'+esc(fmtShort(s.date))+'</span><span class="hiT"><b>'+esc(p.titulo||s.qtext)+'</b><span>'+esc(AREAS[s.area]||'')+' · '+s.min+' min</span></span>'+(s.score!=null?'<span class="score">'+fmtNum(s.score,1)+'</span>':'<span></span>')+'</button>';
+  if(open){
+    h+='<div class="hiBody">';
+    if(p.subpregunta)h+='<p class="sub">'+esc(p.subpregunta)+'</p>';
+    if(s.pred)h+='<h4>Lo que creías</h4>'+paras(s.pred);
+    if(p.ficha)h+='<details class="orig"><summary>Ficha</summary><div class="prose">'+md(p.ficha)+'</div>'+normasHtml(p.normas)+'</details>';
+    if(s.rebuildFb)h+='<h4>Reconstrucción</h4><article class="msg ai">'+md(clean(s.rebuildFb))+'</article>';
+    if(s.caseFb)h+='<h4>Caso</h4><article class="msg me">'+paras(s.caseAns)+'</article><article class="msg ai">'+md(clean(s.caseFb))+'</article>';
+    if(s.teach)h+='<h4>Lo que explicaste</h4>'+paras(s.teach);
+    if(s.hook)h+='<h4>Gancho</h4><p class="reveal">'+esc(s.hook)+'</p>';
+    h+='</div>';
+  }
+  return h+'</li>';
+}
+
+/* ---------- render ---------- */
+var VIEWS={hoy:hoyHtml,cuaderno:cuadernoHtml,radar:radarHtml,progreso:progresoHtml};
+function typing(){var a=document.activeElement;return !!(a&&a.closest&&a.closest('#view')&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&a.type!=='range')))}
+function render(){if(typing()){renderPending=true;return}renderNow()}
+function renderNow(){
+  renderPending=false;
+  var t=ymd(new Date());if(t!==S.today){S.today=t;S.gateReveal=null}
+  $('dateLabel').textContent=fmtLong(S.today);
+  ['hoy','cuaderno','radar','progreso'].forEach(function(v){var el=$('tab-'+v);if(v===S.view)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
+  $('view').innerHTML=(VIEWS[S.view]||hoyHtml)();
+  var cf=document.querySelector('input[type=range][id^="conf-"]');if(cf&&$('confv'))$('confv').textContent=cf.value;
+  var cur=document.querySelector('.stepper li.now'),wrap=document.querySelector('.stepWrap');
+  if(cur&&wrap)wrap.scrollLeft=Math.max(0,cur.offsetLeft-wrap.offsetLeft-24);
+}
+var toastT;
+function toast(m){var t=$('toast');t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){t.hidden=true},3800)}
+function route(){var h=(location.hash||'').replace('#','');S.view=VIEWS[h]?h:'hoy';S.copyBox=null;renderNow();window.scrollTo(0,0)}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b)return;
+  var a=b.dataset.act,id=b.dataset.id,v=b.dataset.v;
+  if(a!=='qdel')S.armDel=null;
+  if(a==='start')startSession();
+  else if(a==='resume'){S.run=id;renderNow();window.scrollTo(0,0)}
+  else if(a==='leave'){S.run=null;renderNow()}
+  else if(a==='min'){S.pickMin=+v;renderNow()}
+  else if(a==='pickq'){S.pickQ=id;renderNow()}
+  else if(a==='plan')doPlan(id);
+  else if(a==='next')nextStep(id);
+  else if(a==='fb')doFeedback(id,b.dataset.k);
+  else if(a==='finish')finishSession(id);
+  else if(a==='stop'){if(S.ctl)S.ctl.abort()}
+  else if(a==='copy-plan'){var s0=S.sessions[id];copyText(planPrompt(Object.assign({},s0,{pred:fieldVal('pred-'+id)})).replace('Responde SOLO con un objeto JSON con esta forma:','Escribe la sesión con estos apartados:'),'plan')}
+  else if(a==='copy-teach'){var s1=S.sessions[id];if(s1&&s1.teach)copyText(s1.teach,'teach')}
+  else if(a==='shared'){var s2=S.sessions[id];if(s2&&canW()){put('sessions',id,{shared:!s2.shared});renderNow()}}
+  else if(a==='gate-reveal'){S.gateReveal=id;renderNow()}
+  else if(a==='gate-rate')rateHook(id,v);
+  else if(a==='gate-prev')gatePrev();
+  else if(a==='gate-q')gateQuestion();
+  else if(a==='sunday')doSunday();
+  else if(a==='q-add'){var pf=S.prefill||{};if(addQuestion(fieldVal('new-q'),($('new-area')||{}).value,pf.norma?[pf.normaId]:[],'propia')){setDraft('new-q','');S.prefill=null}renderNow()}
+  else if(a==='prefill-clear'){S.prefill=null;renderNow()}
+  else if(a==='bank-add'){var bq=S.banco[id];if(bq)addQuestion(bq.texto,bq.area,bq.normas,'banco',id);renderNow()}
+  else if(a==='barea'){S.bankArea=v;renderNow()}
+  else if(a==='study'){S.pickQ=id;location.hash='#hoy'}
+  else if(a==='check'){S.checkQ=id||null;renderNow()}
+  else if(a==='check-send')doCheck(id);
+  else if(a==='qstate')setQState(id,v);
+  else if(a==='qfb'){S.openSess=S.openSess==='q:'+id?null:'q:'+id;renderNow()}
+  else if(a==='qdel'){if(S.armDel!==id){S.armDel=id;renderNow();return}if(canW()){delete S.questions[id];save('questions',id)}S.armDel=null;renderNow()}
+  else if(a==='juris'){S.juris=v;renderNow()}
+  else if(a==='allnov'){S.showAllNov=!S.showAllNov;renderNow()}
+  else if(a==='study-norm'){var r=S.radar[id];if(r){S.prefill={norma:r.titulo,normaId:r.id,area:arr(r.procesos)[0]||'gobernanza'};location.hash='#cuaderno'}}
+  else if(a==='sess'){S.openSess=S.openSess===id?null:id;renderNow()}
+  else if(a==='save-set')saveSettings();
+});
+document.addEventListener('input',function(e){
+  var t=e.target;if(t&&t.hasAttribute&&t.hasAttribute('data-draft')&&t.id){setDraft(t.id,t.value);if(t.type==='range'&&$('confv'))$('confv').textContent=t.value}
+});
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.matches&&t.matches('details.reg'))S.openReg[t.dataset.id]=t.open},true);
+document.addEventListener('focusout',function(){setTimeout(function(){if(renderPending&&!typing())renderNow()},450)});
+window.addEventListener('hashchange',route);
+document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
+
+/* ---------- arranque ---------- */
+function startLocal(){
+  S.mode='local';loadLocal();
+  $('notice').textContent='Esta vista no está conectada a tus datos guardados: lo que hagas aquí solo se queda en este navegador, y el radar no se puede cargar.';
+  $('notice').hidden=false;render();
+}
+function onErr(){toast('Se perdió la conexión con tus datos. Recarga la página.')}
+function sub(col,q){
+  q.onSnapshot(function(sn){
+    var next={};
+    sn.docs.forEach(function(doc){var v=doc.data();if(!v)return;var k=col+'/'+doc.id;next[doc.id]=running[k]&&S[col][doc.id]?S[col][doc.id]:Object.assign(JSON.parse(JSON.stringify(v)),{id:doc.id})});
+    Object.keys(S[col]).forEach(function(k){if(running[col+'/'+k]&&!next[k])next[k]=S[col][k]});
+    S[col]=next;S.loaded[col]=true;render();
+  },onErr);
+}
+async function boot(){
+  route();
+  var cu=window.claude&&window.claude.use;
+  if(cu)window.claude.use('sample').then(function(s){sample=s;S.ai=s?'on':'off';render()},function(){S.ai='off';render()});
+  else S.ai='off';
+  var api=cu?await window.claude.use('db'):null;
+  if(!api){startLocal();return}
+  db=api;S.mode='cloud';
+  sub('questions',db.collection('questions'));
+  sub('sessions',db.collection('sessions').orderBy('createdAt','desc').limit(400));
+  sub('hooks',db.collection('hooks'));
+  sub('days',db.collection('days').orderBy('date','desc').limit(800));
+  sub('meta',db.collection('meta'));
+  sub('radar',db.collection('radar'));
+  sub('novedades',db.collection('novedades').orderBy('fecha','desc').limit(80));
+  sub('banco',db.collection('banco'));
+}
+boot();
+})();
+</script>

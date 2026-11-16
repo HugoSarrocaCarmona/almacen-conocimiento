@@ -76,3 +76,7 @@ public/
 ```
 
 Pensado para crecer: si en el futuro quieres sincronizar en la nube, solo hay que cambiar `data/storage.js`, y las funciones nuevas (resúmenes, extracción de enlaces) pueden añadirse sobre el mismo modelo de datos.
+
+## Otras apps del repositorio
+
+- [`apps/cuaderno-ia-ley/`](apps/cuaderno-ia-ley/README.md): **Cuaderno IA y Ley**, sesiones diarias a las 19:00 sobre cómo adaptar los procesos de una empresa a la regulación de IA y datos (se publica como artifact de Claude, no forma parte de la compilación de Vite).

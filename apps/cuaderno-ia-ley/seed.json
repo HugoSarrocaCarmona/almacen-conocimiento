@@ -1,0 +1,925 @@
+{
+ "meta": {
+  "radar": {
+   "ultimaRevision": "2026-11-16",
+   "proxima": "2026-11-22",
+   "corte": "2026-11-16",
+   "resumen": "- **AI Act modificado.** El Omnibus digital sobre IA (Reglamento 2026/1744) aplaza el alto riesgo al 2 de diciembre de 2027 (anexo III) y al 2 de agosto de 2028 (anexo I). La transparencia del art. 50 se aplica desde el 2 de agosto de 2026.\n- **España.** El proyecto de ley orgánica de IA ha caducado con la disolución de las Cortes (6 de octubre). Elecciones el 29 de noviembre.\n- **Diciembre viene cargado.** Nuevas prohibiciones del AI Act (2 dic.), fin del plazo de transposición de las directivas de trabajo en plataformas (2 dic.) y de productos defectuosos (9 dic.), y fin del plazo de adaptación a la Ley de atención a la clientela.\n- **Datos.** La reforma del RGPD del Omnibus digital sigue en negociación (mandato del Consejo del 21 de octubre). Hoy el RGPD se aplica sin cambios."
+  },
+  "settings": {
+   "hora": "19:00",
+   "ancla": "Cuando sean las 19:00 y me siente en mi mesa",
+   "puerta": "abro el Cuaderno y hago la puerta de 2 minutos",
+   "minutos": 20
+  }
+ },
+ "radar": {
+  "ue-aia": {
+   "orden": 1,
+   "juris": "UE",
+   "estado": "parcial",
+   "corto": "AI Act",
+   "titulo": "Reglamento de IA (AI Act) · Reglamento (UE) 2024/1689",
+   "estadoTxt": "En vigor desde el 1 de agosto de 2024, con obligaciones escalonadas. Modificado por el Omnibus digital sobre IA (Reglamento (UE) 2026/1744): fechas comprobadas en el art. 113 modificado (DOUE de 24 de julio de 2026).",
+   "resumen": "Regula la IA por niveles de riesgo: prácticas prohibidas (art. 5), sistemas de alto riesgo (arts. 6-49 y anexos I y III), transparencia (art. 50) y modelos de IA de uso general (arts. 51-56). Reparte obligaciones por roles: proveedor, responsable del despliegue, importador y distribuidor.",
+   "empresa": "Toda empresa que usa IA es, como mínimo, «responsable del despliegue». Hoy ya debe evitar las prácticas prohibidas (por ejemplo, el reconocimiento de emociones en el trabajo), fomentar la alfabetización en IA de su plantilla (art. 4) y, desde el 2 de agosto de 2026, avisar cuando alguien habla con una IA o ve contenido sintético (art. 50). Las obligaciones de alto riesgo (selección de personal, crédito, seguros…) llegan el 2 de diciembre de 2027: es el momento de hacer inventario y preparar la supervisión humana.",
+   "fechas": [
+    {
+     "f": "2025-02-02",
+     "t": "Prácticas prohibidas (art. 5) y alfabetización en IA (art. 4)"
+    },
+    {
+     "f": "2025-08-02",
+     "t": "Modelos de IA de uso general, gobernanza y régimen sancionador"
+    },
+    {
+     "f": "2026-08-02",
+     "t": "Transparencia del art. 50 (chatbots, deepfakes y contenido generado)"
+    },
+    {
+     "f": "2026-12-02",
+     "t": "Nuevas prohibiciones (imágenes íntimas no consentidas y material de abuso sexual infantil) y marcado del art. 50.2 para sistemas ya comercializados"
+    },
+    {
+     "f": "2027-08-02",
+     "t": "Espacios controlados de pruebas nacionales y modelos de uso general anteriores a agosto de 2025"
+    },
+    {
+     "f": "2027-12-02",
+     "t": "Alto riesgo del anexo III (empleo, crédito, educación, servicios esenciales…)"
+    },
+    {
+     "f": "2028-08-02",
+     "t": "Alto riesgo del anexo I (IA integrada en productos regulados)"
+    }
+   ],
+   "procesos": [
+    "gobernanza",
+    "personas",
+    "clientes",
+    "contenido",
+    "decisiones",
+    "proveedores"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2024/1689",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+   },
+   "fuentes": [
+    {
+     "t": "EUR-Lex · Reglamento 2026/1744",
+     "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng"
+    }
+   ],
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "ue-omnibus-ia": {
+   "orden": 2,
+   "juris": "UE",
+   "estado": "vigente",
+   "corto": "Omnibus IA",
+   "titulo": "Omnibus digital sobre IA · Reglamento (UE) 2026/1744",
+   "estadoTxt": "Publicado en el DOUE el 24 de julio de 2026; en vigor desde el 27 de julio de 2026.",
+   "resumen": "Modifica el AI Act: aplaza el alto riesgo (anexo III al 2 de diciembre de 2027; anexo I al 2 de agosto de 2028; art. 113), cambia la alfabetización del art. 4 (los proveedores y responsables del despliegue «adoptarán medidas para apoyar» la alfabetización, sin tener que garantizar un nivel concreto), extiende medidas simplificadas a pymes y pequeñas empresas de mediana capitalización (a estas se les aplica la multa menor, art. 99.6 bis), retrasa al 2 de agosto de 2027 los espacios de pruebas nacionales y prohíbe la IA que genera imágenes íntimas no consentidas o material de abuso sexual infantil desde el 2 de diciembre de 2026.",
+   "empresa": "Se ha movido el calendario, no han desaparecido las obligaciones: el aplazamiento da margen para preparar el alto riesgo, pero la transparencia del art. 50 ya se aplica. Cuidado con materiales antiguos que todavía dan el 2 de agosto de 2026 como fecha del alto riesgo.",
+   "fechas": [
+    {
+     "f": "2026-07-27",
+     "t": "Entrada en vigor del Omnibus sobre IA"
+    },
+    {
+     "f": "2026-12-02",
+     "t": "Se aplican las nuevas prohibiciones del art. 5"
+    }
+   ],
+   "procesos": [
+    "gobernanza",
+    "contenido"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2026/1744 (ES)",
+    "url": "https://eur-lex.europa.eu/legal-content/ES/TXT/HTML/?uri=OJ:L_202601744"
+   },
+   "fuentes": [
+    {
+     "t": "Cuatrecasas · resumen",
+     "url": "https://www.cuatrecasas.com/en/global/intellectual-property/art/digital-omnibus-ai-has-been-published"
+    }
+   ],
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "ue-rgpd": {
+   "orden": 3,
+   "juris": "UE",
+   "estado": "vigente",
+   "corto": "RGPD",
+   "titulo": "Reglamento General de Protección de Datos (RGPD) · Reglamento (UE) 2016/679",
+   "estadoTxt": "Aplicable desde el 25 de mayo de 2018. El Omnibus digital propone cambios, pero todavía no son ley.",
+   "resumen": "Toda IA que trate datos personales necesita base jurídica (art. 6), transparencia (arts. 13-14), minimización y limitación de la finalidad (art. 5), protección desde el diseño (art. 25), contrato con el encargado (art. 28) y, si el riesgo es alto, evaluación de impacto (art. 35). El art. 22 limita las decisiones basadas únicamente en el tratamiento automatizado.",
+   "empresa": "Antes de automatizar: identificar datos y finalidad, elegir base jurídica (el interés legítimo exige una ponderación documentada), comprobar si la decisión es «únicamente automatizada» con efectos significativos (el TJUE, en SCHUFA, C-634/21, consideró que lo es un scoring que determina la decisión) y preparar cómo explicar la lógica aplicada (TJUE, Dun & Bradstreet Austria, C-203/22).",
+   "fechas": [
+    {
+     "f": "2018-05-25",
+     "t": "Aplicable"
+    }
+   ],
+   "procesos": [
+    "datos",
+    "decisiones",
+    "marketing",
+    "personas",
+    "clientes",
+    "agentes"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2016/679",
+    "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "ue-omnibus-datos": {
+   "orden": 4,
+   "juris": "UE",
+   "estado": "propuesta",
+   "corto": "Omnibus datos",
+   "titulo": "Omnibus digital de datos: reforma del RGPD, ePrivacy y Data Act",
+   "estadoTxt": "Propuesta de la Comisión de 19 de noviembre de 2025. Mandato del Consejo el 21 de octubre de 2026; el Parlamento aún no tiene posición. Todavía no ha cambiado nada.",
+   "resumen": "Propone, entre otras cosas, aclarar el uso del interés legítimo para desarrollar y operar sistemas de IA con salvaguardas, simplificar las cookies y ajustar el Data Act. El Consejo ha rechazado redefinir «dato personal» y mantiene las cookies en la normativa ePrivacy.",
+   "empresa": "Hoy se sigue aplicando el RGPD tal cual: entrenar o ajustar IA con datos personales exige base jurídica y, si es el interés legítimo, una ponderación documentada. Hay que esperar al texto final antes de cambiar procesos.",
+   "fechas": [
+    {
+     "f": "2025-11-19",
+     "t": "Propuesta de la Comisión"
+    },
+    {
+     "f": "2026-10-21",
+     "t": "Mandato de negociación del Consejo"
+    }
+   ],
+   "procesos": [
+    "datos",
+    "marketing"
+   ],
+   "fuente": {
+    "t": "Análisis del mandato del Consejo",
+    "url": "https://www.nicfab.eu/en/posts/digital-omnibus-council/"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "ue-edpb": {
+   "orden": 5,
+   "juris": "UE",
+   "estado": "guia",
+   "corto": "CEPD",
+   "titulo": "Criterios del CEPD (EDPB) sobre IA y datos personales",
+   "estadoTxt": "Dictamen 28/2024 sobre modelos de IA; Directrices 02/2026 (anonimización) y 03/2026 (web scraping para IA generativa), adoptadas el 7 de julio de 2026. La consulta pública de las 03/2026 terminó el 30 de octubre de 2026.",
+   "resumen": "Las autoridades europeas de protección de datos explican cómo aplicar el RGPD al desarrollo de IA: cuándo un modelo es anónimo, cómo ponderar el interés legítimo y por qué publicar datos en internet no equivale a consentir que se recopilen.",
+   "empresa": "Si la empresa entrena o ajusta modelos: documentar la base jurídica, evaluar si el modelo puede revelar datos personales y respetar las señales de exclusión (como robots.txt) al recopilar datos de la web.",
+   "fechas": [
+    {
+     "f": "2026-07-07",
+     "t": "Adopción de las Directrices 02/2026 y 03/2026"
+    },
+    {
+     "f": "2026-10-30",
+     "t": "Fin de la consulta pública de las Directrices 03/2026"
+    }
+   ],
+   "procesos": [
+    "datos"
+   ],
+   "fuente": {
+    "t": "EDPB · Directrices 03/2026 (PDF)",
+    "url": "https://www.edpb.europa.eu/system/files/2026-07/edpb_guidelines_2020603_webscraping_v1_en_0.pdf"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "ue-data-act": {
+   "orden": 6,
+   "juris": "UE",
+   "estado": "parcial",
+   "corto": "Data Act",
+   "titulo": "Reglamento de Datos (Data Act) · Reglamento (UE) 2023/2854",
+   "estadoTxt": "Aplicable desde el 12 de septiembre de 2025; el acceso a los datos desde el diseño, desde el 12 de septiembre de 2026.",
+   "resumen": "Da a los usuarios de productos conectados y servicios relacionados derecho a acceder a los datos que generan y a compartirlos con terceros, limita las cláusulas abusivas en contratos de datos entre empresas y facilita cambiar de proveedor de nube.",
+   "empresa": "Fabricantes de productos conectados: informar antes del contrato, dar acceso a los datos y, para productos comercializados desde el 12 de septiembre de 2026, diseñarlos para que el acceso sea directo. Empresas que contratan nube: desde el 12 de enero de 2027 no se pueden cobrar cargos por cambiar de proveedor.",
+   "fechas": [
+    {
+     "f": "2025-09-12",
+     "t": "Aplicable"
+    },
+    {
+     "f": "2026-09-12",
+     "t": "Acceso a los datos desde el diseño (art. 3.1)"
+    },
+    {
+     "f": "2027-01-12",
+     "t": "Fin de los cargos por cambio de proveedor de nube"
+    }
+   ],
+   "procesos": [
+    "producto",
+    "proveedores",
+    "datos"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2023/2854",
+    "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "ue-cra": {
+   "orden": 7,
+   "juris": "UE",
+   "estado": "parcial",
+   "corto": "CRA",
+   "titulo": "Reglamento de Ciberresiliencia (CRA) · Reglamento (UE) 2024/2847",
+   "estadoTxt": "Obligaciones de notificación desde el 11 de septiembre de 2026; el resto, desde el 11 de diciembre de 2027.",
+   "resumen": "Exige ciberseguridad desde el diseño en productos con elementos digitales (hardware y software) y obliga a los fabricantes a notificar las vulnerabilidades explotadas activamente y los incidentes graves a través de la plataforma única de ENISA.",
+   "empresa": "Si la empresa fabrica o vende software o dispositivos: procedimiento para dar la alerta en 24 horas y notificar en 72 horas las vulnerabilidades explotadas y los incidentes graves; preparar el marcado CE y la documentación para diciembre de 2027.",
+   "fechas": [
+    {
+     "f": "2026-09-11",
+     "t": "Notificación de vulnerabilidades e incidentes (art. 14)"
+    },
+    {
+     "f": "2027-12-11",
+     "t": "Aplicación general"
+    }
+   ],
+   "procesos": [
+    "ciber",
+    "producto"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2024/2847",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "ue-pld": {
+   "orden": 8,
+   "juris": "UE",
+   "estado": "plazo",
+   "corto": "Productos defectuosos",
+   "titulo": "Directiva de responsabilidad por productos defectuosos · Directiva (UE) 2024/2853",
+   "estadoTxt": "Plazo de transposición hasta el 9 de diciembre de 2026. No consta transposición en España.",
+   "resumen": "Sustituye a la Directiva de 1985: el software, incluidos los sistemas de IA, pasa a ser «producto», y se facilita la prueba al perjudicado.",
+   "empresa": "Quien comercializa software o IA puede responder sin culpa de los daños que cause un defecto, también por actualizaciones o por no darlas. Revisar contratos con proveedores, seguros y la gestión de actualizaciones.",
+   "fechas": [
+    {
+     "f": "2026-12-09",
+     "t": "Fin del plazo de transposición"
+    }
+   ],
+   "procesos": [
+    "producto",
+    "proveedores"
+   ],
+   "fuente": {
+    "t": "BOE · Directiva 2024/2853",
+    "url": "https://www.boe.es/buscar/doc.php?id=DOUE-L-2024-81701"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "ue-plataformas": {
+   "orden": 9,
+   "juris": "UE",
+   "estado": "plazo",
+   "corto": "Trabajo en plataformas",
+   "titulo": "Directiva de trabajo en plataformas · Directiva (UE) 2024/2831",
+   "estadoTxt": "Plazo de transposición hasta el 2 de diciembre de 2026. En España hubo consulta pública previa en verano de 2026; no consta ley aprobada.",
+   "resumen": "Presunción de laboralidad en las plataformas digitales y primeras normas europeas sobre gestión algorítmica: información sobre los sistemas automatizados, supervisión y revisión humana de las decisiones y prohibición de tratar ciertos datos (estado emocional, conversaciones privadas…).",
+   "empresa": "Aunque se dirige a plataformas, marca el estándar de la gestión algorítmica del trabajo: explicar qué sistemas deciden o supervisan, garantizar revisión humana y no tratar datos prohibidos.",
+   "fechas": [
+    {
+     "f": "2026-12-02",
+     "t": "Fin del plazo de transposición"
+    }
+   ],
+   "procesos": [
+    "personas",
+    "decisiones"
+   ],
+   "fuente": {
+    "t": "BOE · Directiva 2024/2831",
+    "url": "https://www.boe.es/buscar/doc.php?id=DOUE-L-2024-81667"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "ue-nis2": {
+   "orden": 10,
+   "juris": "UE",
+   "estado": "tramitacion",
+   "corto": "NIS2",
+   "titulo": "Directiva NIS2 · Directiva (UE) 2022/2555",
+   "estadoTxt": "El plazo de transposición venció el 17 de octubre de 2024. España no la ha transpuesto (sigue el Real Decreto-ley 12/2018) y la Comisión decidió llevarla ante el TJUE en julio de 2026.",
+   "resumen": "Amplía las obligaciones de ciberseguridad y de notificación de incidentes a muchos más sectores y a empresas medianas y grandes, con responsabilidad directa de los órganos de dirección.",
+   "empresa": "En España todavía rige el marco anterior, pero las empresas de sectores NIS2 (energía, transporte, salud, digital, fabricación…) y sus proveedores ya aplican sus medidas por exigencia contractual. Conviene preparar la gestión de riesgos y la notificación de incidentes (alerta temprana en 24 horas).",
+   "fechas": [
+    {
+     "f": "2024-10-17",
+     "t": "Fin del plazo de transposición"
+    },
+    {
+     "f": "2026-07-09",
+     "t": "La Comisión decide llevar a España ante el TJUE"
+    }
+   ],
+   "procesos": [
+    "ciber",
+    "gobernanza"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Directiva 2022/2555",
+    "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+   },
+   "fuentes": [
+    {
+     "t": "Estado de la transposición en España",
+     "url": "https://angelortegacastro.com/ley-coordinacion-gobernanza-ciberseguridad-nis2-estado-boe/"
+    }
+   ],
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "es-ley-ia": {
+   "orden": 11,
+   "juris": "ES",
+   "estado": "caducado",
+   "corto": "Ley española de IA",
+   "titulo": "Proyecto de Ley Orgánica para el buen uso y la gobernanza de la IA",
+   "estadoTxt": "Aprobado por el Consejo de Ministros el 26 de mayo de 2026 y enviado al Congreso. La disolución de las Cortes (Real Decreto 806/2026, BOE del 6 de octubre) hace caducar las iniciativas en trámite. Elecciones el 29 de noviembre de 2026.",
+   "resumen": "Adaptaba el AI Act al ordenamiento español: designaba las autoridades (con la AESIA como autoridad de vigilancia del mercado), regulaba los espacios de pruebas y fijaba el régimen sancionador.",
+   "empresa": "Las obligaciones del AI Act se aplican igual, porque es un reglamento europeo. Lo que queda pendiente es el detalle nacional (autoridades competentes y sanciones). El nuevo Gobierno tendrá que volver a presentar el texto.",
+   "fechas": [
+    {
+     "f": "2026-05-26",
+     "t": "Aprobado como proyecto de ley"
+    },
+    {
+     "f": "2026-10-06",
+     "t": "Disolución de las Cortes"
+    },
+    {
+     "f": "2026-11-29",
+     "t": "Elecciones generales"
+    },
+    {
+     "f": "2026-12-23",
+     "t": "Constitución de las nuevas Cortes"
+    }
+   ],
+   "procesos": [
+    "gobernanza"
+   ],
+   "fuente": {
+    "t": "LegalToday · disolución de las Cortes",
+    "url": "https://www.legaltoday.com/actualidad-juridica/noticias-de-derecho/el-boe-publica-el-real-decreto-de-disolucion-de-las-cortes-y-la-convocatoria-electoral-para-el-29-de-noviembre-2026-10-06/"
+   },
+   "fuentes": [
+    {
+     "t": "LegalToday · el proyecto de ley",
+     "url": "https://www.legaltoday.com/actualidad-juridica/noticias-de-derecho/el-consejo-de-ministros-envia-al-congreso-la-ley-de-buen-uso-de-la-ia-con-sanciones-de-hasta-35-millones-es-el-paso-definitivo-2026-05-27/"
+    }
+   ],
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "es-atencion": {
+   "orden": 12,
+   "juris": "ES",
+   "estado": "plazo",
+   "corto": "Atención a la clientela",
+   "titulo": "Ley 10/2025, de servicios de atención a la clientela",
+   "estadoTxt": "Publicada en el BOE en diciembre de 2025. Las empresas tienen doce meses para adaptar sus servicios: el plazo acaba a finales de diciembre de 2026.",
+   "resumen": "Obliga a las grandes empresas y a las que prestan servicios básicos de interés general a ofrecer atención personalizada: no se puede atender solo con contestadores automáticos o sistemas de IA, el 95 % de las llamadas debe atenderse en menos de 3 minutos y las reclamaciones deben resolverse en 15 días como máximo.",
+   "empresa": "Un chatbot o un agente de voz siguen siendo posibles, pero siempre con la opción de hablar con una persona y avisando de que se habla con una IA (art. 50 AI Act). Telecomunicaciones y servicios financieros se rigen por su normativa sectorial.",
+   "fechas": [
+    {
+     "f": "2026-12-28",
+     "t": "Fin aproximado del plazo de adaptación (comprobar en el BOE)"
+    }
+   ],
+   "procesos": [
+    "clientes",
+    "agentes"
+   ],
+   "fuente": {
+    "t": "BOE · Ley 10/2025",
+    "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2025-26698"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "es-laboral": {
+   "orden": 13,
+   "juris": "ES",
+   "estado": "vigente",
+   "corto": "ET 64.4.d y LOPDGDD",
+   "titulo": "Algoritmos en el trabajo: art. 64.4.d del Estatuto de los Trabajadores y derechos digitales",
+   "estadoTxt": "Art. 64.4.d ET (introducido por la «ley rider», Ley 12/2021) y arts. 87-91 LOPDGDD, en vigor.",
+   "resumen": "El comité de empresa tiene derecho a conocer los parámetros, reglas e instrucciones de los algoritmos o sistemas de IA que afectan a decisiones sobre condiciones de trabajo y sobre el acceso y mantenimiento del empleo, incluida la elaboración de perfiles. La LOPDGDD regula la intimidad ante dispositivos digitales, la videovigilancia, la geolocalización y la desconexión digital.",
+   "empresa": "Antes de usar IA para seleccionar, evaluar, asignar turnos o medir la productividad: informar al comité de empresa, revisar la proporcionalidad del control y la base jurídica, y hacer una evaluación de impacto. Desde diciembre de 2027 se suman las obligaciones del AI Act para la IA de alto riesgo en el empleo, entre ellas informar a los representantes de los trabajadores (art. 26.7).",
+   "fechas": [],
+   "procesos": [
+    "personas",
+    "decisiones"
+   ],
+   "fuente": {
+    "t": "BOE · Estatuto de los Trabajadores",
+    "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2015-11430"
+   },
+   "fuentes": [
+    {
+     "t": "BOE · LOPDGDD",
+     "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673"
+    }
+   ],
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  },
+  "es-aepd": {
+   "orden": 14,
+   "juris": "ES",
+   "estado": "guia",
+   "corto": "AEPD · IA agéntica",
+   "titulo": "Criterios de la AEPD sobre IA agéntica",
+   "estadoTxt": "Orientaciones sobre IA agéntica desde la protección de datos (18 de febrero de 2026) y decálogo para personas usuarias de asistentes y agentes (27 de octubre de 2026).",
+   "resumen": "La AEPD analiza los agentes de IA que actúan con autonomía: la responsabilidad es de quien los despliega, que debe controlar a qué datos acceden, garantizar transparencia, base jurídica y supervisión de las decisiones automatizadas, y diseñarlos para que fallen de forma segura.",
+   "empresa": "Antes de dar a un agente acceso al correo, al CRM o a los pagos: limitar sus permisos al mínimo, registrar lo que hace, prever revisión humana para las decisiones con efectos y evaluar el impacto.",
+   "fechas": [
+    {
+     "f": "2026-02-18",
+     "t": "Orientaciones sobre IA agéntica"
+    },
+    {
+     "f": "2026-10-27",
+     "t": "Decálogo sobre asistentes y agentes de IA"
+    }
+   ],
+   "procesos": [
+    "agentes",
+    "datos"
+   ],
+   "fuente": {
+    "t": "AEPD · nota de prensa",
+    "url": "https://www.aepd.es/prensa-y-comunicacion/notas-de-prensa/la-agencia-publica-unas-orientaciones-sobre-inteligencia"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "cat-apdcat": {
+   "orden": 15,
+   "juris": "CAT",
+   "estado": "guia",
+   "corto": "APDCAT · EIDF",
+   "titulo": "APDCAT: evaluación de impacto de la IA en los derechos fundamentales",
+   "estadoTxt": "Modelo de la Autoritat Catalana de Protecció de Dades para evaluar el impacto de la IA en los derechos fundamentales (2025).",
+   "resumen": "Metodología práctica, con casos reales, para la evaluación de impacto en derechos fundamentales que el AI Act exige a ciertos responsables del despliegue (art. 27) y para integrarla con la evaluación de impacto del RGPD.",
+   "empresa": "Útil para entidades públicas catalanas, empresas que prestan servicios públicos y bancos o aseguradoras que usen IA de alto riesgo: sirve de plantilla para documentar riesgos y medidas.",
+   "fechas": [],
+   "procesos": [
+    "gobernanza",
+    "decisiones"
+   ],
+   "fuente": {
+    "t": "APDCAT",
+    "url": "https://apdcat.gencat.cat/"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "gl-eeuu": {
+   "orden": 16,
+   "juris": "GLOBAL",
+   "estado": "parcial",
+   "corto": "EE. UU.",
+   "titulo": "Estados Unidos: leyes estatales y presión federal",
+   "estadoTxt": "Sin ley federal de IA. Orden ejecutiva de 11 de diciembre de 2025 contra las leyes estatales; Colorado sustituye su ley (SB 26-189, desde el 1 de enero de 2027); California aplica normas sobre decisiones automatizadas desde el 1 de enero de 2026.",
+   "resumen": "El mapa es estatal y cambiante: leyes sobre decisiones automatizadas, transparencia de los modelos de frontera y discriminación algorítmica, mientras el Gobierno federal intenta frenarlas por la vía judicial.",
+   "empresa": "Una empresa que vende o contrata en EE. UU. debe revisar estado por estado, sobre todo en empleo, crédito y uso de datos de consumidores.",
+   "fechas": [
+    {
+     "f": "2025-12-11",
+     "t": "Orden ejecutiva contra las leyes estatales de IA"
+    },
+    {
+     "f": "2026-01-01",
+     "t": "Normas de California sobre decisiones automatizadas (CCPA)"
+    },
+    {
+     "f": "2027-01-01",
+     "t": "Nueva ley de IA de Colorado (SB 26-189)"
+    }
+   ],
+   "procesos": [
+    "gobernanza",
+    "decisiones"
+   ],
+   "fuente": {
+    "t": "Skadden · Colorado",
+    "url": "https://www.skadden.com/insights/publications/2026/06/colorado-repeals-and-replaces-its-ai-act"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "gl-uk": {
+   "orden": 17,
+   "juris": "GLOBAL",
+   "estado": "vigente",
+   "corto": "Reino Unido",
+   "titulo": "Reino Unido: sin ley de IA, enfoque sectorial",
+   "estadoTxt": "Sin ley general de IA (el Discurso del Rey de mayo de 2026 no la incluyó). Nuevas reglas sobre decisiones automatizadas (arts. 22A-22D del UK GDPR) desde el 5 de febrero de 2026.",
+   "resumen": "Los reguladores sectoriales (ICO, FCA, CMA…) aplican principios comunes. La Data (Use and Access) Act 2025 flexibiliza las decisiones automatizadas con salvaguardas.",
+   "empresa": "Para operar en el Reino Unido no basta con cumplir el RGPD de la UE: hay que revisar las nuevas reglas de decisiones automatizadas y las guías del ICO.",
+   "fechas": [
+    {
+     "f": "2026-02-05",
+     "t": "Nuevas reglas de decisiones automatizadas"
+    }
+   ],
+   "procesos": [
+    "decisiones",
+    "datos"
+   ],
+   "fuente": {
+    "t": "Resumen de la regulación británica",
+    "url": "https://bratby.law/uk-ai-regulation-overview/"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "gl-corea": {
+   "orden": 18,
+   "juris": "GLOBAL",
+   "estado": "vigente",
+   "corto": "Corea del Sur",
+   "titulo": "Corea del Sur: Ley Básica de IA",
+   "estadoTxt": "En vigor desde el 22 de enero de 2026, con un periodo de gracia de al menos un año para las sanciones.",
+   "resumen": "Ley general de IA con obligaciones para la IA de alto impacto y la IA generativa (avisos y marcas de agua) y un representante local para empresas extranjeras de cierto tamaño.",
+   "empresa": "Para productos de IA ofrecidos en Corea: revisar transparencia, etiquetado y si hace falta un representante local.",
+   "fechas": [
+    {
+     "f": "2026-01-22",
+     "t": "Entrada en vigor"
+    }
+   ],
+   "procesos": [
+    "contenido",
+    "gobernanza"
+   ],
+   "fuente": {
+    "t": "Cooley · resumen",
+    "url": "https://www.cooley.com/news/insight/2026/2026-01-27-south-koreas-ai-basic-act-overview-and-key-takeaways"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "media"
+  },
+  "gl-china": {
+   "orden": 19,
+   "juris": "GLOBAL",
+   "estado": "vigente",
+   "corto": "China",
+   "titulo": "China: etiquetado del contenido generado por IA",
+   "estadoTxt": "Medidas de etiquetado aplicables desde el 1 de septiembre de 2025.",
+   "resumen": "Exigen etiquetas visibles y marcas ocultas (metadatos) en el contenido sintético, y obligan a las plataformas a comprobarlas.",
+   "empresa": "Para contenido o servicios dirigidos al mercado chino hace falta un etiquetado doble. Es un buen contraste con el art. 50 del AI Act.",
+   "fechas": [
+    {
+     "f": "2025-09-01",
+     "t": "Aplicación"
+    }
+   ],
+   "procesos": [
+    "contenido"
+   ],
+   "fuente": {
+    "t": "Loeb · resumen",
+    "url": "https://loeb.com/en/insights/publications/2025/03/chinas-ai-labeling-measures-and-mandatory-national-standards-take-effect-september-1"
+   },
+   "verificado": "2026-11-16",
+   "confianza": "alta"
+  }
+ },
+ "novedades": {
+  "n20261021-omnibus-datos": {
+   "fecha": "2026-10-21",
+   "juris": "UE",
+   "tipo": "cambio",
+   "titulo": "El Consejo fija su posición sobre la reforma del RGPD del Omnibus digital",
+   "resumen": "Mantiene la definición de dato personal, deja las cookies en ePrivacy y admite el interés legítimo para la IA con salvaguardas. Falta la posición del Parlamento y la negociación.",
+   "impacto": "Nada cambia todavía: el RGPD se aplica igual.",
+   "normas": [
+    "ue-omnibus-datos",
+    "ue-rgpd"
+   ],
+   "fuente": {
+    "t": "Análisis del mandato",
+    "url": "https://www.nicfab.eu/en/posts/digital-omnibus-council/"
+   }
+  },
+  "n20261027-aepd-decalogo": {
+   "fecha": "2026-10-27",
+   "juris": "ES",
+   "tipo": "guia",
+   "titulo": "La AEPD publica un decálogo sobre asistentes y agentes de IA",
+   "resumen": "Recomendaciones para quien delega tareas en asistentes y agentes sin perder el control de sus datos.",
+   "impacto": "Útil para redactar la política interna de uso de IA de una empresa.",
+   "normas": [
+    "es-aepd"
+   ],
+   "fuente": {
+    "t": "Territorio Fintech",
+    "url": "https://territoriofintech.com/inteligencia-artificial/aepd-decalogo-asistentes-agentes-ia-proteccion-datos/"
+   }
+  },
+  "n20261006-disolucion": {
+   "fecha": "2026-10-06",
+   "juris": "ES",
+   "tipo": "cambio",
+   "titulo": "Disolución de las Cortes: caduca el proyecto de ley española de IA",
+   "resumen": "El Real Decreto 806/2026 disuelve las Cortes y convoca elecciones para el 29 de noviembre. Las iniciativas en trámite, como la ley de IA, caducan.",
+   "impacto": "El AI Act sigue aplicándose; el régimen nacional de autoridades y sanciones queda pendiente.",
+   "normas": [
+    "es-ley-ia"
+   ],
+   "fuente": {
+    "t": "LegalToday",
+    "url": "https://www.legaltoday.com/actualidad-juridica/noticias-de-derecho/el-boe-publica-el-real-decreto-de-disolucion-de-las-cortes-y-la-convocatoria-electoral-para-el-29-de-noviembre-2026-10-06/"
+   }
+  },
+  "n20260911-cra": {
+   "fecha": "2026-09-11",
+   "juris": "UE",
+   "tipo": "plazo",
+   "titulo": "Empiezan las notificaciones del Reglamento de Ciberresiliencia",
+   "resumen": "Los fabricantes de productos con elementos digitales deben notificar las vulnerabilidades explotadas y los incidentes graves por la plataforma única de ENISA.",
+   "impacto": "Alerta temprana en 24 horas y notificación en 72 horas.",
+   "normas": [
+    "ue-cra"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2024/2847",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+   }
+  },
+  "n20260727-omnibus-ia": {
+   "fecha": "2026-07-27",
+   "juris": "UE",
+   "tipo": "cambio",
+   "titulo": "Entra en vigor el Omnibus digital sobre IA",
+   "resumen": "El Reglamento 2026/1744 aplaza el alto riesgo del AI Act a diciembre de 2027 y agosto de 2028 y añade nuevas prohibiciones.",
+   "impacto": "Revisar los planes de cumplimiento hechos con el calendario antiguo.",
+   "normas": [
+    "ue-aia",
+    "ue-omnibus-ia"
+   ],
+   "fuente": {
+    "t": "EUR-Lex · Reglamento 2026/1744",
+    "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng"
+   }
+  }
+ },
+ "banco": {
+  "b01": {
+   "orden": 1,
+   "area": "personas",
+   "texto": "¿Puede una empresa usar IA para filtrar currículums? ¿Qué tiene que hacer antes y después?",
+   "normas": [
+    "ue-aia",
+    "ue-rgpd",
+    "es-laboral"
+   ]
+  },
+  "b02": {
+   "orden": 2,
+   "area": "personas",
+   "texto": "¿Puede analizar con IA las emociones o el estrés de su plantilla en las videollamadas?",
+   "normas": [
+    "ue-aia",
+    "ue-rgpd"
+   ]
+  },
+  "b03": {
+   "orden": 3,
+   "area": "personas",
+   "texto": "¿Qué tiene que contar la empresa al comité sobre los algoritmos que afectan al trabajo?",
+   "normas": [
+    "es-laboral",
+    "ue-aia",
+    "ue-plataformas"
+   ]
+  },
+  "b04": {
+   "orden": 4,
+   "area": "personas",
+   "texto": "¿Puede medir la productividad de quien teletrabaja con software de IA?",
+   "normas": [
+    "es-laboral",
+    "ue-rgpd"
+   ]
+  },
+  "b05": {
+   "orden": 5,
+   "area": "clientes",
+   "texto": "¿Puede una empresa atender a sus clientes solo con un chatbot o un agente de voz?",
+   "normas": [
+    "es-atencion",
+    "ue-aia"
+   ]
+  },
+  "b06": {
+   "orden": 6,
+   "area": "clientes",
+   "texto": "¿Cuándo y cómo hay que avisar de que el cliente está hablando con una IA?",
+   "normas": [
+    "ue-aia"
+   ]
+  },
+  "b07": {
+   "orden": 7,
+   "area": "marketing",
+   "texto": "¿Puede usar los datos de sus clientes para personalizar ofertas con IA?",
+   "normas": [
+    "ue-rgpd",
+    "ue-omnibus-datos"
+   ]
+  },
+  "b08": {
+   "orden": 8,
+   "area": "contenido",
+   "texto": "Si publica imágenes, vídeos o textos generados con IA, ¿tiene que etiquetarlos?",
+   "normas": [
+    "ue-aia",
+    "gl-china"
+   ]
+  },
+  "b09": {
+   "orden": 9,
+   "area": "decisiones",
+   "texto": "¿Puede una fintech decidir si concede un préstamo con un modelo de IA?",
+   "normas": [
+    "ue-rgpd",
+    "ue-aia"
+   ]
+  },
+  "b10": {
+   "orden": 10,
+   "area": "decisiones",
+   "texto": "¿Qué tiene que poder explicar una empresa a quien recibe una decisión automatizada?",
+   "normas": [
+    "ue-rgpd",
+    "ue-aia"
+   ]
+  },
+  "b11": {
+   "orden": 11,
+   "area": "datos",
+   "texto": "¿Puede entrenar o ajustar un modelo con los datos de sus propios clientes?",
+   "normas": [
+    "ue-rgpd",
+    "ue-edpb",
+    "ue-omnibus-datos"
+   ]
+  },
+  "b12": {
+   "orden": 12,
+   "area": "datos",
+   "texto": "¿Puede recopilar datos públicos de internet (scraping) para su IA?",
+   "normas": [
+    "ue-edpb",
+    "ue-rgpd"
+   ]
+  },
+  "b13": {
+   "orden": 13,
+   "area": "datos",
+   "texto": "¿Qué datos pueden meter los empleados en ChatGPT, Claude u otros asistentes?",
+   "normas": [
+    "ue-rgpd",
+    "ue-aia",
+    "es-aepd"
+   ]
+  },
+  "b14": {
+   "orden": 14,
+   "area": "datos",
+   "texto": "¿Cuándo un dato está de verdad anonimizado y se puede usar con libertad?",
+   "normas": [
+    "ue-rgpd",
+    "ue-edpb"
+   ]
+  },
+  "b15": {
+   "orden": 15,
+   "area": "proveedores",
+   "texto": "¿Qué debe exigir una empresa en el contrato con un proveedor de IA?",
+   "normas": [
+    "ue-rgpd",
+    "ue-aia",
+    "ue-data-act",
+    "ue-pld"
+   ]
+  },
+  "b16": {
+   "orden": 16,
+   "area": "proveedores",
+   "texto": "Si la empresa modifica o pone su marca a un modelo de terceros, ¿pasa a ser «proveedor» según el AI Act?",
+   "normas": [
+    "ue-aia"
+   ]
+  },
+  "b17": {
+   "orden": 17,
+   "area": "agentes",
+   "texto": "¿Qué controles necesita un agente de IA que envía correos o hace compras en nombre de la empresa?",
+   "normas": [
+    "es-aepd",
+    "ue-rgpd",
+    "ue-aia"
+   ]
+  },
+  "b18": {
+   "orden": 18,
+   "area": "agentes",
+   "texto": "¿Automatizar un proceso con IA obliga a hacer una evaluación de impacto?",
+   "normas": [
+    "ue-rgpd",
+    "ue-aia",
+    "cat-apdcat"
+   ]
+  },
+  "b19": {
+   "orden": 19,
+   "area": "ciber",
+   "texto": "Si un producto con software sufre una vulnerabilidad explotada, ¿a quién hay que avisar y en cuánto tiempo?",
+   "normas": [
+    "ue-cra",
+    "ue-nis2"
+   ]
+  },
+  "b20": {
+   "orden": 20,
+   "area": "producto",
+   "texto": "¿Qué datos tiene que dar el fabricante a los usuarios de un producto conectado?",
+   "normas": [
+    "ue-data-act"
+   ]
+  },
+  "b21": {
+   "orden": 21,
+   "area": "producto",
+   "texto": "Si un software con IA causa un daño, ¿responde la empresa como fabricante?",
+   "normas": [
+    "ue-pld"
+   ]
+  },
+  "b22": {
+   "orden": 22,
+   "area": "gobernanza",
+   "texto": "¿Qué tiene que hacer una empresa para cumplir la alfabetización en IA del art. 4 del AI Act?",
+   "normas": [
+    "ue-aia",
+    "ue-omnibus-ia"
+   ]
+  },
+  "b23": {
+   "orden": 23,
+   "area": "gobernanza",
+   "texto": "¿Por dónde empieza una empresa que quiere adaptarse al AI Act: inventario, roles y riesgos?",
+   "normas": [
+    "ue-aia",
+    "ue-omnibus-ia"
+   ]
+  },
+  "b24": {
+   "orden": 24,
+   "area": "gobernanza",
+   "texto": "¿Qué usos de la IA están prohibidos ya y desde cuándo?",
+   "normas": [
+    "ue-aia",
+    "ue-omnibus-ia"
+   ]
+  },
+  "b25": {
+   "orden": 25,
+   "area": "gobernanza",
+   "texto": "Si la empresa también vende en EE. UU., el Reino Unido o Corea, ¿qué cambia?",
+   "normas": [
+    "gl-eeuu",
+    "gl-uk",
+    "gl-corea"
+   ]
+  }
+ }
+}
