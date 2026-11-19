@@ -6,6 +6,15 @@ App de sesiones diarias para aprender cómo deben adaptar las empresas sus proce
 - **Hora:** 19:00 todos los días. Hay un evento recurrente en Google Calendar y el hábito «Cuaderno IA y Ley» en Puertas Diarias.
 - **Revisión de la regulación:** tarea programada «Revisión semanal del radar regulatorio», los domingos a las 9:54 (Europe/Madrid). Abre una sesión nueva que busca cambios, los contrasta en las fuentes oficiales y actualiza la base de datos de la app.
 
+## Ruta, pregunta o actualidad
+
+Cada sesión puede ser de tres tipos:
+- **Ruta:** el siguiente concepto del Mapa, con 10 bloques ordenados (ver `ruta.json`). Al ver todos los conceptos de un bloque toca su examen; con la nota fijada en Ajustes (7 por defecto) se pasa al siguiente.
+- **Mi pregunta:** una pregunta del Cuaderno. Cada una indica qué bloques necesita y es el caso final del examen del último de ellos.
+- **Actualidad:** una novedad del radar explicada a tu nivel.
+
+El día libre (sábado por defecto) propone pregunta o actualidad. El modo exámenes deja solo la puerta.
+
 ## Cómo funciona una sesión
 
 | Duración | Pasos |
@@ -23,6 +32,7 @@ Claude actúa dentro de la página con la capacidad `sample` y usa tu cuenta de 
 ```
 index.html        La app (HTML + JS sin dependencias). Se publica tal cual como artifact.
 seed.json         Datos iniciales del radar, las novedades y el banco de preguntas (corte: 16-11-2026).
+ruta.json         Los 10 bloques de la ruta con sus 63 conceptos (pregunta guía, lo esencial y artículos).
 METODOLOGIA.md    El método del vídeo y cómo lo aplica cada parte de la app.
 ```
 
@@ -31,12 +41,15 @@ METODOLOGIA.md    El método del vídeo y cómo lo aplica cada parte de la app.
 | Colección | Quién la escribe | Contenido |
 |---|---|---|
 | `radar/{id}` | Revisión semanal | Una ficha por norma: `titulo, corto, juris (UE/ES/CAT/GLOBAL), estado, estadoTxt, resumen, empresa, fechas[{f,t}], procesos[], fuente{t,url}, fuentes[], verificado, confianza, orden` |
-| `novedades/{id}` | Revisión semanal | `fecha, juris, tipo, titulo, resumen, impacto, normas[], fuente` |
+| `novedades/{id}` | Revisión semanal | `fecha, juris, tipo, titulo, resumen, impacto, normas[], bloques[], fuente` |
 | `banco/{id}` | Revisión semanal | Preguntas de empresa: `texto, area, normas[], orden` |
 | `meta/radar` | Revisión semanal | `ultimaRevision, proxima, resumen` |
-| `meta/settings` | La app | `hora, ancla, puerta, minutos` |
+| `meta/settings` | La app | `hora, ancla, puerta, minutos, umbral, examenes, diaLibre` |
+| `ruta/{b0…b9}` | Claude (a mano, con Hugo) | Bloques: `orden, titulo, objetivo, semanas, conceptos[{id, t, q, claves, art, normas, area}]` |
+| `mapa/{concepto}` | La app | Estado de cada concepto: `estado (visto/repasar/dominado), sesiones, nota, hueco, apuntes, via` |
+| `bloques/{b0…b9}` | La app | `estado (superado), examen en curso, examenes[{d, nota, fb, repasar}]` |
 | `questions/{id}` | La app | Tu cuaderno: `texto, area, normas, estado (activa/pendiente/respondida), sesiones, checks[]` |
-| `sessions/{id}` | La app | Cada sesión: predicción, ficha (`plan`), reconstrucción, caso, nota, nota predicha (`conf`), explicación, gancho |
+| `sessions/{id}` | La app | Cada sesión: `tipo` (ruta/pregunta/novedad), `cid`/`qid`/`nid`, predicción, ficha (`plan`), reconstrucción, caso, nota, nota predicha (`conf`), explicación, gancho y `apuntes` |
 | `hooks/{id}` | La app | Ganchos con repaso espaciado: `texto, pista, area, due, ivl, reps[]` |
 | `days/{fecha}` | La app | `puerta, sesion, min, domingo…` |
 

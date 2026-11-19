@@ -40,8 +40,8 @@ a{color:var(--deep)}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:1.9rem;line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
 .hs-m{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:6px;background:var(--deep);color:var(--on-deep);font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:-.04em;white-space:nowrap;overflow:hidden}
 .hs-m::after{content:"_";color:var(--accent)}
-.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding-block:8px;border-bottom:1px solid var(--line)}
-.tab{display:block;text-align:center;text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem;padding:9px 2px;border-radius:10px}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding-block:8px;border-bottom:1px solid var(--line)}
+.tab{display:block;text-align:center;text-decoration:none;color:var(--muted);font-weight:600;font-size:.84rem;padding:9px 0;border-radius:10px;white-space:nowrap}
 .tab[aria-current="page"]{background:var(--surface);color:var(--ink);box-shadow:inset 0 -3px 0 var(--deep)}
 .notice{margin:0;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.875rem}
 #view{display:flex;flex-direction:column;gap:16px;min-width:0}
@@ -231,6 +231,41 @@ details.orig .prose{padding-top:8px}
 .setGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .setGrid .wide{grid-column:1/-1}
 
+/* Mapa y ruta */
+.blk{display:block;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.blk.cur{border:1.5px solid var(--deep)}
+.blk.ok{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.blk>*+*{margin-top:10px}
+.blk summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center}
+.blk summary::-webkit-details-marker{display:none}
+.bn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-family:var(--mono);font-weight:500;background:var(--soft);color:var(--ink)}
+.blk.cur .bn{background:var(--deep);color:var(--on-deep)}
+.blk.ok .bn{background:var(--accent);color:var(--accent-ink)}
+.bT{display:flex;flex-direction:column;min-width:0}
+.bT b{font-family:var(--display);font-weight:700;line-height:1.25}
+.bT span{font-size:.8rem;color:var(--muted)}
+.cons{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.con{display:grid;grid-template-columns:14px minmax(0,1fr);gap:6px 10px;padding:10px 0;border-top:1px solid var(--line);align-items:start}
+.con:first-child{border-top:0}
+.cdot{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);margin-top:5px}
+.cdot.visto{border-color:var(--deep)}
+.cdot.repasar{border-color:var(--warn);background:color-mix(in srgb,var(--warn) 30%,transparent)}
+.cdot.dominado{background:var(--accent);border-color:var(--accent)}
+.cT{display:flex;flex-direction:column;gap:2px;min-width:0}
+.cT b{font-weight:600;line-height:1.3}
+.cT span{font-size:.8rem;color:var(--muted)}
+.cAct,.cBody{grid-column:2}
+.cAct{display:flex;flex-wrap:wrap;gap:2px 16px}
+.cBody{display:flex;flex-direction:column;gap:8px;min-width:0}
+.apuntes{padding:10px 12px;border-radius:10px;background:var(--bg);border-left:3px solid var(--accent);overflow-wrap:anywhere}
+.seg3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:var(--soft);border-radius:10px;padding:3px}
+.seg3 button{border:0;background:none;border-radius:8px;padding:8px 4px;font-weight:600;font-size:.88rem;color:var(--muted)}
+.seg3 button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.pathline{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:.84rem;color:var(--muted);margin:0}
+.bk{display:inline-grid;place-items:center;min-width:22px;font-family:var(--mono);font-size:.74rem;border:1px solid var(--line);border-radius:5px;padding:0 5px;color:var(--muted)}
+.bk.ok{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.bk.cur{border-color:var(--deep);color:var(--deep);font-weight:500}
+.swRow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 details.how{border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:.92rem}
 details.how summary{cursor:pointer;font-weight:600;color:var(--ink)}
 details.how ol{margin:10px 0 0;padding-left:1.2rem;display:flex;flex-direction:column;gap:9px;max-width:65ch}
@@ -253,6 +288,7 @@ details.how blockquote{margin:12px 0 0;padding-left:12px;border-left:3px solid v
   </header>
   <nav class="tabs" aria-label="Secciones">
     <a class="tab" id="tab-hoy" href="#hoy">Hoy</a>
+    <a class="tab" id="tab-mapa" href="#mapa">Mapa</a>
     <a class="tab" id="tab-cuaderno" href="#cuaderno">Cuaderno</a>
     <a class="tab" id="tab-radar" href="#radar">Radar</a>
     <a class="tab" id="tab-progreso" href="#progreso">Progreso</a>
@@ -303,7 +339,7 @@ function md(t){
   close();return out.join('');
 }
 function paras(t){return String(t||'').split(/\n+/).filter(function(x){return x.trim()}).map(function(x){return '<p>'+esc(x)+'</p>'}).join('')}
-function clean(t){return String(t||'').replace(/^[ \t]*[*_]*[ \t]*(NOTA|RECUPERADO|VEREDICTO|RESPONDIDA)[ \t]*:.*$/gmi,'').trim()}
+function clean(t){return String(t||'').replace(/^[ \t]*[*_]*[ \t]*(NOTA|RECUPERADO|VEREDICTO|RESPONDIDA|REPASAR)[ \t]*:.*$/gmi,'').trim()}
 function numOf(t,label){var re=new RegExp(label+'\\s*:\\s*[*_]*\\s*(\\d{1,2}(?:[.,]\\d+)?)\\s*\\/\\s*10','gi'),m,r=null;while((m=re.exec(String(t||''))))r=Math.max(0,Math.min(10,parseFloat(m[1].replace(',','.'))));return r}
 function tagOf(t,label){var m=String(t||'').match(new RegExp(label+'\\s*:\\s*[*_]*\\s*([A-Za-zÁÉÍÓÚÑáéíóúñ]+)','i'));return m?m[1].toUpperCase():null}
 
@@ -324,19 +360,23 @@ var STEP={
 function stepsFor(min){var s=['pregunta','ficha','reconstruir'];if(min>=30)s.push('fuente');s.push('comprobar');if(min>=45)s.push('humo');s.push('ensenar','cierre');return s}
 var INTERVALS=[1,3,7,16,35,80];
 var GOAL_H=120, MAX_ACTIVE=5;
-var DEF_SET={hora:'19:00',ancla:'Cuando sean las 19:00 y me siente en mi mesa',puerta:'abro el Cuaderno y hago la puerta de 2 minutos',minutos:20};
+var DEF_SET={hora:'19:00',ancla:'Cuando sean las 19:00 y me siente en mi mesa',puerta:'abro el Cuaderno y hago la puerta de 2 minutos',minutos:20,umbral:7,examenes:false,diaLibre:6};
+/* Bloques de la ruta que necesita cada área de proceso (si una pregunta no trae los suyos). */
+var AREA_BLOQUES={personas:['b1','b2','b4','b6','b7'],clientes:['b1','b2','b5','b7'],marketing:['b1','b2','b4'],decisiones:['b1','b2','b4','b6'],contenido:['b5'],datos:['b1','b2','b3'],proveedores:['b1','b3','b5','b8'],agentes:['b1','b2','b3','b5','b7'],ciber:['b3','b8'],producto:['b8'],gobernanza:['b0','b5','b6']};
+var DIAS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
-var PROFILE='Hugo estudia 2.º de Derecho en la Universitat de Barcelona. Quiere especializarse en legaltech, derecho digital y cumplimiento normativo de la IA, y construye agentes jurídicos con Claude Code. Este cuaderno entrena una sola cosa: cómo deben adaptar las empresas sus procesos (IA, automatizaciones y uso legítimo de datos) a la regulación vigente en la UE, España y Cataluña, con un ojo en el resto del mundo.';
+var PROFILE='Hugo estudia 2.º de Derecho en la Universitat de Barcelona. Quiere especializarse en legaltech, derecho digital y cumplimiento normativo de la IA, y construye agentes jurídicos con Claude Code (su proyecto legal-agents). Su tesis: todas las empresas sacarán valor de sus datos con IA y se jugarán mucho dinero en cumplir bien; quiere dedicarse a ese ámbito, aún sin decidir desde qué puesto. Empieza desde cero en protección de datos; este semestre cursa Derecho Internacional Público (fuentes, tratados, recepción del derecho internacional en el interno). Este cuaderno entrena una sola cosa: cómo deben adaptar las empresas sus procesos (IA, automatizaciones y uso legítimo de datos) a la regulación vigente en la UE, España y Cataluña, con un ojo en el resto del mundo.';
 var RULES='Reglas: escribe en español de España y tutea a Hugo. Sé exigente y honesto, sin halagos vacíos. Cita siempre norma y artículo concretos. Para fechas, vigencia y estado de tramitación usa SOLO el estado regulatorio verificado que te doy; si algo no está ahí y no estás seguro, dilo y pide comprobarlo en EUR-Lex o en el BOE. No inventes artículos, sentencias, guías ni fechas. Formato: párrafos cortos y listas con guiones, sin tablas.';
 var METHOD='Método del cuaderno: lo que se siente como aprender no siempre lo es (Deslauriers y cols., 2019). Cada sesión trabaja UNA pregunta a fondo y obliga a Hugo a producir: predecir, reconstruir de memoria, ser corregido y enseñar. No le des la respuesta antes de que lo intente.';
 
 /* ---------- estado ---------- */
 var S={today:ymd(new Date()),view:'hoy',mode:'loading',loaded:{},
-  questions:{},sessions:{},hooks:{},days:{},radar:{},novedades:{},banco:{},meta:{},
+  questions:{},sessions:{},hooks:{},days:{},radar:{},novedades:{},banco:{},meta:{},ruta:{},mapa:{},bloques:{},
+  pickTipo:null,pickC:null,pickN:null,checkC:null,openC:null,exam:null,forceSession:false,openBlk:{},
   run:null,pickQ:null,pickMin:null,busy:null,stream:'',ctl:null,ai:'pending',
   gateReveal:null,bankArea:'all',juris:'all',openSess:null,openReg:{},checkQ:null,armDel:null,copyBox:null,prefill:null,showAllNov:false};
 var db=null,sample=null,running={},dirty={},renderPending=false;
-var USERCOLS=['questions','sessions','hooks','days','meta'];
+var USERCOLS=['questions','sessions','hooks','days','meta','mapa','bloques'];
 
 function settings(){return Object.assign({},DEF_SET,S.meta.settings||{})}
 function loaded(){return S.mode==='local'||(S.mode==='cloud'&&USERCOLS.every(function(c){return S.loaded[c]}))}
@@ -356,6 +396,31 @@ function radarList(){return list('radar').sort(function(a,b){return (a.orden||99
 function novList(){return list('novedades').sort(function(a,b){return a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0})}
 function isSunday(){return parse(S.today).getDay()===0}
 function weekStart(){var d=parse(S.today);return shift(S.today,-((d.getDay()+6)%7))}
+
+/* ---------- ruta de aprendizaje ---------- */
+function rutaList(){return list('ruta').filter(function(b){return b&&goodId(b.id)&&Array.isArray(b.conceptos)&&b.conceptos.length}).sort(function(a,b){return (a.orden||0)-(b.orden||0)})}
+function cIndex(){var o={};rutaList().forEach(function(b){b.conceptos.forEach(function(c){if(c&&c.id)o[c.id]={c:c,b:b}})});return o}
+function cState(cid){var m=S.mapa[cid];return (m&&m.estado)||'nuevo'}
+function bDone(bid){return (S.bloques[bid]||{}).estado==='superado'}
+function curBlock(){var r=rutaList();for(var i=0;i<r.length;i++)if(!bDone(r[i].id))return r[i];return null}
+function bNum(b){return b&&b.orden!=null?String(b.orden):'?'}
+function nextConcept(b){if(!b)return null;var f=function(st){return b.conceptos.filter(function(c){return cState(c.id)===st})[0]};return f('repasar')||f('nuevo')||f('visto')||null}
+function blockReady(b){return !!b&&b.conceptos.every(function(c){var s=cState(c.id);return s==='visto'||s==='dominado'})}
+function blockCount(b){return b.conceptos.filter(function(c){return cState(c.id)==='dominado'}).length}
+function umbral(){var u=+settings().umbral;return u>=5&&u<=9?u:7}
+function qBloques(q){var b=arr(q&&q.bloques);return b.length?b:(AREA_BLOQUES[q&&q.area]||[])}
+function novStudied(nid){return sessionList().some(function(s){return s.nid===nid&&s.done})}
+function freshNov(){var lim=shift(S.today,-45);return novList().filter(function(n){return goodId(n.id)&&n.fecha>=lim&&!novStudied(n.id)})}
+function setMapa(cid,patch){if(!goodId(cid))return;S.mapa[cid]=Object.assign({id:cid},S.mapa[cid],patch,{updatedAt:Date.now()});save('mapa',cid)}
+function setBloque(bid,patch){if(!goodId(bid))return;S.bloques[bid]=Object.assign({id:bid},S.bloques[bid],patch,{updatedAt:Date.now()});save('bloques',bid)}
+function levelCtx(){
+  var r=rutaList();if(!r.length)return '';
+  var cb=curBlock(),dom=[],no=[];
+  r.forEach(function(b){b.conceptos.forEach(function(c){var s=cState(c.id);if(s==='dominado')dom.push(c.t);else if(s==='nuevo')no.push(c.t+' (bloque '+bNum(b)+')')})});
+  return 'Nivel de Hugo en su ruta de aprendizaje (empezó desde cero): '+(cb?'está en el bloque '+bNum(cb)+' «'+cb.titulo+'».':'ha completado la primera vuelta.')
+    +'\nConceptos que ya domina: '+(dom.length?dom.slice(0,30).join('; '):'(todavía ninguno)')
+    +'\nConceptos que aún no ha estudiado (no los des por sabidos; si los necesitas, explícalos en una frase e indica en qué bloque llegarán): '+(no.length?no.slice(0,30).join('; '):'(ninguno)');
+}
 
 /* ---------- contexto para Claude ---------- */
 function radarCtx(prefer){
@@ -378,13 +443,36 @@ function hooksCtx(area){
   var seen={},hs=hookList().sort(function(a,b){return (a.area===area?0:1)-(b.area===area?0:1)||(b.createdAt||0)-(a.createdAt||0)}).filter(function(h){if(seen[h.texto])return false;seen[h.texto]=1;return true}).slice(0,6);
   return hs.length?hs.map(function(h){return '- '+h.texto}).join('\n'):'(todavía ninguno: es su primera semana; las primeras sesiones cuestan más, es normal)';
 }
-function prevCtx(qid){var ss=doneSessions().filter(function(s){return s.qid===qid&&s.plan}).slice(0,5);return ss.length?ss.map(function(s){return '- '+s.plan.subpregunta}).join('\n'):'(ninguna)'}
+function prevCtx(x){var ss=doneSessions().filter(function(s){return s.plan&&((x.qid&&s.qid===x.qid)||(x.cid&&s.cid===x.cid)||(x.nid&&s.nid===x.nid))}).slice(0,5);return ss.length?ss.map(function(s){return '- '+s.plan.subpregunta}).join('\n'):'(ninguna)'}
+function sessNormas(s){var q=S.questions[s.qid];if(q)return arr(q.normas);var ci=s.cid&&cIndex()[s.cid];if(ci)return arr(ci.c.normas);var n=s.nid&&S.novedades[s.nid];if(n)return arr(n.normas);return []}
 function baseCtx(s){
-  return ['Hoy es '+fmtLong(S.today)+' ('+S.today+').',PROFILE,METHOD,
-    'Pregunta del cuaderno de Hugo (área: '+(AREAS[s.area]||'general')+'): «'+s.qtext+'»',
+  var focus=s.tipo==='ruta'?'Concepto de hoy (ruta de aprendizaje): «'+(s.ctitulo||'')+'». Pregunta guía: «'+s.qtext+'»'
+    :s.tipo==='novedad'?'Hoy toca una sesión de actualidad sobre una novedad regulatoria: «'+s.qtext+'»'
+    :'Pregunta del cuaderno de Hugo (área: '+(AREAS[s.area]||'general')+'): «'+s.qtext+'»';
+  return ['Hoy es '+fmtLong(S.today)+' ('+S.today+').',PROFILE,METHOD,levelCtx(),focus,
     'Ideas que Hugo ya domina (ganchos; conecta lo nuevo con ellas cuando venga al caso):\n'+hooksCtx(s.area),
-    'Estado regulatorio verificado (úsalo para fechas y vigencia):\n'+radarCtx((S.questions[s.qid]||{}).normas),
-    'Novedades recientes del radar:\n'+novCtx(),RULES].join('\n\n');
+    'Estado regulatorio verificado (úsalo para fechas y vigencia):\n'+radarCtx(sessNormas(s)),
+    'Novedades recientes del radar:\n'+novCtx(),RULES].filter(Boolean).join('\n\n');
+}
+function tipoTask(s){
+  if(s.tipo==='ruta'){
+    var ci=cIndex()[s.cid];if(!ci)return '';
+    var c=ci.c,b=ci.b,m=S.mapa[s.cid]||{},o=b.orden||0;
+    var t='SESIÓN DE RUTA. Bloque '+bNum(b)+' «'+b.titulo+'» (objetivo: '+(b.objetivo||'')+'). Concepto: «'+c.t+'». Pregunta guía: «'+c.q+'». Lo esencial que debe quedar claro: '+(c.claves||'')+(c.art?' Referencias: '+c.art+'.':'')+'\n'
+      +'Hugo empieza desde cero en este ámbito: la ficha explica el concepto desde la base, con definiciones precisas, e incluye un apartado «**Ejemplo resuelto:**» (un caso breve resuelto paso a paso) antes de «Qué haría una empresa mañana». La subpregunta es la pregunta guía o una parte concreta de ella.\n'
+      +'El "caso" de este nivel: "enunciado" contiene 3 preguntas breves numeradas para distinguir conceptos (por ejemplo: ¿responsable o encargado?, ¿qué base jurídica?) y un minicaso de 3-4 líneas; "pide" indica que responda a las tres preguntas y al minicaso.\n';
+    if(o<=1)t+='Si viene al caso, conecta con lo que estudia en Derecho Internacional Público (fuentes, tratados, recepción del derecho internacional en el derecho interno).\n';
+    if(o>=3)t+='Termina la ficha con una línea «**En inglés:**» con 3 a 5 términos clave (término en inglés = traducción) y, si existe, el nombre de la fuente oficial en inglés.\n';
+    t+='Si encaja de forma natural, añade una línea «**Para legal-agents:**» con una idea de cómo un agente jurídico ayudaría a una empresa a cumplir esta regla.\n';
+    if(m.sesiones)t+='Es una sesión de REPASO: ya estudió este concepto (última nota '+(m.nota!=null?m.nota+'/10':'sin nota')+')'+(m.hueco?'. Su hueco entonces: «'+m.hueco+'»':'')+'. Cambia el ángulo y ataca ese hueco.\n';
+    return t;
+  }
+  if(s.tipo==='novedad'){
+    var n=S.novedades[s.nid]||{};
+    return 'SESIÓN DE ACTUALIDAD. Novedad del radar ('+(n.fecha||'')+', '+(JURIS[n.juris]||n.juris||'')+'): «'+(n.titulo||'')+'». Resumen: '+(n.resumen||'')+' Impacto: '+(n.impacto||'')+(n.fuente&&n.fuente.url?' Fuente: '+n.fuente.url:'')+'\n'
+      +'Explícala AL NIVEL de Hugo (mira su nivel arriba): qué ha cambiado, qué significa para una empresa, qué NO cambia y qué queda pendiente o en negociación. Conecta con los conceptos que ya domina; los que aún no ha estudiado, explícalos en una frase e indica en qué bloque llegarán. El caso aplica la novedad a una empresa concreta.\n';
+  }
+  return 'Si la pregunta exige conceptos que aún no ha estudiado en su ruta, elige una subpregunta asequible a su nivel y dilo en la ficha.\n';
 }
 function planPrompt(s){
   var wantF=s.steps.indexOf('fuente')>=0, wantH=s.steps.indexOf('humo')>=0;
@@ -393,8 +481,9 @@ function planPrompt(s){
     +(wantH?',"humo":{"quien":"…","afirmacion":"…","errores":["…"]}':'')+'}';
   return baseCtx(s)+'\n\n'
     +'Lo que Hugo cree ANTES de leer (no lo corrijas aquí; úsalo para enfocar la ficha en su hueco): «'+(s.pred||'(no escribió nada)')+'»\n\n'
-    +'Subpreguntas ya trabajadas en sesiones anteriores (elige otro ángulo):\n'+prevCtx(s.qid)+'\n\n'
-    +'TAREA: prepara la sesión de hoy ('+s.min+' minutos). Elige UNA subpregunta concreta de la pregunta del cuaderno que se pueda trabajar a fondo hoy: profundidad, no amplitud.\n'
+    +'Subpreguntas ya trabajadas en sesiones anteriores (elige otro ángulo):\n'+prevCtx(s)+'\n\n'
+    +tipoTask(s)
+    +'TAREA: prepara la sesión de hoy ('+s.min+' minutos). Elige UNA subpregunta concreta del tema de hoy que se pueda trabajar a fondo: profundidad, no amplitud.\n'
     +'Responde SOLO con un objeto JSON con esta forma:\n'+shape+'\n'
     +'- titulo: 8 palabras como máximo.\n'
     +'- subpregunta: la pregunta concreta de hoy, en una frase.\n'
@@ -422,6 +511,37 @@ function fbPrompt(s,kind,ans){
   if(kind==='humo'){var h=p.humo||{};return B+'Afirmación de '+h.quien+':\n"""\n'+h.afirmacion+'\n"""\nErrores que contiene (Hugo no los conoce):\n- '+arr(h.errores).join('\n- ')+'\n\nHugo explica qué está mal y por qué:\n"""\n'+ans+'\n"""\n\nEvalúa si ha detectado los errores reales y si los justifica con la norma. Explica los que se le escaparon. Termina con una línea exacta "NOTA: n/10".'}
   if(kind==='teach')return B+'Hugo explica lo que ha aprendido a alguien que no es jurista (un post corto o el guion de una nota de voz de 2 minutos):\n"""\n'+ans+'\n"""\n\nRevísalo como un experto que lo leería en público: 1) errores jurídicos o frases que podrían confundir (lo más importante); 2) claridad para alguien que no es jurista; 3) una mejora concreta. Termina con una línea exacta "VEREDICTO: LISTO" si se puede publicar tal cual o "VEREDICTO: REVISAR" si tiene algún error.';
   return B;
+}
+/* Apuntes: se generan solos al cerrar la sesión, con las reglas clave, las normas, tu error y tu gancho. */
+function huecoOf(t){t=String(t||'');var i=t.search(/tu hueco/i);if(i<0)return '';var r=t.slice(i+8).replace(/^[\s*_:.)\-–]+/,'');r=r.split(/\n\s*\n|RECUPERADO/i)[0];return clean(r).replace(/\*\*/g,'').replace(/\s+/g,' ').trim().slice(0,400)}
+function apuntesOf(s){
+  var p=s.plan||{};if(!p.ficha)return '';
+  var ns=arr(p.normas).map(function(n){return str(n.norma,90)+(n.articulo?', '+n.articulo:'')}).filter(Boolean);
+  var h=huecoOf(s.rebuildFb),out='### '+(p.titulo||s.qtext)+'\n*'+(p.subpregunta||s.qtext)+'*\n\n**Reglas clave**\n'+arr(p.claves).map(function(c){return '- '+c}).join('\n');
+  if(ns.length)out+='\n\n**Normas:** '+ns.join(' · ');
+  if(h)out+='\n\n**Mi error a evitar:** '+h;
+  if(s.score!=null)out+='\n\n**Nota del caso:** '+fmtNum(s.score,1)+'/10';
+  if(s.hook)out+='\n\n**Mi gancho:** '+s.hook;
+  return out;
+}
+function cList(b){return b.conceptos.map(function(c){return '- '+c.id+': '+c.t+' — '+(c.claves||'')}).join('\n')}
+function examPrompt(b){
+  var qs=list('questions').filter(function(q){var bl=qBloques(q);return q.texto&&q.estado!=='respondida'&&bl.length&&bl[bl.length-1]===b.id}).map(function(q){return q.texto});
+  return ['Hoy es '+fmtLong(S.today)+'.',PROFILE,levelCtx(),'Estado regulatorio verificado:\n'+radarCtx(),RULES,
+    'EXAMEN DEL BLOQUE '+bNum(b)+' «'+b.titulo+'». Objetivo del bloque: '+(b.objetivo||'')+'\nConceptos del bloque (id: concepto — lo esencial):\n'+cList(b),
+    'Escribe el examen: de 5 a 6 preguntas breves numeradas que cubran los conceptos del bloque (mezcla distinguir conceptos y aplicarlos) y una última pregunta que sea un caso práctico de 5-8 líneas sobre una empresa concreta'+(qs.length?'. Para el caso final usa, adaptada a una empresa concreta, esta pregunta del cuaderno de Hugo: «'+qs[0]+'»':'')+'. Empieza con una línea «Tiempo orientativo: 25 minutos. Sin apuntes.». No incluyas las soluciones.'].join('\n\n');
+}
+function examGradePrompt(b,ex,ans,conf){
+  return ['Hoy es '+fmtLong(S.today)+'.',PROFILE,'Estado regulatorio verificado:\n'+radarCtx(),RULES,
+    'Corrige el examen del bloque '+bNum(b)+' «'+b.titulo+'».\nConceptos del bloque (id: concepto — lo esencial):\n'+cList(b),
+    'Examen:\n"""\n'+ex+'\n"""','Respuestas de Hugo:\n"""\n'+ans+'\n"""','Antes de la corrección, Hugo cree que sacará un '+conf+'/10.',
+    'Corrige pregunta por pregunta en pocas líneas (bien, lo que falla y la regla correcta con su artículo). Después di qué domina ya, qué debe reforzar y comenta en una línea su calibración. Termina con una línea exacta "NOTA: n/10" y otra línea exacta "REPASAR: " seguida de los ids de los conceptos que debe reforzar separados por comas, o "REPASAR: ninguno".'].join('\n\n');
+}
+function repasarOf(t,b){var m=String(t||'').match(/REPASAR\s*:\s*([^\n]*)/i);if(!m)return [];var ids=b.conceptos.map(function(c){return c.id});return m[1].split(/[,;\s]+/).map(function(x){return x.replace(/[^a-z0-9\-]/gi,'')}).filter(function(x){return ids.indexOf(x)>=0})}
+function knewPrompt(b,c,ans){
+  return ['Hoy es '+fmtLong(S.today)+'.',PROFILE,RULES,'Hugo dice que ya domina este concepto del bloque '+bNum(b)+' «'+b.titulo+'»: «'+c.t+'».',
+    'Pregunta: «'+c.q+'»\nLo esencial que debe contener una buena respuesta: '+(c.claves||''),'Su respuesta, sin mirar nada:\n"""\n'+ans+'\n"""',
+    'Evalúa con rigor si lo domina de verdad: 1) lo que está bien; 2) lo que falta o está mal, con la norma. Sé breve. Termina con una línea exacta "NOTA: n/10".'].join('\n\n');
 }
 function sundayPrompt(ans){
   var ws=weekStart();
@@ -496,13 +616,34 @@ function copyText(txt,k){
 }
 
 /* ---------- acciones: sesión ---------- */
-function startSession(){
-  if(!canW())return;
-  var qs=activeQs(),q=S.questions[S.pickQ]||qs[0];
-  if(!q){location.hash='#cuaderno';return}
-  var min=S.pickMin||settings().minutos||20,id=newId('s'),now=Date.now();
-  S.sessions[id]={id:id,date:S.today,qid:q.id,qtext:q.texto,area:q.area,min:min,steps:stepsFor(min),step:0,createdAt:now,updatedAt:now};
-  save('sessions',id);S.run=id;renderNow();window.scrollTo(0,0);
+function defaultTipo(){
+  var st=settings();
+  if(parse(S.today).getDay()===+st.diaLibre){if(freshNov().length)return 'novedad';if(activeQs().length)return 'pregunta'}
+  if(rutaList().length&&curBlock())return 'ruta';
+  return activeQs().length?'pregunta':'ruta';
+}
+function startSession(opt){
+  if(!canW())return false;
+  opt=opt||{};
+  var tipo=opt.tipo||S.pickTipo||defaultTipo(),min=S.pickMin||settings().minutos||20,id=newId('s'),now=Date.now();
+  var s={id:id,tipo:tipo,date:S.today,min:min,steps:stepsFor(min),step:0,createdAt:now,updatedAt:now};
+  if(tipo==='ruta'){
+    var ci=cIndex()[opt.cid||S.pickC]||null;
+    if(!ci){var cb=curBlock(),nc=nextConcept(cb);if(nc)ci={c:nc,b:cb}}
+    if(!ci){toast('No hay ningún concepto pendiente en tu ruta.');return false}
+    Object.assign(s,{cid:ci.c.id,bid:ci.b.id,ctitulo:ci.c.t,qtext:ci.c.q,area:ci.c.area||'gobernanza'});
+  }else if(tipo==='novedad'){
+    var n=S.novedades[opt.nid||S.pickN]||freshNov()[0];
+    if(!n){toast('No hay novedades pendientes de estudiar.');return false}
+    var r0=S.radar[arr(n.normas)[0]];
+    Object.assign(s,{nid:n.id,qtext:n.titulo,area:(r0&&arr(r0.procesos)[0])||'gobernanza'});
+  }else{
+    var qs=activeQs(),q=S.questions[opt.qid||S.pickQ]||qs[0];
+    if(!q){location.hash='#cuaderno';return false}
+    Object.assign(s,{tipo:'pregunta',qid:q.id,qtext:q.texto,area:q.area});
+  }
+  S.sessions[id]=s;save('sessions',id);S.run=id;S.exam=null;renderNow();window.scrollTo(0,0);
+  return true;
 }
 function nextStep(id){var s=S.sessions[id];if(!s)return;put('sessions',id,{step:Math.min(s.step+1,s.steps.length-1)});renderNow();window.scrollTo(0,0)}
 function fieldVal(id){var el=$(id);return el?el.value.trim():''}
@@ -549,11 +690,62 @@ function finishSession(id){
     save('hooks',hid);
   }
   setDraft('hook-'+id,'');
-  put('sessions',id,{hook:str(hook,300),done:true,doneAt:now});
+  var ap=apuntesOf(Object.assign({},s,{hook:str(hook,300)}));
+  put('sessions',id,{hook:str(hook,300),done:true,doneAt:now,apuntes:ap});
   var d=S.days[S.today]||{};markDay({sesion:true,min:(d.min||0)+(s.min||20)});
   if(S.questions[s.qid])put('questions',s.qid,{sesiones:(S.questions[s.qid].sesiones||0)+1});
+  var msg='Sesión guardada. Mañana a las '+settings().hora+', la siguiente.';
+  if(s.tipo==='ruta'&&s.cid){
+    var prev=cState(s.cid),u=umbral(),est=(s.score!=null&&s.score>=u)?'dominado':(prev==='dominado'?'dominado':'visto');
+    setMapa(s.cid,{estado:est,bid:s.bid,sesiones:((S.mapa[s.cid]||{}).sesiones||0)+1,nota:s.score,hueco:huecoOf(s.rebuildFb),apuntes:ap,ultima:S.today,via:'sesion'});
+    var b=S.ruta[s.bid];
+    msg=est==='dominado'?'Concepto dominado: '+(s.ctitulo||'')+'.':'Concepto visto. Para darlo por dominado necesitas un '+u+' en el caso o en el examen del bloque.';
+    if(b&&blockReady(b)&&!bDone(b.id))msg+=' Ya has visto todo el bloque: toca el examen.';
+  }
   S.run=null;renderNow();window.scrollTo(0,0);
-  toast('Sesión guardada. Mañana a las '+settings().hora+', la siguiente.');
+  toast(msg);
+}
+
+/* ---------- acciones: examen de bloque y «ya lo sé» ---------- */
+function openExam(bid){if(!S.ruta[bid])return;S.exam=bid;S.run=null;if(location.hash!=='#hoy')location.hash='#hoy';else renderNow();window.scrollTo(0,0)}
+async function examGen(bid){
+  if(!canW())return;var b=S.ruta[bid];if(!b)return;
+  var t=await ask('exam:'+bid,examPrompt(b));
+  if(t!=null)setBloque(bid,{examen:{d:S.today,texto:t}});
+  renderNow();
+}
+async function examSend(bid){
+  if(!canW())return;var b=S.ruta[bid],bl=S.bloques[bid]||{};if(!b||!bl.examen)return;
+  var v=fieldVal('exam-'+bid);if(!v){toast('Escribe tus respuestas antes de entregar.');return}
+  var c=$('conf-exam-'+bid),conf=c?+c.value:5;
+  setBloque(bid,{examenAns:v,examenConf:conf});setDraft('exam-'+bid,'');setDraft('conf-exam-'+bid,'');
+  var t=await ask('examg:'+bid,examGradePrompt(b,bl.examen.texto,v,conf));
+  if(t!=null){
+    var nota=numOf(t,'NOTA'),rep=repasarOf(t,b),u=umbral(),ok=nota!=null&&nota>=u;
+    var hist=arr((S.bloques[bid]||{}).examenes).concat([{d:S.today,ex:bl.examen.texto,ans:v,fb:t,nota:nota,conf:conf,repasar:rep}]).slice(-6);
+    var patch={examenes:hist,examen:null,examenAns:null,ultimaNota:nota};
+    if(ok){patch.estado='superado';patch.superadoEl=S.today}
+    setBloque(bid,patch);
+    b.conceptos.forEach(function(cc){if(rep.indexOf(cc.id)>=0)setMapa(cc.id,{estado:'repasar',bid:bid});else if(ok&&cState(cc.id)!=='dominado')setMapa(cc.id,{estado:'dominado',bid:bid,via:'examen'})});
+    var d=S.days[S.today]||{};markDay({sesion:true,min:(d.min||0)+25});
+    toast(ok?'Bloque superado. Se desbloquea el siguiente.':'Aún no: refuerza los conceptos marcados y vuelve a examinarte.');
+  }
+  renderNow();
+}
+async function doKnew(cid){
+  if(!canW())return;var ci=cIndex()[cid];if(!ci)return;
+  var v=fieldVal('knew-'+cid);if(!v){toast('Escribe tu respuesta.');return}
+  setDraft('knew-'+cid,'');
+  var t=await ask('knew:'+cid,knewPrompt(ci.b,ci.c,v));
+  if(t!=null){
+    var nota=numOf(t,'NOTA'),ok=nota!=null&&nota>=umbral(),prev=S.mapa[cid]||{};
+    var patch={bid:ci.b.id,checkFb:t,checkNota:nota,checkAns:v};
+    if(ok){patch.estado='dominado';patch.via='ya-lo-se';patch.nota=nota}
+    setMapa(cid,patch);
+    S.checkC=null;S.openC=cid;
+    toast(ok?'Comprobado: lo das por dominado.':'Todavía no llega al '+umbral()+': mejor estudiarlo en una sesión.');
+  }
+  renderNow();
 }
 
 /* ---------- acciones: puerta, domingo, cuaderno ---------- */
@@ -617,10 +809,12 @@ function setQState(qid,estado){
   if(estado==='activa'&&activeQs().length>=MAX_ACTIVE){toast('Ya tienes '+MAX_ACTIVE+' preguntas activas. Pausa una antes.');return}
   put('questions',qid,{estado:estado});renderNow();
 }
+function setExamMode(on){if(!canW())return;S.meta.settings=Object.assign({},settings(),{examenes:!!on,updatedAt:Date.now()});save('meta','settings');S.forceSession=false;toast(on?'Modo exámenes activado: con la puerta basta.':'Modo exámenes desactivado.');renderNow()}
 function saveSettings(){
   if(!canW())return;
   var h=fieldVal('set-hora')||DEF_SET.hora,m=+(($('set-min')||{}).value||20);
-  S.meta.settings=Object.assign({},settings(),{hora:h,ancla:fieldVal('set-ancla')||DEF_SET.ancla,puerta:fieldVal('set-puerta')||DEF_SET.puerta,minutos:[20,30,45].indexOf(m)>=0?m:20,updatedAt:Date.now()});
+  var u=+(($('set-umbral')||{}).value||7),dl=+(($('set-libre')||{}).value);
+  S.meta.settings=Object.assign({},settings(),{hora:h,ancla:fieldVal('set-ancla')||DEF_SET.ancla,puerta:fieldVal('set-puerta')||DEF_SET.puerta,minutos:[20,30,45].indexOf(m)>=0?m:20,umbral:u>=5&&u<=9?u:7,diaLibre:dl>=0&&dl<=6?dl:-1,examenes:!!($('set-exam')||{}).checked,updatedAt:Date.now()});
   save('meta','settings');toast('Ajustes guardados.');renderNow();
 }
 
@@ -651,6 +845,7 @@ function heroHtml(){
   else if(d.puerta){t='Puerta cruzada';sub='Con esto el día ya cuenta. Si tienes '+st.minutos+' minutos, sigue con la sesión.'}
   else if(hm>=st.hora){t='Es tu hora';sub='Son más de las '+st.hora+'. Empieza por la puerta: 2 minutos.'}
   else{t='Hoy a las '+st.hora;sub=st.ancla+' → '+st.puerta+'.'}
+  if(loaded()&&st.examenes&&!s&&!d.puerta)sub='Modo exámenes: con la puerta de 2 minutos el día cuenta.';
   if(loaded()&&isSunday()&&!d.domingo)sub+=' Hoy toca la prueba del domingo.';
   return '<section class="hero" aria-live="polite">'+ring(done,tot)+'<div class="heroText"><h2>'+esc(t)+'</h2><p>'+esc(sub)+'</p></div></section>';
 }
@@ -678,6 +873,8 @@ function gateHtml(){
     else body+='<p class="reveal"><span class="kicker">Tu gancho del '+esc(fmtShort(h.fecha))+'</span><br>'+esc(h.texto)+'</p><p class="muted small">¿Lo tenías?</p><div class="actions"><button type="button" class="btn" data-act="gate-rate" data-id="'+h.id+'" data-v="si">Lo tenía</button><button type="button" class="btn ghost" data-act="gate-rate" data-id="'+h.id+'" data-v="medio">A medias</button><button type="button" class="btn ghost" data-act="gate-rate" data-id="'+h.id+'" data-v="no">No lo tenía</button></div>';
     return '<section class="card focus">'+head+'Recupera un gancho</h3></div></div>'+body+'</section>';
   }
+  var nc=nextConcept(curBlock());
+  if(nc)return '<section class="card focus">'+head+'¿Qué sabes ya?</h3></div></div><p class="task">Sin mirar nada, escribe en dos líneas lo que crees que responde la ley a: <b>'+esc(nc.q)+'</b></p><p class="muted small">Es el próximo concepto de tu ruta. Equivocarte ahora ayuda a fijarlo después.</p>'+ta('gate-ans','Lo que sé ahora',3)+'<div class="actions"><button type="button" class="btn" data-act="gate-prev">Cruzar la puerta</button></div></section>';
   if(!qs.length){
     var opts=Object.keys(AREAS).map(function(k){return '<option value="'+k+'">'+esc(AREAS[k])+'</option>'}).join('');
     return '<section class="card focus">'+head+'Escribe una pregunta que de verdad quieras responder</h3></div></div><p class="muted small">Sobre IA, automatización o datos en una empresa. Una pregunta es donde aterriza todo lo que aprendas después.</p>'
@@ -697,20 +894,50 @@ function sundayHtml(){
   h+='<div class="actions">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="sunday">Enviar a comprobar</button>')+'</div>';
   return h+'</section>';
 }
+function pickRow(act,id,on,title,meta){return '<li class="q'+(on?' pick':'')+'"><button type="button" class="pickRow" data-act="'+act+'" data-id="'+esc(id)+'" aria-pressed="'+on+'"><span class="radio'+(on?' on':'')+'"></span><span><span class="qText">'+esc(title)+'</span>'+(meta?'<br>'+meta:'')+'</span></button></li>'}
+function bkBadges(ids){var cb=curBlock();return ids.map(function(bid){var b=S.ruta[bid];return '<span class="bk'+(bDone(bid)?' ok':(cb&&cb.id===bid?' cur':''))+'" title="'+esc(b?b.titulo:bid)+'">'+esc(b?bNum(b):bid)+'</span>'}).join('')}
+function pathHtml(){var r=rutaList();if(!r.length)return '';return '<p class="pathline"><span>Ruta:</span>'+bkBadges(r.map(function(b){return b.id}))+'</p>'}
+function conceptPicker(b){
+  var sel=S.pickC&&b.conceptos.some(function(c){return c.id===S.pickC})?S.pickC:((nextConcept(b)||b.conceptos[0]).id);
+  var lab={nuevo:'Sin ver',visto:'Visto',repasar:'A reforzar',dominado:'Dominado'};
+  return '<ul class="qlist">'+b.conceptos.map(function(c){var st=cState(c.id);return pickRow('pickc',c.id,c.id===sel,c.t,'<span class="tag">'+esc(lab[st])+'</span>')}).join('')+'</ul>';
+}
 function sessionCardHtml(){
-  var st=settings(),open=openSession(),ts=todaySession(),qs=activeQs();
+  var st=settings(),open=openSession(),ts=todaySession();
   if(!loaded())return '<section class="card"><p class="kicker">Sesión · 5 movimientos</p><p class="muted">Cargando…</p></section>';
   var h='<section class="card"><div class="cardHead"><div><p class="kicker">Sesión · 5 movimientos</p><h3>';
   if(open){
-    return h+'Tienes una sesión a medias</h3></div>'+pill(fmtShort(open.date),'now')+'</div><p class="task">'+esc(open.qtext)+'</p><p class="muted small">Paso '+(open.step+1)+' de '+open.steps.length+': '+esc(STEP[open.steps[open.step]].n)+'.</p><div class="actions"><button type="button" class="btn" data-act="resume" data-id="'+open.id+'">Continuar</button></div></section>';
+    return h+'Tienes una sesión a medias</h3></div>'+pill(fmtShort(open.date),'now')+'</div><p class="task">'+esc(open.ctitulo||open.qtext)+'</p><p class="muted small">Paso '+(open.step+1)+' de '+open.steps.length+': '+esc(STEP[open.steps[open.step]].n)+'.</p><div class="actions"><button type="button" class="btn" data-act="resume" data-id="'+open.id+'">Continuar</button></div></section>';
   }
-  if(!qs.length)return h+'Primero, tus preguntas</h3></div></div><p class="task">Cada sesión trabaja una pregunta de tu cuaderno. Elige o escribe hasta '+MAX_ACTIVE+'.</p><div class="actions"><a class="btn" href="#cuaderno">Abrir el cuaderno</a></div></section>';
-  var min=S.pickMin||st.minutos,pq=S.questions[S.pickQ]&&S.questions[S.pickQ].estado==='activa'?S.pickQ:qs[0].id;
+  if(st.examenes&&!S.forceSession)return h+'Modo exámenes</h3></div></div><p class="task">Época de exámenes: con la puerta de 2 minutos el día cuenta y la ruta te espera donde la dejaste.</p><div class="actions"><button type="button" class="btn ghost" data-act="force-session">Hacer una sesión igualmente</button></div></section>';
+  var tipo=S.pickTipo||defaultTipo(),min=S.pickMin||st.minutos,cb=curBlock(),canStart=true;
   h+=(ts&&ts.done?'Hoy ya has hecho una. ¿Otra?':'Sesión de hoy')+'</h3></div></div>';
-  h+='<div class="field"><span>Duración</span><div class="chips">'+[20,30,45].map(function(m){return '<button type="button" class="chip" data-act="min" data-v="'+m+'" aria-pressed="'+(m===min)+'">'+m+' min</button>'}).join('')+'</div></div>';
-  h+='<p class="muted small">'+stepsFor(min).map(function(k){return STEP[k].n}).join(' → ')+'</p>';
-  h+='<div class="field"><span>Pregunta</span><ul class="qlist">'+qs.map(function(q){var on=q.id===pq;return '<li class="q'+(on?' pick':'')+'"><button type="button" class="pickRow" data-act="pickq" data-id="'+q.id+'" aria-pressed="'+on+'"><span class="radio'+(on?' on':'')+'"></span><span><span class="qText">'+esc(q.texto)+'</span><br>'+areaTag(q.area)+'</span></button></li>'}).join('')+'</ul></div>';
-  h+='<div class="actions"><button type="button" class="btn" data-act="start">Empezar sesión</button></div>';
+  h+='<div class="seg3" role="group" aria-label="Tipo de sesión">'+[['ruta','Ruta'],['pregunta','Mi pregunta'],['novedad','Actualidad']].map(function(x){return '<button type="button" data-act="tipo" data-v="'+x[0]+'" aria-pressed="'+(tipo===x[0])+'">'+x[1]+'</button>'}).join('')+'</div>';
+  if(tipo==='ruta'){
+    if(!rutaList().length){h+='<p class="muted small">La ruta se está cargando.</p>';canStart=false}
+    else if(!cb){h+='<p class="task">Has completado la primera vuelta. Repasa conceptos desde el Mapa o trabaja tus preguntas.</p>';canStart=false}
+    else{
+      h+=pathHtml()+'<p class="small"><b>Bloque '+esc(bNum(cb))+' · '+esc(cb.titulo)+'</b> <span class="muted">('+blockCount(cb)+'/'+cb.conceptos.length+' dominados)</span></p>';
+      var bl=S.bloques[cb.id]||{};
+      if(blockReady(cb)||bl.examen)h+='<p class="task">'+(bl.examen?'Tienes el examen del bloque a medias.':'Has visto todos los conceptos del bloque: toca el examen para pasar al siguiente.')+'</p><div class="actions"><button type="button" class="btn" data-act="exam-open" data-id="'+esc(cb.id)+'">'+(bl.examen?'Continuar el examen':'Hacer el examen (≈ 25 min)')+'</button></div><p class="muted small">O repasa un concepto antes:</p>';
+      h+=conceptPicker(cb);
+    }
+  }else if(tipo==='pregunta'){
+    var qs=activeQs();
+    if(!qs.length){h+='<p class="task">Aún no tienes preguntas activas.</p><div class="actions"><a class="btn ghost" href="#cuaderno">Abrir el cuaderno</a></div>';canStart=false}
+    else{var pq=S.questions[S.pickQ]&&S.questions[S.pickQ].estado==='activa'?S.pickQ:qs[0].id;
+      h+='<ul class="qlist">'+qs.map(function(q){var bl=qBloques(q);return pickRow('pickq',q.id,q.id===pq,q.texto,areaTag(q.area)+(bl.length?' <span class="pathline">Necesita '+bkBadges(bl)+'</span>':''))}).join('')+'</ul>';}
+  }else{
+    var nv=freshNov();
+    if(!nv.length){h+='<p class="task">No hay novedades sin estudiar.'+((S.meta.radar||{}).proxima?' La próxima revisión del radar es el '+esc(fmtDate(S.meta.radar.proxima))+'.':'')+'</p>';canStart=false}
+    else{var pn=S.novedades[S.pickN]&&nv.indexOf(S.novedades[S.pickN])>=0?S.pickN:nv[0].id;
+      h+='<p class="muted small">Sesiones para entender lo que acaba de cambiar, a tu nivel.</p><ul class="qlist">'+nv.slice(0,6).map(function(n){return pickRow('pickn',n.id,n.id===pn,n.titulo,'<span class="tag">'+esc(fmtShort(n.fecha))+' · '+esc(JURIS[n.juris]||n.juris||'')+'</span>')}).join('')+'</ul>';}
+  }
+  if(canStart){
+    h+='<div class="field"><span>Duración</span><div class="chips">'+[20,30,45].map(function(m){return '<button type="button" class="chip" data-act="min" data-v="'+m+'" aria-pressed="'+(m===min)+'">'+m+' min</button>'}).join('')+'</div></div>';
+    h+='<p class="muted small">'+stepsFor(min).map(function(k){return STEP[k].n}).join(' → ')+'</p>';
+    h+='<div class="actions"><button type="button" class="btn" data-act="start">Empezar sesión</button></div>';
+  }
   if(S.ai==='off')h+='<p class="muted small">Claude no está disponible en esta vista: la ficha y las correcciones necesitan Claude.</p>';
   return h+'</section>';
 }
@@ -720,10 +947,11 @@ function radarTeaser(){
   var h='<section class="card"><div class="cardHead"><p class="kicker">Radar regulatorio</p><a class="link" href="#radar">Ver radar</a></div>';
   if(up)h+='<p class="small"><span class="mono">'+esc(fmtDate(up.f))+'</span> · '+esc(up.t)+' <span class="muted">('+esc(up.r.corto||up.r.titulo)+')</span></p>';
   if(n)h+='<p class="small"><b>Novedad:</b> '+esc(n.titulo)+'</p>';
+  var fn=freshNov().length;if(fn)h+='<p class="small">'+fn+(fn===1?' novedad sin estudiar. ':' novedades sin estudiar. ')+'<button type="button" class="link" data-act="tipo" data-v="novedad">Sesión de actualidad</button></p>';
   if(m&&m.ultimaRevision)h+='<p class="muted small">Revisado el '+esc(fmtDate(m.ultimaRevision))+'.</p>';
   return h+'</section>';
 }
-function planCardHtml(){var st=settings();return '<section class="card"><p class="kicker">Tu hora y tu lugar</p><p class="plan"><span class="cue">'+esc(st.ancla)+'</span><span class="arr" aria-hidden="true">→</span><span>'+esc(st.puerta)+'</span></p><p class="muted small">Sesión de '+st.minutos+' minutos. '+st.minutos+' minutos al día suman unas '+Math.round(st.minutos*365/60)+' horas al año. <a href="#progreso">Cambiar</a></p></section>'}
+function planCardHtml(){var st=settings();return '<section class="card"><p class="kicker">Tu hora y tu lugar</p><p class="plan"><span class="cue">'+esc(st.ancla)+'</span><span class="arr" aria-hidden="true">→</span><span>'+esc(st.puerta)+'</span></p><p class="muted small">Sesión de '+st.minutos+' minutos. '+st.minutos+' minutos al día suman unas '+Math.round(st.minutos*365/60)+' horas al año. <a href="#progreso">Cambiar</a></p><div class="swRow"><span class="small">Modo exámenes: '+(st.examenes?'<b>activado</b> (con la puerta basta)':'desactivado')+'</span><button type="button" class="chip" data-act="exam-mode" aria-pressed="'+!!st.examenes+'">'+(st.examenes?'Desactivar':'Activar')+'</button></div></section>'}
 function methodHtml(){
   return '<details class="how"><summary>Por qué funciona así</summary><ol>'
   +'<li><b>Sentir que aprendes no es aprender.</b> En un estudio de Harvard (Deslauriers y cols., 2019), los alumnos creían aprender más con clases pulidas, pero sacaban mejores notas con aprendizaje activo. Aquí siempre produces algo, y el esfuerzo es buena señal.</li>'
@@ -735,12 +963,36 @@ function methodHtml(){
   +'<li><b>Profundidad, no picoteo.</b> «Estar en todas partes es no estar en ninguna» (Séneca). Una pregunta, una ficha y un texto oficial por sesión.</li>'
   +'<li><b>El conocimiento se acumula.</b> Lo que ya sabes decide cuánto entiendes de lo nuevo (Recht y Leslie, 1988; efecto Mateo). Tus ganchos vuelven en la puerta a los 1, 3, 7 y 16 días, y Claude conecta cada ficha con ellos. Las primeras semanas son las más caras.</li>'
   +'<li><b>Sin puntos ni premios.</b> Premiar una actividad que ya interesa reduce las ganas de hacerla (efecto de sobrejustificación; Lepper, Greene y Nisbett, 1973). Aquí solo ves información sobre lo que sabes. La curiosidad pone al cerebro en modo aprender (Gruber, Gelman y Ranganath, 2014).</li>'
+  +'<li><b>Primero la base, luego en espiral.</b> Quien empieza aprende mejor con explicaciones ordenadas y ejemplos resueltos que resolviendo problemas a ciegas (Kirschner, Sweller y Clark, 2006). Lo nuevo se ancla en lo que ya sabes (Ausubel), así que la ruta va en orden y solo avanzas al dominar cada bloque (Bloom). Después se repite todo más a fondo. Tus preguntas siguen mandando: cada una es el caso final del último bloque que necesita.</li>'
   +'<li><b>Lo que cambia es la ley.</b> El radar se revisa cada semana y Claude usa ese estado verificado para fechas y vigencia. Así es más difícil que te cuelen una afirmación falsa.</li>'
   +'</ol><blockquote>La mente no es un vaso que haya que llenar, sino leña que hay que encender. — Plutarco</blockquote></details>';
 }
 /* Si una pieza falla, se avisa en su sitio y el resto de la pantalla sigue funcionando. */
 function safe(fn){try{return fn()}catch(e){try{console.error(e)}catch(_){}return '<p class="notice">No se ha podido mostrar esta parte ('+esc(e&&e.message||e)+'). Tus datos están guardados; recarga la página.</p>'}}
+function examHtml(bid){
+  var b=S.ruta[bid];if(!b)return '<p class="empty">No encuentro ese bloque.</p>';
+  var bl=S.bloques[bid]||{},busyG=S.busy==='exam:'+bid,busyS=S.busy==='examg:'+bid,ex=arr(bl.examenes),last=ex[ex.length-1];
+  var h='<section class="runHead"><div><p class="eyebrow">Examen · bloque '+esc(bNum(b))+'</p><h2>'+esc(b.titulo)+'</h2></div><button type="button" class="link" data-act="exam-close">Salir</button></section><article class="card focus">';
+  if(bl.examen){
+    var cv=getDraft('conf-exam-'+bid)||'5';
+    h+='<div class="prose">'+md(bl.examen.texto)+'</div>'+ta('exam-'+bid,'Tus respuestas (numéralas igual que las preguntas)',14,busyS?bl.examenAns:null,busyS);
+    if(!busyS)h+='<label class="field" for="conf-exam-'+bid+'"><span>Antes de entregar: ¿qué nota crees que vas a sacar? <b class="mono" id="confv">'+esc(cv)+'</b>/10</span><input type="range" id="conf-exam-'+bid+'" data-draft min="0" max="10" step="1" value="'+esc(cv)+'"></label>';
+    if(busyS)h+=streamHtml('Corrigiendo tu examen…');
+    h+='<div class="actions">'+(busyS?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="exam-send" data-id="'+esc(bid)+'">Entregar</button>')+'</div>';
+  }else{
+    if(last)h+='<p class="kicker">Último intento · '+esc(fmtShort(last.d))+'</p><article class="msg ai">'+md(clean(last.fb))+'<p class="grade">'+(last.nota!=null?'<span class="score">'+fmtNum(last.nota,1)+'/10</span>':'')+(bDone(bid)?pill('Bloque superado','ok'):pill('Por superar','warn'))+'</p></article>'
+      +(arr(last.repasar).length?'<p class="calib">A reforzar: '+arr(last.repasar).map(function(id){var ci=cIndex()[id];return esc(ci?ci.c.t:id)}).join(', ')+'. Haz una sesión de repaso de cada uno y vuelve a examinarte.</p>':'');
+    if(!bDone(bid)){
+      var ready=blockReady(b);
+      h+='<p class="task">'+b.conceptos.length+' conceptos, unos 25 minutos y sin apuntes. Se supera con un '+umbral()+'.</p>';
+      if(busyG)h+=streamHtml('Preparando el examen…');
+      h+='<div class="actions">'+(busyG?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':(ready?'<button type="button" class="btn" data-act="exam-gen" data-id="'+esc(bid)+'">'+(last?'Preparar otro examen':'Preparar el examen')+'</button>':'<p class="muted small">Antes, repasa los conceptos marcados en el Mapa.</p>'))+'</div>';
+    }
+  }
+  return h+'</article>';
+}
 function hoyHtml(){
+  if(S.exam&&S.ruta[S.exam])return safe(function(){return examHtml(S.exam)});
   if(S.run&&okSession(S.sessions[S.run])&&!S.sessions[S.run].done)return safe(function(){return runHtml(S.sessions[S.run])});
   return [heroHtml,stripHtml,sundayHtml,gateHtml,sessionCardHtml,radarTeaser,planCardHtml,methodHtml].map(safe).join('');
 }
@@ -810,21 +1062,74 @@ function stepBody(s,k){
     if(s.humoScore!=null)rows.push(['Detector de humo',fmtNum(s.humoScore,1)+'/10']);
     if(s.teachFb)rows.push(['Explicación',s.ready?'Lista':'Por revisar']);
     var sum=rows.length?'<ul class="sumList">'+rows.map(function(r){return '<li><span>'+esc(r[0])+'</span><span class="mono">'+esc(r[1])+'</span></li>'}).join('')+'</ul>':'';
+    var ap=apuntesOf(s);if(ap)sum+='<p class="kicker">Tus apuntes de hoy</p><div class="apuntes prose">'+md(ap)+'</div><p class="muted small">Se guardan solos junto con tu gancho: no hace falta tomarlos a mano. Los tienes en el Mapa y en el Historial para copiarlos.</p>';
     return sum+'<label class="field" for="hook-'+s.id+'"><span>Tu gancho de hoy: la idea en una frase, con tus palabras</span><input type="text" id="hook-'+s.id+'" data-draft maxlength="300" autocomplete="off" value="'+esc(getDraft('hook-'+s.id))+'"></label><p class="muted small">Volverá a la puerta mañana y, si la recuerdas, a los 3, 7 y 16 días.</p><div class="actions"><button type="button" class="btn" data-act="finish" data-id="'+s.id+'">Terminar sesión</button></div>';
   }
   return '';
 }
 function runHtml(s){
   var k=s.steps[s.step];
-  return '<section class="runHead"><div><p class="eyebrow">Sesión de '+s.min+' min · '+esc(AREAS[s.area]||'')+'</p><h2>'+esc(s.qtext)+'</h2></div><button type="button" class="link" data-act="leave">Salir</button></section>'
+  var ci=s.tipo==='ruta'?cIndex()[s.cid]:null,lab=ci?'Ruta · bloque '+bNum(ci.b)+' · '+ci.c.t:s.tipo==='novedad'?'Actualidad':(AREAS[s.area]||'');
+  return '<section class="runHead"><div><p class="eyebrow">Sesión de '+s.min+' min · '+esc(lab)+'</p><h2>'+esc(s.qtext)+'</h2></div><button type="button" class="link" data-act="leave">Salir</button></section>'
     +stepperHtml(s)+'<article class="card focus"><p class="kicker">'+esc(STEP[k].move)+' · ≈ '+STEP[k].min+' min</p>'+stepBody(s,k)+'</article>'
     +'<p class="muted small">Todo se guarda solo: puedes salir y continuar más tarde.</p>';
+}
+
+/* ---------- vista: Mapa ---------- */
+function apuntesFor(cid){var m=S.mapa[cid];if(m&&m.apuntes)return m.apuntes;var s=doneSessions().filter(function(x){return x.cid===cid})[0];return s?(s.apuntes||apuntesOf(s)):''}
+function conceptRow(b,c){
+  var st=cState(c.id),m=S.mapa[c.id]||{},ap=apuntesFor(c.id);
+  var lab={nuevo:'Sin ver',visto:'Visto',repasar:'A reforzar',dominado:m.via==='ya-lo-se'?'Dominado (ya lo sabías)':'Dominado'}[st];
+  var h='<li class="con"><span class="cdot '+st+'" aria-hidden="true"></span><span class="cT"><b>'+esc(c.t)+'</b><span>'+esc(lab)+(m.nota!=null?' · '+fmtNum(m.nota,1)+'/10':'')+(c.art?' · '+esc(c.art):'')+'</span></span>';
+  if(S.checkC===c.id){
+    var busy=S.busy==='knew:'+c.id;
+    h+='<div class="cBody"><p class="task">Responde sin mirar: <b>'+esc(c.q)+'</b></p>'+ta('knew-'+c.id,'Tu respuesta',4,null,busy)+(busy?streamHtml():'')
+      +'<div class="actions">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="knew-send" data-id="'+esc(c.id)+'">Comprobar</button><button type="button" class="link" data-act="knew" data-id="">Cancelar</button>')+'</div></div>';
+  }else if(S.openC===c.id){
+    h+='<div class="cBody">'+(ap?'<div class="apuntes prose">'+md(ap)+'</div>':'')+(m.checkFb?'<p class="kicker">Comprobación «ya lo sé»</p><article class="msg ai">'+md(clean(m.checkFb))+'</article>':'')
+      +(ap?'<div class="actions"><button type="button" class="link" data-act="copy-c" data-id="'+esc(c.id)+'">Copiar apuntes</button></div>'+copyBoxHtml('c-'+c.id):'')+'</div>';
+  }
+  if(S.checkC!==c.id){
+    h+='<div class="cAct"><button type="button" class="link" data-act="study-c" data-id="'+esc(c.id)+'">'+(st==='nuevo'?'Estudiar':'Repasar')+'</button>'
+      +(st!=='dominado'?'<button type="button" class="link" data-act="knew" data-id="'+esc(c.id)+'">Ya lo sé</button>':'')
+      +((ap||m.checkFb)?'<button type="button" class="link" data-act="open-c" data-id="'+esc(c.id)+'">'+(S.openC===c.id?'Ocultar':'Apuntes')+'</button>':'')+'</div>';
+  }
+  return h+'</li>';
+}
+function blockHtml(b){
+  var done=bDone(b.id),cb=curBlock(),cur=!!cb&&cb.id===b.id,n=blockCount(b),bl=S.bloques[b.id]||{},ex=arr(bl.examenes),last=ex[ex.length-1];
+  var open=S.openBlk[b.id]!=null?S.openBlk[b.id]:cur;
+  var h='<details class="blk'+(cur?' cur':done?' ok':'')+'" data-id="'+esc(b.id)+'"'+(open?' open':'')+'><summary><span class="bn">'+esc(bNum(b))+'</span><span class="bT"><b>'+esc(b.titulo)+'</b><span>'+n+' de '+b.conceptos.length+' dominados · ≈ '+esc(b.semanas||1)+(b.semanas>1?' semanas':' semana')+'</span></span>'+(done?pill('Superado','ok'):cur?pill('En curso','now'):pill('Más adelante'))+'</summary>';
+  if(b.objetivo)h+='<p class="small muted">'+esc(b.objetivo)+'</p>';
+  h+='<ul class="cons">'+b.conceptos.map(function(c){return conceptRow(b,c)}).join('')+'</ul><div class="regFoot">';
+  if(done)h+='<span>Superado el '+esc(fmtDate(bl.superadoEl||S.today))+(bl.ultimaNota!=null?' con un '+fmtNum(bl.ultimaNota,1):'')+'.</span>';
+  else if(blockReady(b)||bl.examen)h+='<button type="button" class="btn" data-act="exam-open" data-id="'+esc(b.id)+'">'+(bl.examen?'Continuar el examen':last?'Volver a examinarme':'Hacer el examen del bloque')+'</button>';
+  else h+='<span>Examen: cuando hayas visto todos los conceptos'+(last&&last.nota!=null?' (último intento: '+fmtNum(last.nota,1)+')':'')+'.</span>';
+  if(last)h+='<button type="button" class="link" data-act="exam-open" data-id="'+esc(b.id)+'">Ver la última corrección</button>';
+  if(b.conceptos.some(function(c){return apuntesFor(c.id)}))h+='<button type="button" class="link" data-act="copy-blk" data-id="'+esc(b.id)+'">Copiar apuntes del bloque</button>';
+  return h+'</div>'+copyBoxHtml('blk-'+b.id)+'</details>';
+}
+function horizonteHtml(){
+  return '<section class="card"><h3>Horizonte</h3><ul class="sumList">'
+    +'<li><span><b>Vuelta 1 · Base y procesos.</b> <span class="muted">Bloques 0 a 9 en orden, hasta mediados de 2027 con pausas en exámenes.</span></span></li>'
+    +'<li><span><b>Vuelta 2 · Profundidad.</b> <span class="muted">Los mismos bloques más a fondo y por sectores: finanzas y seguros, salud, sector público, contratos de IA, evaluaciones de impacto reales, propiedad intelectual. Más lecturas en inglés.</span></span></li>'
+    +'<li><span><b>Vuelta 3 · Práctica y acreditación.</b> <span class="muted">Casos completos, un portafolio con lo que hayas explicado en público y, si encaja, certificaciones como CIPP/E o AIGP de la IAPP. Lo exploraremos cuando llegue.</span></span></li>'
+    +'</ul></section>';
+}
+function mapaHtml(){
+  var r=rutaList(),cb=curBlock(),tot=0,dom=0;r.forEach(function(b){tot+=b.conceptos.length;dom+=blockCount(b)});
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Ruta · vuelta 1</p><h2>Mapa del sector</h2><p>'+(r.length?(cb?'Bloque actual: '+esc(bNum(cb))+' · '+esc(cb.titulo)+'. ':'Primera vuelta completada. ')+dom+' de '+tot+' conceptos dominados.':'Cargando la ruta…')+'</p></div></section>';
+  if(!r.length)return h+'<p class="empty">La ruta todavía no se ha cargado.</p>';
+  h+='<div class="bar" aria-hidden="true"><u style="width:'+(tot?Math.round(dom/tot*100):0)+'%"></u></div>';
+  h+='<p class="muted small">Ordenada por lo que necesita cada tema: cada bloque usa lo anterior. Pasas al siguiente al superar el examen del bloque con un '+umbral()+'. Lo que ya sepas, márcalo con «Ya lo sé» y se comprueba con una pregunta.</p>';
+  return h+r.map(blockHtml).join('')+horizonteHtml();
 }
 
 /* ---------- vista: Cuaderno ---------- */
 function qItem(q){
   var hooks=hookList().filter(function(h){return h.qid===q.id}).length,last=arr(q.checks)[arr(q.checks).length-1];
   var h='<li class="q"><p class="qText">'+esc(q.texto)+'</p><div class="qMeta">'+areaTag(q.area)+'<span>'+(q.sesiones||0)+(q.sesiones===1?' sesión':' sesiones')+'</span><span>'+hooks+(hooks===1?' gancho':' ganchos')+'</span>'+(q.estado==='respondida'?pill('Respondida','ok'):'')+(last&&last.nota!=null?'<span class="mono">última prueba '+fmtNum(last.nota,1)+'/10</span>':'')+'</div>';
+  var qb=qBloques(q);if(qb.length&&rutaList().length)h+='<p class="pathline">Necesita los bloques '+bkBadges(qb)+(qb.every(bDone)?' · ya tienes la base para trabajarla a fondo':' · será el caso final del bloque '+esc(bNum(S.ruta[qb[qb.length-1]])))+'</p>';
   if(S.checkQ===q.id){
     var busy=S.busy==='check:'+q.id;
     h+=ta('chk-'+q.id,'Respóndela sin mirar nada',6,null,busy)+(busy?streamHtml():'')+'<div class="qAct">'+(busy?'<button type="button" class="btn ghost" data-act="stop">Parar</button>':'<button type="button" class="btn" data-act="check-send" data-id="'+q.id+'">Comprobar</button><button type="button" class="link" data-act="check" data-id="">Cancelar</button>')+'</div>';
@@ -844,7 +1149,7 @@ function qItem(q){
 }
 function cuadernoHtml(){
   var act=activeQs(),pend=list('questions').filter(function(q){return q.estado==='pendiente'}),resp=list('questions').filter(function(q){return q.estado==='respondida'});
-  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Movimiento 1</p><h2>Cosas que no sé</h2><p>Como el cuaderno de Feynman: hasta '+MAX_ACTIVE+' preguntas que de verdad quieras responder. Cada sesión trabaja una, y cada dato nuevo tiene dónde aterrizar.</p></div></section>';
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Movimiento 1</p><h2>Cosas que no sé</h2><p>Como el cuaderno de Feynman: hasta '+MAX_ACTIVE+' preguntas que de verdad quieras responder. Son el motor de la ruta: cada una necesita unos bloques y será el caso final del último que le falte.</p></div></section>';
   h+='<section class="card"><div class="cardHead"><h3>Activas</h3><span class="mono">'+act.length+'/'+MAX_ACTIVE+'</span></div>'+(act.length?'<ul class="qlist">'+act.map(qItem).join('')+'</ul>':'<p class="empty">Aún no tienes preguntas. Escribe la tuya abajo o elige del banco.</p>')+'</section>';
   var pf=S.prefill||{},opts=Object.keys(AREAS).map(function(k){return '<option value="'+k+'"'+(pf.area===k?' selected':'')+'>'+esc(AREAS[k])+'</option>'}).join('');
   h+='<section class="card"><h3>Escribe tu propia pregunta</h3>'+(pf.norma?'<p class="muted small">Sobre: '+esc(pf.norma)+'</p>':'')+ta('new-q','Pregunta',2)+'<label class="field" for="new-area"><span>Área de la empresa</span><select id="new-area">'+opts+'</select></label><div class="actions"><button type="button" class="btn" data-act="q-add">Añadir</button>'+(pf.norma?'<button type="button" class="link" data-act="prefill-clear">Quitar norma</button>':'')+'</div></section>';
@@ -881,13 +1186,13 @@ function regCard(r){
 }
 function radarHtml(){
   var m=S.meta.radar||{},rs=radarList().filter(function(r){return S.juris==='all'||r.juris===S.juris});
-  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Regulación vigente</p><h2>Radar</h2><p>'+(m.ultimaRevision?'Revisado el '+esc(fmtDate(m.ultimaRevision))+(m.proxima?' · próxima revisión el '+esc(fmtDate(m.proxima)):''):'Aún no hay revisión registrada.')+'</p></div></section>';
+  var h='<section class="hero"><div class="heroText"><p class="eyebrow">Regulación vigente</p><h2>Radar</h2><p>'+(m.ultimaRevision?'Revisado el '+esc(fmtDate(m.ultimaRevision))+(m.proxima?' · próxima revisión el '+esc(fmtDate(m.proxima)):''):'Aún no hay revisión registrada.')+(freshNov().length?' · '+freshNov().length+' sin estudiar':'')+'</p></div></section>';
   if(m.resumen)h+='<section class="card"><p class="kicker">Resumen de la última revisión</p><div class="prose">'+md(m.resumen)+'</div></section>';
   var up=upcoming(10);
   if(up.length)h+='<section class="card"><h3>Próximas fechas</h3><ul class="timeline">'+up.map(function(u){var soon=u.f<=shift(S.today,45);return '<li class="'+(soon?'soon':'')+'"><span class="mono">'+esc(fmtDate(u.f))+'</span><span class="tlText"><b>'+esc(u.t)+'</b><span>'+esc(u.r.corto||u.r.titulo)+' · '+esc(JURIS[u.r.juris]||'')+'</span></span></li>'}).join('')+'</ul></section>';
   var nv=novList();
   if(nv.length){var shown=S.showAllNov?nv:nv.slice(0,5);
-    h+='<section class="card"><h3>Novedades</h3>'+shown.map(function(n){var u=n.fuente&&safeUrl(n.fuente.url);return '<div class="nov"><p class="small"><span class="mono">'+esc(fmtDate(n.fecha))+'</span> · '+pill(JURIS[n.juris]||n.juris||'')+'</p><b>'+esc(n.titulo)+'</b><p>'+esc(n.resumen||'')+'</p>'+(n.impacto?'<p class="muted small"><b>Impacto:</b> '+esc(n.impacto)+'</p>':'')+(u?'<p class="small"><a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(n.fuente.t||'Fuente')+'</a></p>':'')+'</div>'}).join('')+(nv.length>5?'<button type="button" class="link" data-act="allnov">'+(S.showAllNov?'Ver menos':'Ver las '+nv.length)+'</button>':'')+'</section>';}
+    h+='<section class="card"><h3>Novedades</h3>'+shown.map(function(n){var u=n.fuente&&safeUrl(n.fuente.url);return '<div class="nov"><p class="small"><span class="mono">'+esc(fmtDate(n.fecha))+'</span> · '+pill(JURIS[n.juris]||n.juris||'')+'</p><b>'+esc(n.titulo)+'</b><p>'+esc(n.resumen||'')+'</p>'+(n.impacto?'<p class="muted small"><b>Impacto:</b> '+esc(n.impacto)+'</p>':'')+(arr(n.bloques).length&&rutaList().length?'<p class="pathline">Relacionada con los bloques '+bkBadges(arr(n.bloques))+'</p>':'')+'<p class="small">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(n.fuente.t||'Fuente')+'</a> · ':'')+(novStudied(n.id)?pill('Estudiada','ok'):'<button type="button" class="link" data-act="study-nov" data-id="'+esc(n.id)+'">Estudiar esta novedad</button>')+'</p></div>'}).join('')+(nv.length>5?'<button type="button" class="link" data-act="allnov">'+(S.showAllNov?'Ver menos':'Ver las '+nv.length)+'</button>':'')+'</section>';}
   h+='<div class="chips" role="group" aria-label="Filtrar por ámbito"><button type="button" class="chip" data-act="juris" data-v="all" aria-pressed="'+(S.juris==='all')+'">Todo</button>'+Object.keys(JURIS).map(function(k){return '<button type="button" class="chip" data-act="juris" data-v="'+k+'" aria-pressed="'+(S.juris===k)+'">'+esc(JURIS[k])+'</button>'}).join('')+'</div>';
   h+=rs.length?rs.map(regCard).join(''):'<p class="empty">'+(list('radar').length?'Nada en este ámbito.':'El radar se está cargando. Si sigue vacío, la revisión semanal lo rellenará.')+'</p>';
   return h;
@@ -915,9 +1220,12 @@ function progresoHtml(){
   if(taught.length)h+='<section class="card"><h3>Lo que has enseñado</h3><ul class="sumList">'+taught.slice(0,8).map(function(s){return '<li><span>'+esc((s.plan&&s.plan.titulo)||s.qtext)+'</span><span>'+(s.shared?pill('Compartido','ok'):s.ready?pill('Listo','now'):pill('Por revisar'))+'</span></li>'}).join('')+'</ul></section>';
   h+='<section class="card"><h3>Historial</h3>'+(ds.length?'<ul class="hist">'+ds.slice(0,40).map(histItem).join('')+'</ul>':'<p class="muted small">Tus sesiones aparecerán aquí.</p>')+'</section>';
   var st=settings();
-  h+='<section class="card" id="ajustes"><h3>Tu hora y tu lugar</h3><p class="muted small">Un plan «cuando pase X, hago Y». Cuanto más concreta la señal, mejor funciona.</p><div class="setGrid">'
+  h+='<section class="card" id="ajustes"><h3>Ajustes</h3><p class="muted small">Tu plan «cuando pase X, hago Y» (cuanto más concreta la señal, mejor funciona) y cómo avanza la ruta.</p><div class="setGrid">'
     +'<label class="field" for="set-hora"><span>Hora</span><input type="time" id="set-hora" value="'+esc(st.hora)+'"></label>'
     +'<label class="field" for="set-min"><span>Duración por defecto</span><select id="set-min">'+[20,30,45].map(function(m){return '<option value="'+m+'"'+(m===st.minutos?' selected':'')+'>'+m+' minutos</option>'}).join('')+'</select></label>'
+    +'<label class="field" for="set-umbral"><span>Nota para superar un bloque</span><select id="set-umbral">'+[6,7,8].map(function(u){return '<option value="'+u+'"'+(u===umbral()?' selected':'')+'>'+u+' sobre 10</option>'}).join('')+'</select></label>'
+    +'<label class="field" for="set-libre"><span>Día libre (tu pregunta o actualidad)</span><select id="set-libre"><option value="-1">Ninguno</option>'+[1,2,3,4,5,6,0].map(function(d){return '<option value="'+d+'"'+(+st.diaLibre===d?' selected':'')+'>'+DIAS[d]+'</option>'}).join('')+'</select></label>'
+    +'<label class="field wide" for="set-exam" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="set-exam" style="width:auto"'+(st.examenes?' checked':'')+'><span>Modo exámenes (enero-febrero y junio): con la puerta basta y la ruta espera</span></label>'
     +'<label class="field wide" for="set-ancla"><span>Cuando…</span><input type="text" id="set-ancla" maxlength="120" value="'+esc(st.ancla)+'"></label>'
     +'<label class="field wide" for="set-puerta"><span>…entonces (puerta de 2 minutos)</span><input type="text" id="set-puerta" maxlength="120" value="'+esc(st.puerta)+'"></label>'
     +'</div><div class="actions"><button type="button" class="btn" data-act="save-set">Guardar</button></div></section>';
@@ -925,10 +1233,11 @@ function progresoHtml(){
 }
 function histItem(s){
   var open=S.openSess===s.id,p=s.plan||{};
-  var h='<li class="hi'+(open?' open':'')+'"><button type="button" class="hiHead" data-act="sess" data-id="'+s.id+'" aria-expanded="'+open+'"><span class="mono">'+esc(fmtShort(s.date))+'</span><span class="hiT"><b>'+esc(p.titulo||s.qtext)+'</b><span>'+esc(AREAS[s.area]||'')+' · '+s.min+' min</span></span>'+(s.score!=null?'<span class="score">'+fmtNum(s.score,1)+'</span>':'<span></span>')+'</button>';
+  var h='<li class="hi'+(open?' open':'')+'"><button type="button" class="hiHead" data-act="sess" data-id="'+s.id+'" aria-expanded="'+open+'"><span class="mono">'+esc(fmtShort(s.date))+'</span><span class="hiT"><b>'+esc(p.titulo||s.qtext)+'</b><span>'+esc(s.tipo==='ruta'?'Ruta · '+(s.ctitulo||''):s.tipo==='novedad'?'Actualidad':(AREAS[s.area]||''))+' · '+s.min+' min</span></span>'+(s.score!=null?'<span class="score">'+fmtNum(s.score,1)+'</span>':'<span></span>')+'</button>';
   if(open){
     h+='<div class="hiBody">';
     if(p.subpregunta)h+='<p class="sub">'+esc(p.subpregunta)+'</p>';
+    var ap=s.apuntes||apuntesOf(s);if(ap)h+='<h4>Apuntes</h4><div class="apuntes prose">'+md(ap)+'</div><div class="actions"><button type="button" class="link" data-act="copy-ap" data-id="'+s.id+'">Copiar apuntes</button></div>'+copyBoxHtml('ap-'+s.id);
     if(s.pred)h+='<h4>Lo que creías</h4>'+paras(s.pred);
     if(p.ficha)h+='<details class="orig"><summary>Ficha</summary><div class="prose">'+md(p.ficha)+'</div>'+normasHtml(p.normas)+'</details>';
     if(s.rebuildFb)h+='<h4>Reconstrucción</h4><article class="msg ai">'+md(clean(s.rebuildFb))+'</article>';
@@ -941,14 +1250,14 @@ function histItem(s){
 }
 
 /* ---------- render ---------- */
-var VIEWS={hoy:hoyHtml,cuaderno:cuadernoHtml,radar:radarHtml,progreso:progresoHtml};
+var VIEWS={hoy:hoyHtml,mapa:mapaHtml,cuaderno:cuadernoHtml,radar:radarHtml,progreso:progresoHtml};
 function typing(){var a=document.activeElement;return !!(a&&a.closest&&a.closest('#view')&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&a.type!=='range')))}
 function render(){if(typing()){renderPending=true;return}renderNow()}
 function renderNow(){
   renderPending=false;
   var t=ymd(new Date());if(t!==S.today){S.today=t;S.gateReveal=null}
   $('dateLabel').textContent=fmtLong(S.today);
-  ['hoy','cuaderno','radar','progreso'].forEach(function(v){var el=$('tab-'+v);if(v===S.view)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
+  ['hoy','mapa','cuaderno','radar','progreso'].forEach(function(v){var el=$('tab-'+v);if(v===S.view)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current')});
   $('view').innerHTML=safe(VIEWS[S.view]||hoyHtml);
   var cf=document.querySelector('input[type=range][id^="conf-"]');if(cf&&$('confv'))$('confv').textContent=cf.value;
   var cur=document.querySelector('.stepper li.now'),wrap=document.querySelector('.stepWrap');
@@ -965,6 +1274,23 @@ document.addEventListener('click',function(e){
   if(id==='undefined'||id==='null')return;
   if(a!=='qdel')S.armDel=null;
   if(a==='start')startSession();
+  else if(a==='tipo'){S.pickTipo=v;if(location.hash&&location.hash!=='#hoy')location.hash='#hoy';else renderNow()}
+  else if(a==='pickc'){S.pickC=id;renderNow()}
+  else if(a==='pickn'){S.pickN=id;renderNow()}
+  else if(a==='study-c'){S.pickTipo='ruta';if(startSession({tipo:'ruta',cid:id})&&location.hash!=='#hoy')location.hash='#hoy'}
+  else if(a==='study-nov'){S.pickTipo='novedad';if(startSession({tipo:'novedad',nid:id})&&location.hash!=='#hoy')location.hash='#hoy'}
+  else if(a==='exam-open')openExam(id);
+  else if(a==='exam-close'){S.exam=null;renderNow()}
+  else if(a==='exam-gen')examGen(id);
+  else if(a==='exam-send')examSend(id);
+  else if(a==='knew'){S.checkC=id||null;S.openC=null;renderNow()}
+  else if(a==='knew-send')doKnew(id);
+  else if(a==='open-c'){S.openC=S.openC===id?null:id;renderNow()}
+  else if(a==='copy-c'){var apc=apuntesFor(id);if(apc)copyText(apc,'c-'+id)}
+  else if(a==='copy-ap'){var sa=S.sessions[id];if(sa)copyText(sa.apuntes||apuntesOf(sa),'ap-'+id)}
+  else if(a==='copy-blk'){var bb=S.ruta[id];if(bb)copyText('## Bloque '+bNum(bb)+' · '+bb.titulo+'\n\n'+bb.conceptos.map(function(c){return apuntesFor(c.id)}).filter(Boolean).join('\n\n---\n\n'),'blk-'+id)}
+  else if(a==='force-session'){S.forceSession=true;renderNow()}
+  else if(a==='exam-mode')setExamMode(!settings().examenes);
   else if(a==='resume'){S.run=id;renderNow();window.scrollTo(0,0)}
   else if(a==='leave'){S.run=null;renderNow()}
   else if(a==='min'){S.pickMin=+v;renderNow()}
@@ -987,7 +1313,7 @@ document.addEventListener('click',function(e){
   else if(a==='prefill-clear'){S.prefill=null;renderNow()}
   else if(a==='bank-add'){var bq=S.banco[id];if(bq)addQuestion(bq.texto,bq.area,bq.normas,'banco',id);renderNow()}
   else if(a==='barea'){S.bankArea=v;renderNow()}
-  else if(a==='study'){S.pickQ=id;location.hash='#hoy'}
+  else if(a==='study'){S.pickQ=id;S.pickTipo='pregunta';location.hash='#hoy'}
   else if(a==='check'){S.checkQ=id||null;renderNow()}
   else if(a==='check-send')doCheck(id);
   else if(a==='qstate')setQState(id,v);
@@ -1002,7 +1328,7 @@ document.addEventListener('click',function(e){
 document.addEventListener('input',function(e){
   var t=e.target;if(t&&t.hasAttribute&&t.hasAttribute('data-draft')&&t.id){setDraft(t.id,t.value);if(t.type==='range'&&$('confv'))$('confv').textContent=t.value}
 });
-document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.matches&&t.matches('details.reg'))S.openReg[t.dataset.id]=t.open},true);
+document.addEventListener('toggle',function(e){var t=e.target;if(t&&t.matches&&t.matches('details.reg'))S.openReg[t.dataset.id]=t.open;if(t&&t.matches&&t.matches('details.blk'))S.openBlk[t.dataset.id]=t.open},true);
 document.addEventListener('focusout',function(e){var to=e.relatedTarget;if(to&&to.closest&&to.closest('[data-act]'))return;setTimeout(function(){if(renderPending&&!typing())renderNow()},450)});
 window.addEventListener('hashchange',route);
 document.addEventListener('visibilitychange',function(){if(!document.hidden)render()});
@@ -1038,6 +1364,9 @@ async function boot(){
   sub('radar',db.collection('radar'));
   sub('novedades',db.collection('novedades').orderBy('fecha','desc').limit(80));
   sub('banco',db.collection('banco'));
+  sub('ruta',db.collection('ruta'));
+  sub('mapa',db.collection('mapa'));
+  sub('bloques',db.collection('bloques'));
 }
 boot();
 })();

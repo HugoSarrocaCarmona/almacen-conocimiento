@@ -43,3 +43,16 @@ Extraída del vídeo **«Teach Yourself Anything So Well It Feels Unfair»** (ca
 
 - **Repaso espaciado de los ganchos** (1, 3, 7, 16, 35 y 80 días). El vídeo no lo menciona como tal, pero encaja con el método de Franklin, que dejaba pasar unos días antes de reconstruir.
 - **Radar regulatorio**: el temario (adaptar procesos de empresa a la regulación de IA y datos) cambia cada semana. Una tarea programada lo revisa los domingos y Claude solo usa ese estado verificado para fechas y vigencia.
+
+## Segunda versión: ruta en espiral (19-11-2026)
+
+Las dos primeras sesiones mostraron el patrón: reconstrucción 1/10 y 2/10 y casos 4/10, por conceptos de base que nadie había explicado (bases jurídicas alternativas, roles, cuándo es obligatoria una EIPD). Así que el cuaderno pasa de aprender a saltos a una **ruta ordenada en espiral**, sin perder los cinco movimientos:
+
+- **Base primero, en orden.** Hay 10 bloques ordenados por lo que necesita cada tema (`ruta.json`): del 0, cómo funciona el derecho digital europeo, al 9, procesos de empresa. Quien empieza aprende mejor con explicaciones ordenadas y ejemplos resueltos (Kirschner, Sweller y Clark, 2006), y lo nuevo se ancla en lo que ya sabe (Ausubel). Por eso cada ficha de la ruta trae un **ejemplo resuelto** y el caso empieza con preguntas para distinguir conceptos.
+- **Avanzar por dominio.** Se pasa al bloque siguiente al superar su **examen** con un 7, que es ajustable (*mastery learning*, Bloom). El examen marca qué conceptos reforzar.
+- **Las preguntas siguen siendo el motor.** Cada pregunta del cuaderno sabe qué bloques necesita y es el **caso final** del examen del último bloque que le falta.
+- **«Ya lo sé»:** lo que Hugo ya domina se da por superado si responde bien una pregunta de comprobación.
+- **Espiral.** Hay tres vueltas: base y procesos; profundidad por sectores con lecturas en inglés; y práctica con acreditación.
+- **Actualidad.** Las novedades del radar se estudian en sesiones adaptadas a su nivel: lo que ya domina sirve de gancho, y lo que aún no ha visto se explica en una frase y se indica en qué bloque llegará.
+- **Apuntes automáticos.** Al cerrar cada sesión se guarda una ficha corta con las reglas clave, las normas, su error a evitar y su gancho. Así no hace falta tomar apuntes a mano.
+- **Modo exámenes** (enero-febrero y junio): con la puerta basta y la ruta espera.
