@@ -1,231 +1,802 @@
 {
-  "b0": {"orden": 0, "titulo": "Cómo funciona el derecho digital europeo", "semanas": 1,
-    "objetivo": "Saber de dónde salen las normas, cómo se relacionan entre sí y dónde leerlas.",
-    "conceptos": [
-      {"id": "b0-fuentes", "t": "Reglamento y directiva", "area": "gobernanza", "art": "art. 288 TFUE", "normas": [],
-       "q": "¿Qué diferencia hay entre un reglamento y una directiva de la UE, y por qué le importa a una empresa?",
-       "claves": "El reglamento es obligatorio en todos sus elementos y directamente aplicable en todos los Estados; la directiva obliga en cuanto al resultado y necesita transposición nacional (art. 288 TFUE). El RGPD y el AI Act son reglamentos; NIS2 es una directiva."},
-      {"id": "b0-transposicion", "t": "Transposición, plazos y efecto directo", "area": "gobernanza", "art": "arts. 258-260 TFUE", "normas": ["ue-nis2"],
-       "q": "¿Qué pasa si un Estado no transpone una directiva a tiempo, y qué puede invocar un particular?",
-       "claves": "Procedimiento de infracción ante el TJUE (arts. 258-260 TFUE); efecto directo vertical de disposiciones claras, precisas e incondicionales frente al Estado, no horizontal entre particulares; ejemplo actual: NIS2 en España."},
-      {"id": "b0-softlaw", "t": "Directrices, guías y soft law", "area": "gobernanza", "art": "art. 70 RGPD", "normas": ["ue-edpb", "es-aepd"],
-       "q": "¿Qué valor tienen las directrices del CEPD o las guías de la AEPD frente al propio reglamento?",
-       "claves": "No son normas vinculantes, pero interpretan el reglamento y anticipan cómo actuarán las autoridades; el CEPD emite directrices y dictámenes (art. 70 RGPD); un cumplimiento serio las tiene en cuenta."},
-      {"id": "b0-autoridades", "t": "Quién vigila: autoridades y TJUE", "area": "gobernanza", "art": "art. 267 TFUE", "normas": ["es-aepd", "cat-apdcat", "ue-aia"],
-       "q": "¿Qué autoridades aplican el RGPD y el AI Act en España y en la UE, y qué papel tiene el TJUE?",
-       "claves": "Datos: AEPD y autoridades autonómicas como la APDCAT, coordinadas en el CEPD. IA: Oficina de IA de la Comisión y autoridades nacionales (AESIA). El TJUE fija la interpretación mediante cuestiones prejudiciales (art. 267 TFUE)."},
-      {"id": "b0-leer", "t": "Leer una norma: considerandos, artículos, anexos y vigencia", "area": "gobernanza", "art": "EUR-Lex y BOE", "normas": ["ue-aia", "ue-omnibus-ia"],
-       "q": "¿Cómo se lee un reglamento en EUR-Lex y cómo compruebas qué versión está vigente?",
-       "claves": "Los considerandos explican, los artículos obligan y los anexos concretan; las fechas de entrada en vigor y de aplicación están en el artículo final; hay que mirar la versión consolidada y las modificaciones (por ejemplo, el Omnibus 2026/1744 sobre el AI Act)."},
-      {"id": "b0-ciclo", "t": "Cómo nace una norma europea", "area": "gobernanza", "art": "art. 294 TFUE", "normas": ["ue-omnibus-datos"],
-       "q": "¿Cómo se aprueba un reglamento europeo y en qué punto está una propuesta como el Omnibus de datos?",
-       "claves": "Propuesta de la Comisión, posiciones del Parlamento y del Consejo, trílogos, adopción, publicación en el DOUE y fechas de aplicación (procedimiento legislativo ordinario, art. 294 TFUE). Una propuesta no obliga a nadie hasta que se publica y se aplica."}
-    ]},
-  "b1": {"orden": 1, "titulo": "RGPD: conceptos básicos", "semanas": 2,
-    "objetivo": "Saber cuándo se aplica el RGPD y quién es quién en un tratamiento.",
-    "conceptos": [
-      {"id": "b1-dato", "t": "Dato personal", "area": "datos", "art": "art. 4.1 y considerando 26 RGPD", "normas": ["ue-rgpd", "ue-edpb"],
-       "q": "¿Qué es un dato personal y cuándo un dato deja de serlo?",
-       "claves": "Toda información sobre una persona física identificada o identificable (art. 4.1); identificable con medios que razonablemente puedan usarse (considerando 26); el dato seudonimizado sigue siendo personal para quien puede reidentificar; el anonimizado de verdad, no."},
-      {"id": "b1-tratamiento", "t": "Tratamiento", "area": "datos", "art": "art. 4.2 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué cuenta como tratamiento de datos? ¿Entrenar o usar una IA lo es?",
-       "claves": "Cualquier operación sobre datos personales, automatizada o no: recoger, registrar, conservar, consultar, usar, comunicar, borrar (art. 4.2). Entrenar, ajustar o consultar un modelo con datos personales es tratamiento."},
-      {"id": "b1-ambito", "t": "Ámbito de aplicación", "area": "datos", "art": "arts. 2 y 3 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cuándo se aplica el RGPD, también a una empresa de fuera de la UE?",
-       "claves": "Ámbito material (art. 2), con la excepción de las actividades domésticas; ámbito territorial (art. 3): establecimiento en la UE, u ofrecer bienes o servicios o controlar el comportamiento de personas que están en la UE."},
-      {"id": "b1-responsable", "t": "Responsable del tratamiento", "area": "datos", "art": "arts. 4.7, 5.2 y 24 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Quién es el responsable del tratamiento y qué le obliga?",
-       "claves": "Quien decide los fines y los medios del tratamiento (art. 4.7); responde del cumplimiento y debe poder demostrarlo (responsabilidad proactiva, arts. 5.2 y 24)."},
-      {"id": "b1-encargado", "t": "Encargado y subencargado", "area": "proveedores", "art": "arts. 4.8 y 28 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué es un encargado del tratamiento y qué pasa si usa los datos para sus propios fines?",
-       "claves": "Trata datos por cuenta del responsable (art. 4.8), con un contrato que fija las instrucciones (art. 28); si decide fines propios pasa a ser responsable de ese tratamiento (art. 28.10); los subencargados necesitan autorización."},
-      {"id": "b1-corresponsables", "t": "Corresponsables", "area": "datos", "art": "art. 26 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cuándo dos empresas son corresponsables de un tratamiento?",
-       "claves": "Cuando determinan conjuntamente los fines y los medios (art. 26); necesitan un acuerdo que reparta las obligaciones; el TJUE lo ha aplicado a páginas de fans (Wirtschaftsakademie, C-210/16) y botones sociales (Fashion ID, C-40/17)."},
-      {"id": "b1-especiales", "t": "Categorías especiales y datos penales", "area": "datos", "art": "arts. 9 y 10 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué datos son de categoría especial y por qué cambian las reglas?",
-       "claves": "Origen étnico, opiniones políticas, convicciones religiosas, afiliación sindical, datos genéticos, biométricos para identificar, salud, vida u orientación sexual (art. 9): prohibición general con excepciones tasadas; los datos penales tienen su régimen (art. 10)."}
-    ]},
-  "b2": {"orden": 2, "titulo": "RGPD: licitud y principios", "semanas": 2,
-    "objetivo": "Saber justificar un tratamiento: principios, base jurídica y transparencia.",
-    "conceptos": [
-      {"id": "b2-principios", "t": "Los principios del art. 5", "area": "datos", "art": "art. 5 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué principios debe respetar todo tratamiento de datos?",
-       "claves": "Licitud, lealtad y transparencia; limitación de la finalidad; minimización; exactitud; limitación del plazo de conservación; integridad y confidencialidad; y responsabilidad proactiva (art. 5.2)."},
-      {"id": "b2-bases", "t": "Las seis bases jurídicas", "area": "datos", "art": "art. 6.1 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué bases jurídicas hay y por qué son alternativas y no acumulables?",
-       "claves": "Consentimiento, contrato, obligación legal, intereses vitales, interés público y interés legítimo (art. 6.1); se elige una por cada finalidad antes de empezar a tratar, y no se suman para «asegurar»."},
-      {"id": "b2-consentimiento", "t": "Consentimiento válido", "area": "marketing", "art": "arts. 4.11 y 7 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cuándo es válido el consentimiento y cuándo no sirve?",
-       "claves": "Libre, específico, informado e inequívoco (art. 4.11) y revocable en cualquier momento (art. 7); problemático cuando hay desequilibrio, como entre empresa y trabajador (considerando 43); las casillas premarcadas no valen (Planet49, C-673/17)."},
-      {"id": "b2-interes", "t": "Interés legítimo y ponderación", "area": "datos", "art": "arts. 6.1.f y 21 RGPD", "normas": ["ue-rgpd", "ue-edpb"],
-       "q": "¿Cómo se usa el interés legítimo y qué hay que documentar?",
-       "claves": "Tres pasos: interés legítimo, necesidad del tratamiento y ponderación con los derechos de las personas (art. 6.1.f), atendiendo a sus expectativas razonables (considerando 47); derecho de oposición (art. 21); el TJUE ha marcado sus límites (Meta Platforms, C-252/21)."},
-      {"id": "b2-finalidad", "t": "Limitación de la finalidad y compatibilidad", "area": "datos", "art": "arts. 5.1.b y 6.4 RGPD", "normas": ["ue-rgpd", "ue-omnibus-datos"],
-       "q": "¿Puede una empresa reutilizar datos para un fin nuevo, como entrenar una IA?",
-       "claves": "Fines determinados, explícitos y legítimos (art. 5.1.b); test de compatibilidad del art. 6.4 (vínculo entre fines, contexto, naturaleza de los datos, consecuencias y garantías); si no es compatible, hace falta una nueva base jurídica."},
-      {"id": "b2-transparencia", "t": "Transparencia e información", "area": "clientes", "art": "arts. 12-14 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué hay que contar a las personas sobre el uso de sus datos y cuándo?",
-       "claves": "Información clara y accesible (art. 12) sobre responsable, fines, base jurídica, destinatarios, plazos y derechos; art. 13 si se recogen del interesado y art. 14 si se obtienen de otra fuente; información por capas."},
-      {"id": "b2-minimizacion", "t": "Minimización y conservación", "area": "datos", "art": "arts. 5.1.c y 5.1.e RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cuántos datos puede usar una empresa y durante cuánto tiempo?",
-       "claves": "Adecuados, pertinentes y limitados a lo necesario (art. 5.1.c); conservados solo el tiempo necesario (art. 5.1.e); seudonimizar o anonimizar como medidas."}
-    ]},
-  "b3": {"orden": 3, "titulo": "RGPD: cumplimiento en la práctica", "semanas": 2,
-    "objetivo": "Saber montar y demostrar el cumplimiento de un tratamiento.",
-    "conceptos": [
-      {"id": "b3-proactiva", "t": "Responsabilidad proactiva", "area": "gobernanza", "art": "arts. 5.2 y 24 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué significa en la práctica poder demostrar el cumplimiento?",
-       "claves": "Medidas técnicas y organizativas apropiadas al riesgo, documentadas y revisadas (arts. 5.2 y 24): políticas, registros, evaluaciones, contratos y formación."},
-      {"id": "b3-diseno", "t": "Protección desde el diseño y por defecto", "area": "producto", "art": "art. 25 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cómo se aplica la protección de datos desde el diseño al crear un producto con IA?",
-       "claves": "Medidas desde el diseño, como seudonimizar o minimizar (art. 25.1), y por defecto, de modo que solo se traten los datos necesarios para cada fin (art. 25.2)."},
-      {"id": "b3-registro", "t": "Registro de actividades de tratamiento", "area": "gobernanza", "art": "art. 30 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué es el registro de actividades y quién debe llevarlo?",
-       "claves": "Inventario documentado de tratamientos con fines, categorías de datos e interesados, destinatarios, transferencias, plazos y medidas (art. 30); la excepción para empresas de menos de 250 trabajadores es muy limitada."},
-      {"id": "b3-eipd", "t": "Evaluación de impacto (EIPD)", "area": "agentes", "art": "arts. 35 y 36 RGPD", "normas": ["ue-rgpd", "es-aepd"],
-       "q": "¿Cuándo es obligatoria una EIPD y qué contiene?",
-       "claves": "Cuando es probable un alto riesgo (art. 35.1); supuestos del 35.3 (evaluación sistemática con perfilado y efectos significativos, categorías especiales a gran escala, observación sistemática de zonas públicas) y listas de la AEPD; contenido del 35.7; consulta previa si el riesgo sigue siendo alto (art. 36)."},
-      {"id": "b3-encargo", "t": "Contrato de encargo", "area": "proveedores", "art": "art. 28.3 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué debe decir el contrato con un proveedor que trata datos, como un SaaS de IA?",
-       "claves": "Art. 28.3: tratar solo con instrucciones documentadas, confidencialidad, seguridad, condiciones para subencargados, ayuda con los derechos y las brechas, borrado o devolución al terminar y auditorías."},
-      {"id": "b3-seguridad", "t": "Seguridad y brechas de datos", "area": "ciber", "art": "arts. 32-34 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué tiene que hacer una empresa ante una brecha de datos personales?",
-       "claves": "Seguridad adecuada al riesgo (art. 32); notificar a la autoridad en 72 horas salvo que sea improbable el riesgo (art. 33); comunicarlo a los afectados si el riesgo es alto (art. 34); documentar todas las brechas."},
-      {"id": "b3-transferencias", "t": "Transferencias internacionales", "area": "proveedores", "art": "capítulo V RGPD (arts. 44-49)", "normas": ["ue-rgpd"],
-       "q": "¿Puede una empresa usar un proveedor de IA que trata los datos en EE. UU.?",
-       "claves": "Solo con una garantía del capítulo V: decisión de adecuación (Marco de Privacidad de Datos UE-EE. UU., 2023, para entidades adheridas), cláusulas contractuales tipo con evaluación del destino o excepciones del art. 49; antecedente: Schrems II (C-311/18)."},
-      {"id": "b3-dpd", "t": "Delegado de protección de datos", "area": "gobernanza", "art": "arts. 37-39 RGPD y 34 LOPDGDD", "normas": ["ue-rgpd", "es-laboral"],
-       "q": "¿Cuándo hace falta un delegado de protección de datos y qué hace?",
-       "claves": "Obligatorio en autoridades públicas, observación habitual y sistemática a gran escala o categorías especiales a gran escala (art. 37) y en la lista española del art. 34 LOPDGDD; asesora y supervisa (art. 39) con independencia."}
-    ]},
-  "b4": {"orden": 4, "titulo": "Derechos y decisiones automatizadas", "semanas": 1,
-    "objetivo": "Saber qué pueden exigir las personas, sobre todo frente a decisiones de algoritmos.",
-    "conceptos": [
-      {"id": "b4-derechos", "t": "Derechos de los interesados", "area": "clientes", "art": "arts. 12 y 15-21 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué derechos tiene una persona sobre sus datos y en qué plazo se atienden?",
-       "claves": "Acceso (15), rectificación (16), supresión (17), limitación (18), portabilidad (20) y oposición (21); respuesta en un mes, ampliable dos meses más en casos complejos (art. 12.3)."},
-      {"id": "b4-explicacion", "t": "Acceso y explicación de un algoritmo", "area": "decisiones", "art": "art. 15.1.h RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué puede pedir alguien sobre una decisión tomada con un algoritmo?",
-       "claves": "Información significativa sobre la lógica aplicada y las consecuencias previstas (arts. 13.2.f, 14.2.g y 15.1.h); el TJUE exige explicar el procedimiento y los principios aplicados de forma comprensible (Dun & Bradstreet Austria, C-203/22)."},
-      {"id": "b4-art22", "t": "Decisiones únicamente automatizadas", "area": "decisiones", "art": "art. 22 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Cuándo está prohibida una decisión automatizada y con qué excepciones y garantías?",
-       "claves": "Prohíbe decisiones basadas únicamente en tratamiento automatizado con efectos jurídicos o igualmente significativos; excepciones: necesaria para un contrato, autorizada por ley o con consentimiento explícito; garantías: intervención humana, expresar el punto de vista e impugnar."},
-      {"id": "b4-schufa", "t": "Perfilado y scoring: el caso SCHUFA", "area": "decisiones", "art": "art. 22 RGPD; C-634/21", "normas": ["ue-rgpd"],
-       "q": "¿Un score que otra empresa usa para decidir cuenta como decisión automatizada?",
-       "claves": "Sí, si el score determina de forma decisiva la decisión del tercero (TJUE, SCHUFA, C-634/21, 2023); una revisión humana solo formal no cambia la calificación."},
-      {"id": "b4-oposicion", "t": "Oposición y marketing", "area": "marketing", "art": "art. 21 RGPD", "normas": ["ue-rgpd"],
-       "q": "¿Qué pasa si alguien se opone a que perfilen sus datos para publicidad?",
-       "claves": "En mercadotecnia directa la oposición es absoluta y hay que dejar de tratar (art. 21.2-3); si la base es el interés legítimo, el responsable debe acreditar motivos imperiosos que prevalezcan (art. 21.1)."}
-    ]},
-  "b5": {"orden": 5, "titulo": "AI Act: arquitectura", "semanas": 2,
-    "objetivo": "Saber clasificar un uso de IA: qué es, quién es quién, qué riesgo tiene y qué se aplica ya.",
-    "conceptos": [
-      {"id": "b5-sistema", "t": "Qué es un sistema de IA", "area": "gobernanza", "art": "art. 3.1 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué es un sistema de IA según el AI Act y qué software queda fuera?",
-       "claves": "Sistema basado en máquinas, con cierto nivel de autonomía, que infiere de la información que recibe cómo generar resultados (predicciones, contenidos, recomendaciones o decisiones) (art. 3.1); la Comisión publicó directrices sobre la definición; el software que solo sigue reglas fijadas por personas queda fuera."},
-      {"id": "b5-roles", "t": "Roles: proveedor y responsable del despliegue", "area": "proveedores", "art": "arts. 3 y 25 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué rol tiene la empresa que usa un chatbot comprado y cuál la que lo desarrolla?",
-       "claves": "Proveedor (art. 3.3), responsable del despliegue (art. 3.4), importador y distribuidor; según el art. 25, quien pone su marca a un sistema de alto riesgo, lo modifica sustancialmente o cambia su finalidad pasa a ser proveedor."},
-      {"id": "b5-riesgo", "t": "Enfoque por niveles de riesgo", "area": "gobernanza", "art": "arts. 5, 6 y 50 AI Act", "normas": ["ue-aia"],
-       "q": "¿Cuáles son los niveles de riesgo del AI Act y qué implica cada uno?",
-       "claves": "Prácticas prohibidas (art. 5), alto riesgo (art. 6 y anexos I y III), obligaciones de transparencia (art. 50) y el resto sin obligaciones específicas (códigos voluntarios); aparte, el régimen de los modelos de uso general."},
-      {"id": "b5-prohibidas", "t": "Prácticas prohibidas", "area": "personas", "art": "art. 5 AI Act", "normas": ["ue-aia", "ue-omnibus-ia"],
-       "q": "¿Qué usos de la IA están prohibidos y desde cuándo?",
-       "claves": "Desde el 2 de febrero de 2025: manipulación, explotación de vulnerabilidades, puntuación social, predicción delictiva basada solo en perfiles, recopilación masiva de imágenes faciales, reconocimiento de emociones en el trabajo y en la educación, categorización biométrica sensible e identificación biométrica remota en tiempo real (con excepciones). El Omnibus añade, desde el 2 de diciembre de 2026, la IA que genera imágenes íntimas no consentidas o material de abuso sexual infantil."},
-      {"id": "b5-alfabetizacion", "t": "Alfabetización en IA", "area": "gobernanza", "art": "art. 4 AI Act", "normas": ["ue-aia", "ue-omnibus-ia"],
-       "q": "¿Qué exige hoy el art. 4 del AI Act tras el Omnibus?",
-       "claves": "Proveedores y responsables del despliegue deben adoptar medidas para apoyar la alfabetización en IA de su personal según sus conocimientos y el contexto de uso; tras el Reglamento 2026/1744 no tienen que garantizar un nivel concreto."},
-      {"id": "b5-transparencia", "t": "Transparencia", "area": "contenido", "art": "art. 50 AI Act", "normas": ["ue-aia"],
-       "q": "¿Cuándo hay que avisar de que se usa IA?",
-       "claves": "Desde el 2 de agosto de 2026: avisar de que se interactúa con una IA, marcar el contenido sintético de forma legible por máquina (art. 50.2; sistemas ya comercializados, hasta el 2 de diciembre de 2026), y etiquetar deepfakes y textos de interés público generados con IA."},
-      {"id": "b5-calendario", "t": "Calendario y sanciones", "area": "gobernanza", "art": "arts. 99 y 113 AI Act", "normas": ["ue-aia", "ue-omnibus-ia"],
-       "q": "¿Qué partes del AI Act se aplican hoy y cuáles llegan en 2027 y 2028?",
-       "claves": "Hitos: 2-2-2025, 2-8-2025, 2-8-2026, 2-12-2026, 2-12-2027 (alto riesgo del anexo III) y 2-8-2028 (anexo I) (art. 113 modificado); multas de hasta 35 millones o el 7 % del volumen de negocio mundial por prácticas prohibidas (art. 99), con la cuantía menor para pymes y pequeñas empresas de mediana capitalización."}
-    ]},
-  "b6": {"orden": 6, "titulo": "AI Act: alto riesgo y modelos de uso general", "semanas": 2,
-    "objetivo": "Saber qué exige el alto riesgo a quien lo desarrolla y a quien lo usa, y qué deben los modelos de uso general.",
-    "conceptos": [
-      {"id": "b6-anexo3", "t": "Cuándo un sistema es de alto riesgo", "area": "personas", "art": "art. 6 y anexo III AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué sistemas son de alto riesgo según el anexo III y cuándo no lo son?",
-       "claves": "Ámbitos del anexo III: biometría, infraestructuras críticas, educación, empleo, servicios esenciales (crédito, seguros de vida y salud), garantía del cumplimiento del Derecho, migración y justicia; excepción del art. 6.3 si no influye sustancialmente en la decisión, salvo que haga perfilado."},
-      {"id": "b6-requisitos", "t": "Requisitos del sistema", "area": "producto", "art": "arts. 9-15 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué requisitos debe cumplir un sistema de alto riesgo?",
-       "claves": "Gestión de riesgos (9), datos y gobernanza de datos (10), documentación técnica (11), registros (12), transparencia e instrucciones (13), supervisión humana (14) y precisión, solidez y ciberseguridad (15); evaluación de la conformidad y marcado CE."},
-      {"id": "b6-proveedor", "t": "Obligaciones del proveedor", "area": "producto", "art": "arts. 16, 17, 49, 72 y 73 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué debe hacer quien desarrolla un sistema de alto riesgo?",
-       "claves": "Cumplir los requisitos (art. 16), sistema de gestión de la calidad (17), documentación, evaluación de la conformidad, registro en la base de datos de la UE (49), vigilancia poscomercialización (72) y notificación de incidentes graves (73)."},
-      {"id": "b6-despliegue", "t": "Obligaciones del responsable del despliegue", "area": "personas", "art": "art. 26 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué debe hacer una empresa que usa un sistema de alto riesgo comprado a otro?",
-       "claves": "Usarlo según las instrucciones, asignar supervisión humana competente, controlar que los datos de entrada sean pertinentes, vigilar el funcionamiento, conservar los registros, informar a los representantes de los trabajadores antes de usarlo en el trabajo (art. 26.7) y a las personas afectadas por decisiones (art. 26.11)."},
-      {"id": "b6-fria", "t": "Evaluación de impacto en derechos fundamentales", "area": "decisiones", "art": "art. 27 AI Act", "normas": ["ue-aia", "cat-apdcat"],
-       "q": "¿Quién debe hacer la evaluación de impacto del art. 27 y cuándo?",
-       "claves": "Los organismos de derecho público, las entidades privadas que prestan servicios públicos y quienes usan IA para evaluar la solvencia o fijar precios de seguros de vida y salud (anexo III, 5.b y c); antes del primer uso; la APDCAT ha publicado un modelo práctico."},
-      {"id": "b6-gpai", "t": "Modelos de IA de uso general", "area": "proveedores", "art": "arts. 51-55 AI Act", "normas": ["ue-aia"],
-       "q": "¿Qué obligaciones tienen los proveedores de modelos de uso general?",
-       "claves": "Desde el 2 de agosto de 2025: documentación técnica, información a quienes integran el modelo, política de derechos de autor y resumen público del contenido de entrenamiento (art. 53); obligaciones adicionales si tienen riesgo sistémico, presunto a partir de 10^25 FLOP (arts. 51 y 55); código de buenas prácticas."}
-    ]},
-  "b7": {"orden": 7, "titulo": "España y Cataluña", "semanas": 1,
-    "objetivo": "Saber qué añade el derecho español y catalán, sobre todo en el trabajo y la atención al cliente.",
-    "conceptos": [
-      {"id": "b7-lopdgdd", "t": "Qué añade la LOPDGDD", "area": "datos", "art": "LO 3/2018", "normas": ["es-laboral"],
-       "q": "¿Qué añade la LOPDGDD al RGPD?",
-       "claves": "Concreta el RGPD en España (consentimiento de menores desde los 14 años, art. 7; lista de entidades que necesitan delegado, art. 34; infracciones y prescripción) y reconoce derechos digitales (arts. 79-97)."},
-      {"id": "b7-trabajo", "t": "Derechos digitales en el trabajo", "area": "personas", "art": "arts. 87-91 LOPDGDD; art. 20.3 ET", "normas": ["es-laboral"],
-       "q": "¿Qué límites tiene una empresa para controlar a su plantilla con tecnología?",
-       "claves": "Intimidad en el uso de dispositivos digitales (87), desconexión digital (88), videovigilancia y grabación de sonidos (89) y geolocalización (90), con información previa; el control debe ser proporcionado (art. 20.3 ET)."},
-      {"id": "b7-algoritmos", "t": "Algoritmos y comité de empresa", "area": "personas", "art": "art. 64.4.d ET", "normas": ["es-laboral"],
-       "q": "¿Qué debe informar la empresa al comité sobre sus algoritmos?",
-       "claves": "Los parámetros, reglas e instrucciones de los algoritmos o sistemas de IA que afectan a decisiones sobre condiciones de trabajo, acceso y mantenimiento del empleo, incluida la elaboración de perfiles (art. 64.4.d ET)."},
-      {"id": "b7-atencion", "t": "Atención a la clientela con IA", "area": "clientes", "art": "Ley 10/2025", "normas": ["es-atencion"],
-       "q": "¿Puede una empresa atender a sus clientes solo con IA en España?",
-       "claves": "No: la Ley 10/2025 exige atención personalizada y no permite atender solo con contestadores automáticos o IA; se aplica a grandes empresas y servicios básicos; hay un plazo de adaptación de doce meses."},
-      {"id": "b7-autoridades", "t": "Autoridades españolas y catalanas", "area": "gobernanza", "art": "LOPDGDD; Ley 32/2010 (APDCAT)", "normas": ["es-aepd", "cat-apdcat", "es-ley-ia"],
-       "q": "¿Qué hacen la AEPD, la APDCAT y la AESIA, y cómo queda la ley española de IA?",
-       "claves": "AEPD: autoridad estatal de protección de datos; APDCAT: sector público catalán y quienes prestan servicios públicos en Cataluña; AESIA: supervisión de la IA; el proyecto de ley española de IA caducó con la disolución de las Cortes de octubre de 2026."}
-    ]},
-  "b8": {"orden": 8, "titulo": "Datos, ciberseguridad y producto", "semanas": 2,
-    "objetivo": "Saber qué otras normas digitales afectan a una empresa que usa o vende tecnología.",
-    "conceptos": [
-      {"id": "b8-dataact", "t": "Data Act", "area": "producto", "art": "Reglamento 2023/2854", "normas": ["ue-data-act"],
-       "q": "¿Qué derechos da el Data Act a los usuarios de productos conectados?",
-       "claves": "Acceder a los datos que generan y compartirlos con terceros (arts. 3-5); acceso desde el diseño para productos comercializados desde el 12 de septiembre de 2026; control de cláusulas abusivas en contratos de datos entre empresas (art. 13) y cambio de proveedor de nube."},
-      {"id": "b8-nis2", "t": "NIS2", "area": "ciber", "art": "Directiva 2022/2555", "normas": ["ue-nis2"],
-       "q": "¿Qué empresas están obligadas por NIS2 y qué deben hacer?",
-       "claves": "Entidades esenciales e importantes según sector y tamaño; medidas de gestión de riesgos (art. 21), notificación de incidentes con alerta temprana en 24 horas (art. 23) y responsabilidad de los órganos de dirección (art. 20); en España aún no está transpuesta."},
-      {"id": "b8-cra", "t": "Reglamento de Ciberresiliencia", "area": "ciber", "art": "Reglamento 2024/2847", "normas": ["ue-cra"],
-       "q": "¿Qué obligaciones tiene quien fabrica o vende software o dispositivos conectados?",
-       "claves": "Ciberseguridad desde el diseño y gestión de vulnerabilidades; desde el 11 de septiembre de 2026, notificar vulnerabilidades explotadas e incidentes graves (alerta en 24 horas, art. 14); aplicación general el 11 de diciembre de 2027."},
-      {"id": "b8-pld", "t": "Responsabilidad por productos defectuosos", "area": "producto", "art": "Directiva 2024/2853", "normas": ["ue-pld"],
-       "q": "¿Responde una empresa si su software con IA causa un daño?",
-       "claves": "La nueva directiva considera producto el software, incluida la IA; responsabilidad sin culpa por defectos, también por actualizaciones o por no darlas; facilita la prueba al perjudicado; plazo de transposición hasta el 9 de diciembre de 2026."},
-      {"id": "b8-gobernanza", "t": "Gobernanza de datos en la empresa", "area": "gobernanza", "art": "RGPD, AI Act y NIS2", "normas": ["ue-rgpd", "ue-aia", "ue-nis2"],
-       "q": "¿Cómo se organiza una empresa para usar datos con IA de forma legal?",
-       "claves": "Inventario de datos y de sistemas de IA, roles claros (delegado de protección de datos, responsable de IA, seguridad), políticas de uso de IA, evaluación de proveedores, registros y formación: un único programa que une RGPD, AI Act y ciberseguridad."}
-    ]},
-  "b9": {"orden": 9, "titulo": "Procesos de empresa", "semanas": 4,
-    "objetivo": "Aplicar todo lo anterior a los procesos reales que una empresa automatiza con IA.",
-    "conceptos": [
-      {"id": "b9-seleccion", "t": "Selección y gestión de personas con IA", "area": "personas", "art": "RGPD, ET y AI Act", "normas": ["ue-rgpd", "es-laboral", "ue-aia"],
-       "q": "¿Cómo debe adaptar una empresa su proceso de selección y gestión de personas si usa IA?",
-       "claves": "Base jurídica e información a candidatos, art. 22 y revisión humana real, EIPD, información al comité (art. 64.4.d ET), prohibición de reconocer emociones y obligaciones de alto riesgo del anexo III desde el 2 de diciembre de 2027."},
-      {"id": "b9-clientes", "t": "Atención al cliente con chatbots y agentes de voz", "area": "clientes", "art": "Ley 10/2025; art. 50 AI Act; RGPD", "normas": ["es-atencion", "ue-aia", "ue-rgpd"],
-       "q": "¿Qué debe hacer una empresa que atiende a sus clientes con un chatbot o un agente de voz?",
-       "claves": "Opción de atención humana (Ley 10/2025), aviso de que se habla con una IA (art. 50), información y base jurídica para las grabaciones y conversaciones, y contrato con el proveedor."},
-      {"id": "b9-marketing", "t": "Marketing y personalización", "area": "marketing", "art": "RGPD; LSSI; ePrivacy", "normas": ["ue-rgpd", "ue-omnibus-datos"],
-       "q": "¿Cómo puede una empresa personalizar ofertas con IA sin incumplir?",
-       "claves": "Base jurídica para el perfilado (consentimiento o interés legítimo ponderado), cookies con consentimiento (normativa ePrivacy y LSSI), derecho de oposición absoluto en mercadotecnia directa y transparencia sobre el perfilado."},
-      {"id": "b9-decisiones", "t": "Decisiones sobre clientes: crédito, seguros y precios", "area": "decisiones", "art": "art. 22 RGPD; anexo III AI Act", "normas": ["ue-rgpd", "ue-aia"],
-       "q": "¿Qué debe cumplir una empresa que decide sobre clientes con un modelo de IA?",
-       "claves": "Art. 22 y SCHUFA, explicación de la lógica (C-203/22), alto riesgo del anexo III 5.b y c desde el 2 de diciembre de 2027 y evaluación de impacto en derechos fundamentales (art. 27)."},
-      {"id": "b9-compras", "t": "Comprar IA: contratos y proveedores", "area": "proveedores", "art": "art. 28 RGPD; art. 25 AI Act; Data Act", "normas": ["ue-rgpd", "ue-aia", "ue-data-act", "ue-pld"],
-       "q": "¿Qué debe revisar una empresa antes de contratar una herramienta de IA?",
-       "claves": "Rol del proveedor y contrato de encargo (art. 28 RGPD), si el proveedor usa los datos para entrenar, transferencias internacionales, rol según el AI Act (art. 25), cláusulas de datos (Data Act) y responsabilidad por defectos."},
-      {"id": "b9-agentes", "t": "Agentes de IA y automatizaciones internas", "area": "agentes", "art": "Orientaciones AEPD; RGPD", "normas": ["es-aepd", "ue-rgpd", "ue-aia"],
-       "q": "¿Qué controles necesita un agente de IA que actúa en nombre de la empresa?",
-       "claves": "Permisos mínimos, registro de lo que hace, revisión humana de las decisiones con efectos, EIPD y responsabilidad de quien lo despliega (orientaciones de la AEPD sobre IA agéntica)."},
-      {"id": "b9-programa", "t": "Programa de cumplimiento de IA y datos", "area": "gobernanza", "art": "RGPD, AI Act y normativa sectorial", "normas": ["ue-rgpd", "ue-aia"],
-       "q": "¿Cómo montarías desde cero el programa de cumplimiento de IA y datos de una empresa?",
-       "claves": "Inventario y clasificación por riesgo, roles, políticas, EIPD y evaluaciones del art. 27, alfabetización, contratos con proveedores, seguimiento de cambios normativos y auditoría periódica."}
-    ]}
+ "b0": {
+  "orden": 0,
+  "titulo": "Cómo funciona el derecho digital europeo",
+  "semanas": 1,
+  "objetivo": "Saber de dónde salen las normas, cómo se relacionan entre sí y dónde leerlas.",
+  "conceptos": [
+   {
+    "id": "b0-fuentes",
+    "t": "Reglamento y directiva",
+    "area": "gobernanza",
+    "art": "art. 288 TFUE",
+    "normas": [],
+    "q": "¿Qué diferencia hay entre un reglamento y una directiva de la UE, y por qué le importa a una empresa?",
+    "claves": "El reglamento es obligatorio en todos sus elementos y directamente aplicable en todos los Estados; la directiva obliga en cuanto al resultado y necesita transposición nacional (art. 288 TFUE). El RGPD y el AI Act son reglamentos; NIS2 es una directiva."
+   },
+   {
+    "id": "b0-transposicion",
+    "t": "Transposición, plazos y efecto directo",
+    "area": "gobernanza",
+    "art": "arts. 258-260 TFUE",
+    "normas": [
+     "ue-nis2"
+    ],
+    "q": "¿Qué pasa si un Estado no transpone una directiva a tiempo, y qué puede invocar un particular?",
+    "claves": "Procedimiento de infracción ante el TJUE (arts. 258-260 TFUE); efecto directo vertical de disposiciones claras, precisas e incondicionales frente al Estado, no horizontal entre particulares; ejemplo actual: NIS2 en España."
+   },
+   {
+    "id": "b0-softlaw",
+    "t": "Directrices, guías y soft law",
+    "area": "gobernanza",
+    "art": "art. 70 RGPD",
+    "normas": [
+     "ue-edpb",
+     "es-aepd"
+    ],
+    "q": "¿Qué valor tienen las directrices del CEPD o las guías de la AEPD frente al propio reglamento?",
+    "claves": "No son normas vinculantes, pero interpretan el reglamento y anticipan cómo actuarán las autoridades; el CEPD emite directrices y dictámenes (art. 70 RGPD); un cumplimiento serio las tiene en cuenta."
+   },
+   {
+    "id": "b0-autoridades",
+    "t": "Quién vigila: autoridades y TJUE",
+    "area": "gobernanza",
+    "art": "art. 267 TFUE",
+    "normas": [
+     "es-aepd",
+     "cat-apdcat",
+     "ue-aia"
+    ],
+    "q": "¿Qué autoridades aplican el RGPD y el AI Act en España y en la UE, y qué papel tiene el TJUE?",
+    "claves": "Datos: AEPD y autoridades autonómicas como la APDCAT, coordinadas en el CEPD. IA: Oficina de IA de la Comisión y autoridades nacionales (AESIA). El TJUE fija la interpretación mediante cuestiones prejudiciales (art. 267 TFUE)."
+   },
+   {
+    "id": "b0-leer",
+    "t": "Leer una norma: considerandos, artículos, anexos y vigencia",
+    "area": "gobernanza",
+    "art": "EUR-Lex y BOE",
+    "normas": [
+     "ue-aia",
+     "ue-omnibus-ia"
+    ],
+    "q": "¿Cómo se lee un reglamento en EUR-Lex y cómo compruebas qué versión está vigente?",
+    "claves": "Los considerandos explican, los artículos obligan y los anexos concretan; las fechas de entrada en vigor y de aplicación están en el artículo final; hay que mirar la versión consolidada y las modificaciones (por ejemplo, el Omnibus 2026/1744 sobre el AI Act)."
+   },
+   {
+    "id": "b0-ciclo",
+    "t": "Cómo nace una norma europea",
+    "area": "gobernanza",
+    "art": "art. 294 TFUE",
+    "normas": [
+     "ue-omnibus-datos"
+    ],
+    "q": "¿Cómo se aprueba un reglamento europeo y en qué punto está una propuesta como el Omnibus de datos?",
+    "claves": "Propuesta de la Comisión, posiciones del Parlamento y del Consejo, trílogos, adopción, publicación en el DOUE y fechas de aplicación (procedimiento legislativo ordinario, art. 294 TFUE). Una propuesta no obliga a nadie hasta que se publica y se aplica."
+   }
+  ]
+ },
+ "b1": {
+  "orden": 1,
+  "titulo": "RGPD: conceptos básicos",
+  "semanas": 2,
+  "objetivo": "Saber cuándo se aplica el RGPD y quién es quién en un tratamiento.",
+  "conceptos": [
+   {
+    "id": "b1-dato",
+    "t": "Dato personal",
+    "area": "datos",
+    "art": "art. 4.1 y considerando 26 RGPD",
+    "normas": [
+     "ue-rgpd",
+     "ue-edpb"
+    ],
+    "q": "¿Qué es un dato personal y cuándo un dato deja de serlo?",
+    "claves": "Toda información sobre una persona física identificada o identificable (art. 4.1); identificable con medios que razonablemente puedan usarse (considerando 26); el dato seudonimizado sigue siendo personal para quien puede reidentificar; el anonimizado de verdad, no."
+   },
+   {
+    "id": "b1-tratamiento",
+    "t": "Tratamiento",
+    "area": "datos",
+    "art": "art. 4.2 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué cuenta como tratamiento de datos? ¿Entrenar o usar una IA lo es?",
+    "claves": "Cualquier operación sobre datos personales, automatizada o no: recoger, registrar, conservar, consultar, usar, comunicar, borrar (art. 4.2). Entrenar, ajustar o consultar un modelo con datos personales es tratamiento."
+   },
+   {
+    "id": "b1-ambito",
+    "t": "Ámbito de aplicación",
+    "area": "datos",
+    "art": "arts. 2 y 3 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cuándo se aplica el RGPD, también a una empresa de fuera de la UE?",
+    "claves": "Ámbito material (art. 2), con la excepción de las actividades domésticas; ámbito territorial (art. 3): establecimiento en la UE, u ofrecer bienes o servicios o controlar el comportamiento de personas que están en la UE."
+   },
+   {
+    "id": "b1-responsable",
+    "t": "Responsable del tratamiento",
+    "area": "datos",
+    "art": "arts. 4.7, 5.2 y 24 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Quién es el responsable del tratamiento y qué le obliga?",
+    "claves": "Quien decide los fines y los medios del tratamiento (art. 4.7); responde del cumplimiento y debe poder demostrarlo (responsabilidad proactiva, arts. 5.2 y 24)."
+   },
+   {
+    "id": "b1-encargado",
+    "t": "Encargado y subencargado",
+    "area": "proveedores",
+    "art": "arts. 4.8 y 28 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué es un encargado del tratamiento y qué pasa si usa los datos para sus propios fines?",
+    "claves": "Trata datos por cuenta del responsable (art. 4.8), con un contrato que fija las instrucciones (art. 28); si decide fines propios pasa a ser responsable de ese tratamiento (art. 28.10); los subencargados necesitan autorización."
+   },
+   {
+    "id": "b1-corresponsables",
+    "t": "Corresponsables",
+    "area": "datos",
+    "art": "art. 26 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cuándo dos empresas son corresponsables de un tratamiento?",
+    "claves": "Cuando determinan conjuntamente los fines y los medios (art. 26); necesitan un acuerdo que reparta las obligaciones; el TJUE lo ha aplicado a páginas de fans (Wirtschaftsakademie, C-210/16) y botones sociales (Fashion ID, C-40/17)."
+   },
+   {
+    "id": "b1-especiales",
+    "t": "Categorías especiales y datos penales",
+    "area": "datos",
+    "art": "arts. 9 y 10 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué datos son de categoría especial y por qué cambian las reglas?",
+    "claves": "Origen étnico, opiniones políticas, convicciones religiosas, afiliación sindical, datos genéticos, biométricos para identificar, salud, vida u orientación sexual (art. 9): prohibición general con excepciones tasadas; los datos penales tienen su régimen (art. 10)."
+   }
+  ]
+ },
+ "b2": {
+  "orden": 2,
+  "titulo": "RGPD: licitud y principios",
+  "semanas": 2,
+  "objetivo": "Saber justificar un tratamiento: principios, base jurídica y transparencia.",
+  "conceptos": [
+   {
+    "id": "b2-principios",
+    "t": "Los principios del art. 5",
+    "area": "datos",
+    "art": "art. 5 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué principios debe respetar todo tratamiento de datos?",
+    "claves": "Licitud, lealtad y transparencia; limitación de la finalidad; minimización; exactitud; limitación del plazo de conservación; integridad y confidencialidad; y responsabilidad proactiva (art. 5.2)."
+   },
+   {
+    "id": "b2-bases",
+    "t": "Las seis bases jurídicas",
+    "area": "datos",
+    "art": "art. 6.1 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué bases jurídicas hay y por qué son alternativas y no acumulables?",
+    "claves": "Consentimiento, contrato, obligación legal, intereses vitales, interés público y interés legítimo (art. 6.1); se elige una por cada finalidad antes de empezar a tratar, y no se suman para «asegurar»."
+   },
+   {
+    "id": "b2-consentimiento",
+    "t": "Consentimiento válido",
+    "area": "marketing",
+    "art": "arts. 4.11 y 7 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cuándo es válido el consentimiento y cuándo no sirve?",
+    "claves": "Libre, específico, informado e inequívoco (art. 4.11) y revocable en cualquier momento (art. 7); problemático cuando hay desequilibrio, como entre empresa y trabajador (considerando 43); las casillas premarcadas no valen (Planet49, C-673/17)."
+   },
+   {
+    "id": "b2-interes",
+    "t": "Interés legítimo y ponderación",
+    "area": "datos",
+    "art": "arts. 6.1.f y 21 RGPD",
+    "normas": [
+     "ue-rgpd",
+     "ue-edpb"
+    ],
+    "q": "¿Cómo se usa el interés legítimo y qué hay que documentar?",
+    "claves": "Tres pasos: interés legítimo, necesidad del tratamiento y ponderación con los derechos de las personas (art. 6.1.f), atendiendo a sus expectativas razonables (considerando 47); derecho de oposición (art. 21); el TJUE ha marcado sus límites (Meta Platforms, C-252/21)."
+   },
+   {
+    "id": "b2-finalidad",
+    "t": "Limitación de la finalidad y compatibilidad",
+    "area": "datos",
+    "art": "arts. 5.1.b y 6.4 RGPD",
+    "normas": [
+     "ue-rgpd",
+     "ue-omnibus-datos"
+    ],
+    "q": "¿Puede una empresa reutilizar datos para un fin nuevo, como entrenar una IA?",
+    "claves": "Fines determinados, explícitos y legítimos (art. 5.1.b); test de compatibilidad del art. 6.4 (vínculo entre fines, contexto, naturaleza de los datos, consecuencias y garantías); si no es compatible, hace falta una nueva base jurídica."
+   },
+   {
+    "id": "b2-transparencia",
+    "t": "Transparencia e información",
+    "area": "clientes",
+    "art": "arts. 12-14 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué hay que contar a las personas sobre el uso de sus datos y cuándo?",
+    "claves": "Información clara y accesible (art. 12) sobre responsable, fines, base jurídica, destinatarios, plazos y derechos; art. 13 si se recogen del interesado y art. 14 si se obtienen de otra fuente; información por capas."
+   },
+   {
+    "id": "b2-minimizacion",
+    "t": "Minimización y conservación",
+    "area": "datos",
+    "art": "arts. 5.1.c y 5.1.e RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cuántos datos puede usar una empresa y durante cuánto tiempo?",
+    "claves": "Adecuados, pertinentes y limitados a lo necesario (art. 5.1.c); conservados solo el tiempo necesario (art. 5.1.e); seudonimizar o anonimizar como medidas."
+   }
+  ]
+ },
+ "b3": {
+  "orden": 3,
+  "titulo": "RGPD: cumplimiento en la práctica",
+  "semanas": 2,
+  "objetivo": "Saber montar y demostrar el cumplimiento de un tratamiento.",
+  "conceptos": [
+   {
+    "id": "b3-proactiva",
+    "t": "Responsabilidad proactiva",
+    "area": "gobernanza",
+    "art": "arts. 5.2 y 24 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué significa en la práctica poder demostrar el cumplimiento?",
+    "claves": "Medidas técnicas y organizativas apropiadas al riesgo, documentadas y revisadas (arts. 5.2 y 24): políticas, registros, evaluaciones, contratos y formación."
+   },
+   {
+    "id": "b3-diseno",
+    "t": "Protección desde el diseño y por defecto",
+    "area": "producto",
+    "art": "art. 25 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cómo se aplica la protección de datos desde el diseño al crear un producto con IA?",
+    "claves": "Medidas desde el diseño, como seudonimizar o minimizar (art. 25.1), y por defecto, de modo que solo se traten los datos necesarios para cada fin (art. 25.2)."
+   },
+   {
+    "id": "b3-registro",
+    "t": "Registro de actividades de tratamiento",
+    "area": "gobernanza",
+    "art": "art. 30 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué es el registro de actividades y quién debe llevarlo?",
+    "claves": "Inventario documentado de tratamientos con fines, categorías de datos e interesados, destinatarios, transferencias, plazos y medidas (art. 30); la excepción para empresas de menos de 250 trabajadores es muy limitada."
+   },
+   {
+    "id": "b3-eipd",
+    "t": "Evaluación de impacto (EIPD)",
+    "area": "agentes",
+    "art": "arts. 35 y 36 RGPD",
+    "normas": [
+     "ue-rgpd",
+     "es-aepd"
+    ],
+    "q": "¿Cuándo es obligatoria una EIPD y qué contiene?",
+    "claves": "Cuando es probable un alto riesgo (art. 35.1); supuestos del 35.3 (evaluación sistemática con perfilado y efectos significativos, categorías especiales a gran escala, observación sistemática de zonas públicas) y listas de la AEPD; contenido del 35.7; consulta previa si el riesgo sigue siendo alto (art. 36)."
+   },
+   {
+    "id": "b3-encargo",
+    "t": "Contrato de encargo",
+    "area": "proveedores",
+    "art": "art. 28.3 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué debe decir el contrato con un proveedor que trata datos, como un SaaS de IA?",
+    "claves": "Art. 28.3: tratar solo con instrucciones documentadas, confidencialidad, seguridad, condiciones para subencargados, ayuda con los derechos y las brechas, borrado o devolución al terminar y auditorías."
+   },
+   {
+    "id": "b3-seguridad",
+    "t": "Seguridad y brechas de datos",
+    "area": "ciber",
+    "art": "arts. 32-34 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué tiene que hacer una empresa ante una brecha de datos personales?",
+    "claves": "Seguridad adecuada al riesgo (art. 32); notificar a la autoridad en 72 horas salvo que sea improbable el riesgo (art. 33); comunicarlo a los afectados si el riesgo es alto (art. 34); documentar todas las brechas."
+   },
+   {
+    "id": "b3-transferencias",
+    "t": "Transferencias internacionales",
+    "area": "proveedores",
+    "art": "capítulo V RGPD (arts. 44-49)",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Puede una empresa usar un proveedor de IA que trata los datos en EE. UU.?",
+    "claves": "Solo con una garantía del capítulo V: decisión de adecuación (Marco de Privacidad de Datos UE-EE. UU., 2023, para entidades adheridas), cláusulas contractuales tipo con evaluación del destino o excepciones del art. 49; antecedente: Schrems II (C-311/18)."
+   },
+   {
+    "id": "b3-dpd",
+    "t": "Delegado de protección de datos",
+    "area": "gobernanza",
+    "art": "arts. 37-39 RGPD y 34 LOPDGDD",
+    "normas": [
+     "ue-rgpd",
+     "es-laboral"
+    ],
+    "q": "¿Cuándo hace falta un delegado de protección de datos y qué hace?",
+    "claves": "Obligatorio en autoridades públicas, observación habitual y sistemática a gran escala o categorías especiales a gran escala (art. 37) y en la lista española del art. 34 LOPDGDD; asesora y supervisa (art. 39) con independencia."
+   }
+  ]
+ },
+ "b4": {
+  "orden": 4,
+  "titulo": "Derechos y decisiones automatizadas",
+  "semanas": 1,
+  "objetivo": "Saber qué pueden exigir las personas, sobre todo frente a decisiones de algoritmos.",
+  "conceptos": [
+   {
+    "id": "b4-derechos",
+    "t": "Derechos de los interesados",
+    "area": "clientes",
+    "art": "arts. 12 y 15-21 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué derechos tiene una persona sobre sus datos y en qué plazo se atienden?",
+    "claves": "Acceso (15), rectificación (16), supresión (17), limitación (18), portabilidad (20) y oposición (21); respuesta en un mes, ampliable dos meses más en casos complejos (art. 12.3)."
+   },
+   {
+    "id": "b4-explicacion",
+    "t": "Acceso y explicación de un algoritmo",
+    "area": "decisiones",
+    "art": "art. 15.1.h RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué puede pedir alguien sobre una decisión tomada con un algoritmo?",
+    "claves": "Información significativa sobre la lógica aplicada y las consecuencias previstas (arts. 13.2.f, 14.2.g y 15.1.h); el TJUE exige explicar el procedimiento y los principios aplicados de forma comprensible (Dun & Bradstreet Austria, C-203/22)."
+   },
+   {
+    "id": "b4-art22",
+    "t": "Decisiones únicamente automatizadas",
+    "area": "decisiones",
+    "art": "art. 22 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Cuándo está prohibida una decisión automatizada y con qué excepciones y garantías?",
+    "claves": "Prohíbe decisiones basadas únicamente en tratamiento automatizado con efectos jurídicos o igualmente significativos; excepciones: necesaria para un contrato, autorizada por ley o con consentimiento explícito; garantías: intervención humana, expresar el punto de vista e impugnar."
+   },
+   {
+    "id": "b4-schufa",
+    "t": "Perfilado y scoring: el caso SCHUFA",
+    "area": "decisiones",
+    "art": "art. 22 RGPD; C-634/21",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Un score que otra empresa usa para decidir cuenta como decisión automatizada?",
+    "claves": "Sí, si el score determina de forma decisiva la decisión del tercero (TJUE, SCHUFA, C-634/21, 2023); una revisión humana solo formal no cambia la calificación."
+   },
+   {
+    "id": "b4-oposicion",
+    "t": "Oposición y marketing",
+    "area": "marketing",
+    "art": "art. 21 RGPD",
+    "normas": [
+     "ue-rgpd"
+    ],
+    "q": "¿Qué pasa si alguien se opone a que perfilen sus datos para publicidad?",
+    "claves": "En mercadotecnia directa la oposición es absoluta y hay que dejar de tratar (art. 21.2-3); si la base es el interés legítimo, el responsable debe acreditar motivos imperiosos que prevalezcan (art. 21.1)."
+   }
+  ]
+ },
+ "b5": {
+  "orden": 5,
+  "titulo": "AI Act: arquitectura",
+  "semanas": 2,
+  "objetivo": "Saber clasificar un uso de IA: qué es, quién es quién, qué riesgo tiene y qué se aplica ya.",
+  "conceptos": [
+   {
+    "id": "b5-sistema",
+    "t": "Qué es un sistema de IA",
+    "area": "gobernanza",
+    "art": "art. 3.1 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué es un sistema de IA según el AI Act y qué software queda fuera?",
+    "claves": "Sistema basado en máquinas, con cierto nivel de autonomía, que infiere de la información que recibe cómo generar resultados (predicciones, contenidos, recomendaciones o decisiones) (art. 3.1); la Comisión publicó directrices sobre la definición; el software que solo sigue reglas fijadas por personas queda fuera."
+   },
+   {
+    "id": "b5-roles",
+    "t": "Roles: proveedor y responsable del despliegue",
+    "area": "proveedores",
+    "art": "arts. 3 y 25 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué rol tiene la empresa que usa un chatbot comprado y cuál la que lo desarrolla?",
+    "claves": "Proveedor (art. 3.3), responsable del despliegue (art. 3.4), importador y distribuidor; según el art. 25, quien pone su marca a un sistema de alto riesgo, lo modifica sustancialmente o cambia su finalidad pasa a ser proveedor."
+   },
+   {
+    "id": "b5-riesgo",
+    "t": "Enfoque por niveles de riesgo",
+    "area": "gobernanza",
+    "art": "arts. 5, 6 y 50 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Cuáles son los niveles de riesgo del AI Act y qué implica cada uno?",
+    "claves": "Prácticas prohibidas (art. 5), alto riesgo (art. 6 y anexos I y III), obligaciones de transparencia (art. 50) y el resto sin obligaciones específicas (códigos voluntarios); aparte, el régimen de los modelos de uso general."
+   },
+   {
+    "id": "b5-prohibidas",
+    "t": "Prácticas prohibidas",
+    "area": "personas",
+    "art": "art. 5 AI Act",
+    "normas": [
+     "ue-aia",
+     "ue-omnibus-ia"
+    ],
+    "q": "¿Qué usos de la IA están prohibidos y desde cuándo?",
+    "claves": "Desde el 2 de febrero de 2025: manipulación, explotación de vulnerabilidades, puntuación social, predicción delictiva basada solo en perfiles, recopilación masiva de imágenes faciales, reconocimiento de emociones en el trabajo y en la educación, categorización biométrica sensible e identificación biométrica remota en tiempo real (con excepciones). El Omnibus añade, desde el 2 de diciembre de 2026, la IA que genera imágenes íntimas no consentidas o material de abuso sexual infantil."
+   },
+   {
+    "id": "b5-alfabetizacion",
+    "t": "Alfabetización en IA",
+    "area": "gobernanza",
+    "art": "art. 4 AI Act",
+    "normas": [
+     "ue-aia",
+     "ue-omnibus-ia"
+    ],
+    "q": "¿Qué exige hoy el art. 4 del AI Act tras el Omnibus?",
+    "claves": "Proveedores y responsables del despliegue deben adoptar medidas para apoyar la alfabetización en IA de su personal según sus conocimientos y el contexto de uso; tras el Reglamento 2026/1744 no tienen que garantizar un nivel concreto."
+   },
+   {
+    "id": "b5-transparencia",
+    "t": "Transparencia",
+    "area": "contenido",
+    "art": "art. 50 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Cuándo hay que avisar de que se usa IA?",
+    "claves": "Desde el 2 de agosto de 2026: avisar de que se interactúa con una IA, marcar el contenido sintético de forma legible por máquina (art. 50.2; sistemas ya comercializados, hasta el 2 de diciembre de 2026), y etiquetar deepfakes y textos de interés público generados con IA."
+   },
+   {
+    "id": "b5-calendario",
+    "t": "Calendario y sanciones",
+    "area": "gobernanza",
+    "art": "arts. 99 y 113 AI Act",
+    "normas": [
+     "ue-aia",
+     "ue-omnibus-ia"
+    ],
+    "q": "¿Qué partes del AI Act se aplican hoy y cuáles llegan en 2027 y 2028?",
+    "claves": "Hitos: 2-2-2025, 2-8-2025, 2-8-2026, 2-12-2026, 2-12-2027 (alto riesgo del anexo III) y 2-8-2028 (anexo I) (art. 113 modificado); multas de hasta 35 millones o el 7 % del volumen de negocio mundial por prácticas prohibidas (art. 99), con la cuantía menor para pymes y pequeñas empresas de mediana capitalización."
+   }
+  ]
+ },
+ "b6": {
+  "orden": 6,
+  "titulo": "AI Act: alto riesgo y modelos de uso general",
+  "semanas": 2,
+  "objetivo": "Saber qué exige el alto riesgo a quien lo desarrolla y a quien lo usa, y qué deben los modelos de uso general.",
+  "conceptos": [
+   {
+    "id": "b6-anexo3",
+    "t": "Cuándo un sistema es de alto riesgo",
+    "area": "personas",
+    "art": "art. 6 y anexo III AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué sistemas son de alto riesgo según el anexo III y cuándo no lo son?",
+    "claves": "Ámbitos del anexo III: biometría, infraestructuras críticas, educación, empleo, servicios esenciales (crédito, seguros de vida y salud), garantía del cumplimiento del Derecho, migración y justicia; excepción del art. 6.3 si no influye sustancialmente en la decisión, salvo que haga perfilado."
+   },
+   {
+    "id": "b6-requisitos",
+    "t": "Requisitos del sistema",
+    "area": "producto",
+    "art": "arts. 9-15 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué requisitos debe cumplir un sistema de alto riesgo?",
+    "claves": "Gestión de riesgos (9), datos y gobernanza de datos (10), documentación técnica (11), registros (12), transparencia e instrucciones (13), supervisión humana (14) y precisión, solidez y ciberseguridad (15); evaluación de la conformidad y marcado CE."
+   },
+   {
+    "id": "b6-proveedor",
+    "t": "Obligaciones del proveedor",
+    "area": "producto",
+    "art": "arts. 16, 17, 49, 72 y 73 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué debe hacer quien desarrolla un sistema de alto riesgo?",
+    "claves": "Cumplir los requisitos (art. 16), sistema de gestión de la calidad (17), documentación, evaluación de la conformidad, registro en la base de datos de la UE (49), vigilancia poscomercialización (72) y notificación de incidentes graves (73)."
+   },
+   {
+    "id": "b6-despliegue",
+    "t": "Obligaciones del responsable del despliegue",
+    "area": "personas",
+    "art": "art. 26 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué debe hacer una empresa que usa un sistema de alto riesgo comprado a otro?",
+    "claves": "Usarlo según las instrucciones, asignar supervisión humana competente, controlar que los datos de entrada sean pertinentes, vigilar el funcionamiento, conservar los registros, informar a los representantes de los trabajadores antes de usarlo en el trabajo (art. 26.7) y a las personas afectadas por decisiones (art. 26.11)."
+   },
+   {
+    "id": "b6-fria",
+    "t": "Evaluación de impacto en derechos fundamentales",
+    "area": "decisiones",
+    "art": "art. 27 AI Act",
+    "normas": [
+     "ue-aia",
+     "cat-apdcat"
+    ],
+    "q": "¿Quién debe hacer la evaluación de impacto del art. 27 y cuándo?",
+    "claves": "Los organismos de derecho público, las entidades privadas que prestan servicios públicos y quienes usan IA para evaluar la solvencia o fijar precios de seguros de vida y salud (anexo III, 5.b y c); antes del primer uso; la APDCAT ha publicado un modelo práctico; la Oficina de IA consulta hasta el 15 de enero de 2027 una plantilla oficial, que será la que haya que usar cuando se adopte."
+   },
+   {
+    "id": "b6-gpai",
+    "t": "Modelos de IA de uso general",
+    "area": "proveedores",
+    "art": "arts. 51-55 AI Act",
+    "normas": [
+     "ue-aia"
+    ],
+    "q": "¿Qué obligaciones tienen los proveedores de modelos de uso general?",
+    "claves": "Desde el 2 de agosto de 2025: documentación técnica, información a quienes integran el modelo, política de derechos de autor y resumen público del contenido de entrenamiento (art. 53); obligaciones adicionales si tienen riesgo sistémico, presunto a partir de 10^25 FLOP (arts. 51 y 55); código de buenas prácticas."
+   }
+  ]
+ },
+ "b7": {
+  "orden": 7,
+  "titulo": "España y Cataluña",
+  "semanas": 1,
+  "objetivo": "Saber qué añade el derecho español y catalán, sobre todo en el trabajo y la atención al cliente.",
+  "conceptos": [
+   {
+    "id": "b7-lopdgdd",
+    "t": "Qué añade la LOPDGDD",
+    "area": "datos",
+    "art": "LO 3/2018",
+    "normas": [
+     "es-laboral"
+    ],
+    "q": "¿Qué añade la LOPDGDD al RGPD?",
+    "claves": "Concreta el RGPD en España (consentimiento de menores desde los 14 años, art. 7; lista de entidades que necesitan delegado, art. 34; infracciones y prescripción) y reconoce derechos digitales (arts. 79-97)."
+   },
+   {
+    "id": "b7-trabajo",
+    "t": "Derechos digitales en el trabajo",
+    "area": "personas",
+    "art": "arts. 87-91 LOPDGDD; art. 20.3 ET",
+    "normas": [
+     "es-laboral"
+    ],
+    "q": "¿Qué límites tiene una empresa para controlar a su plantilla con tecnología?",
+    "claves": "Intimidad en el uso de dispositivos digitales (87), desconexión digital (88), videovigilancia y grabación de sonidos (89) y geolocalización (90), con información previa; el control debe ser proporcionado (art. 20.3 ET)."
+   },
+   {
+    "id": "b7-algoritmos",
+    "t": "Algoritmos: comité de empresa y cada trabajador",
+    "area": "personas",
+    "art": "art. 64.4.d ET; art. 3.2.k RD 723/2026",
+    "normas": [
+     "es-laboral"
+    ],
+    "q": "¿Qué debe informar la empresa al comité y a cada trabajador sobre los algoritmos que deciden sobre su trabajo?",
+    "claves": "Al comité: los parámetros, reglas e instrucciones de los algoritmos o sistemas de IA que afectan a condiciones de trabajo, acceso y mantenimiento del empleo, incluida la elaboración de perfiles (art. 64.4.d ET). A cada trabajador, por escrito y desde el 5 de octubre de 2026: la existencia de sistemas algorítmicos o automatizados de decisión y, si deciden sobre condiciones de trabajo, sus pautas, criterios y reglas (art. 3.2.k del Real Decreto 723/2026)."
+   },
+   {
+    "id": "b7-atencion",
+    "t": "Atención a la clientela con IA",
+    "area": "clientes",
+    "art": "Ley 10/2025",
+    "normas": [
+     "es-atencion"
+    ],
+    "q": "¿Puede una empresa atender a sus clientes solo con IA en España?",
+    "claves": "No: la Ley 10/2025 exige atención personalizada y no permite atender solo con contestadores automáticos o IA; se aplica a grandes empresas y servicios básicos; el plazo de adaptación vence el 28 de diciembre de 2026."
+   },
+   {
+    "id": "b7-autoridades",
+    "t": "Autoridades españolas y catalanas",
+    "area": "gobernanza",
+    "art": "LOPDGDD; Ley 32/2010 (APDCAT)",
+    "normas": [
+     "es-aepd",
+     "cat-apdcat",
+     "es-ley-ia"
+    ],
+    "q": "¿Qué hacen la AEPD, la APDCAT y la AESIA, y cómo queda la ley española de IA?",
+    "claves": "AEPD: autoridad estatal de protección de datos; APDCAT: sector público catalán y quienes prestan servicios públicos en Cataluña; AESIA: supervisión de la IA; el proyecto de ley española de IA caducó con la disolución de las Cortes de octubre de 2026."
+   }
+  ]
+ },
+ "b8": {
+  "orden": 8,
+  "titulo": "Datos, ciberseguridad y producto",
+  "semanas": 2,
+  "objetivo": "Saber qué otras normas digitales afectan a una empresa que usa o vende tecnología.",
+  "conceptos": [
+   {
+    "id": "b8-dataact",
+    "t": "Data Act",
+    "area": "producto",
+    "art": "Reglamento 2023/2854",
+    "normas": [
+     "ue-data-act"
+    ],
+    "q": "¿Qué derechos da el Data Act a los usuarios de productos conectados?",
+    "claves": "Acceder a los datos que generan y compartirlos con terceros (arts. 3-5); acceso desde el diseño para productos comercializados desde el 12 de septiembre de 2026; control de cláusulas abusivas en contratos de datos entre empresas (art. 13) y cambio de proveedor de nube."
+   },
+   {
+    "id": "b8-nis2",
+    "t": "NIS2",
+    "area": "ciber",
+    "art": "Directiva 2022/2555",
+    "normas": [
+     "ue-nis2"
+    ],
+    "q": "¿Qué empresas están obligadas por NIS2 y qué deben hacer?",
+    "claves": "Entidades esenciales e importantes según sector y tamaño; medidas de gestión de riesgos (art. 21), notificación de incidentes con alerta temprana en 24 horas (art. 23) y responsabilidad de los órganos de dirección (art. 20); en España aún no está transpuesta."
+   },
+   {
+    "id": "b8-cra",
+    "t": "Reglamento de Ciberresiliencia",
+    "area": "ciber",
+    "art": "Reglamento 2024/2847",
+    "normas": [
+     "ue-cra"
+    ],
+    "q": "¿Qué obligaciones tiene quien fabrica o vende software o dispositivos conectados?",
+    "claves": "Ciberseguridad desde el diseño y gestión de vulnerabilidades; desde el 11 de septiembre de 2026, notificar vulnerabilidades explotadas e incidentes graves (alerta en 24 horas, art. 14); aplicación general el 11 de diciembre de 2027."
+   },
+   {
+    "id": "b8-pld",
+    "t": "Responsabilidad por productos defectuosos",
+    "area": "producto",
+    "art": "Directiva 2024/2853",
+    "normas": [
+     "ue-pld"
+    ],
+    "q": "¿Responde una empresa si su software con IA causa un daño?",
+    "claves": "La nueva directiva considera producto el software, incluida la IA; responsabilidad sin culpa por defectos, también por actualizaciones o por no darlas; facilita la prueba al perjudicado; plazo de transposición hasta el 9 de diciembre de 2026."
+   },
+   {
+    "id": "b8-gobernanza",
+    "t": "Gobernanza de datos en la empresa",
+    "area": "gobernanza",
+    "art": "RGPD, AI Act y NIS2",
+    "normas": [
+     "ue-rgpd",
+     "ue-aia",
+     "ue-nis2"
+    ],
+    "q": "¿Cómo se organiza una empresa para usar datos con IA de forma legal?",
+    "claves": "Inventario de datos y de sistemas de IA, roles claros (delegado de protección de datos, responsable de IA, seguridad), políticas de uso de IA, evaluación de proveedores, registros y formación: un único programa que une RGPD, AI Act y ciberseguridad."
+   }
+  ]
+ },
+ "b9": {
+  "orden": 9,
+  "titulo": "Procesos de empresa",
+  "semanas": 4,
+  "objetivo": "Aplicar todo lo anterior a los procesos reales que una empresa automatiza con IA.",
+  "conceptos": [
+   {
+    "id": "b9-seleccion",
+    "t": "Selección y gestión de personas con IA",
+    "area": "personas",
+    "art": "RGPD, ET, RD 723/2026 y AI Act",
+    "normas": [
+     "ue-rgpd",
+     "es-laboral",
+     "ue-aia"
+    ],
+    "q": "¿Cómo debe adaptar una empresa su proceso de selección y gestión de personas si usa IA?",
+    "claves": "Base jurídica e información a candidatos, art. 22 y revisión humana real, EIPD, información al comité (art. 64.4.d ET) y por escrito a cada trabajador sobre los sistemas algorítmicos (art. 3.2.k RD 723/2026), prohibición de reconocer emociones y obligaciones de alto riesgo del anexo III desde el 2 de diciembre de 2027."
+   },
+   {
+    "id": "b9-clientes",
+    "t": "Atención al cliente con chatbots y agentes de voz",
+    "area": "clientes",
+    "art": "Ley 10/2025; art. 50 AI Act; RGPD",
+    "normas": [
+     "es-atencion",
+     "ue-aia",
+     "ue-rgpd"
+    ],
+    "q": "¿Qué debe hacer una empresa que atiende a sus clientes con un chatbot o un agente de voz?",
+    "claves": "Opción de atención humana (Ley 10/2025), aviso de que se habla con una IA (art. 50), información y base jurídica para las grabaciones y conversaciones, y contrato con el proveedor."
+   },
+   {
+    "id": "b9-marketing",
+    "t": "Marketing y personalización",
+    "area": "marketing",
+    "art": "RGPD; LSSI; ePrivacy",
+    "normas": [
+     "ue-rgpd",
+     "ue-omnibus-datos"
+    ],
+    "q": "¿Cómo puede una empresa personalizar ofertas con IA sin incumplir?",
+    "claves": "Base jurídica para el perfilado (consentimiento o interés legítimo ponderado), cookies con consentimiento (normativa ePrivacy y LSSI), derecho de oposición absoluto en mercadotecnia directa y transparencia sobre el perfilado."
+   },
+   {
+    "id": "b9-decisiones",
+    "t": "Decisiones sobre clientes: crédito, seguros y precios",
+    "area": "decisiones",
+    "art": "art. 22 RGPD; anexo III AI Act",
+    "normas": [
+     "ue-rgpd",
+     "ue-aia"
+    ],
+    "q": "¿Qué debe cumplir una empresa que decide sobre clientes con un modelo de IA?",
+    "claves": "Art. 22 y SCHUFA, explicación de la lógica (C-203/22), alto riesgo del anexo III 5.b y c desde el 2 de diciembre de 2027 y evaluación de impacto en derechos fundamentales (art. 27)."
+   },
+   {
+    "id": "b9-compras",
+    "t": "Comprar IA: contratos y proveedores",
+    "area": "proveedores",
+    "art": "art. 28 RGPD; art. 25 AI Act; Data Act",
+    "normas": [
+     "ue-rgpd",
+     "ue-aia",
+     "ue-data-act",
+     "ue-pld"
+    ],
+    "q": "¿Qué debe revisar una empresa antes de contratar una herramienta de IA?",
+    "claves": "Rol del proveedor y contrato de encargo (art. 28 RGPD), si el proveedor usa los datos para entrenar, transferencias internacionales, rol según el AI Act (art. 25), cláusulas de datos (Data Act) y responsabilidad por defectos."
+   },
+   {
+    "id": "b9-agentes",
+    "t": "Agentes de IA y automatizaciones internas",
+    "area": "agentes",
+    "art": "Orientaciones AEPD; RGPD",
+    "normas": [
+     "es-aepd",
+     "ue-rgpd",
+     "ue-aia"
+    ],
+    "q": "¿Qué controles necesita un agente de IA que actúa en nombre de la empresa?",
+    "claves": "Permisos mínimos, registro de lo que hace, revisión humana de las decisiones con efectos, EIPD y responsabilidad de quien lo despliega (orientaciones de la AEPD sobre IA agéntica)."
+   },
+   {
+    "id": "b9-programa",
+    "t": "Programa de cumplimiento de IA y datos",
+    "area": "gobernanza",
+    "art": "RGPD, AI Act y normativa sectorial",
+    "normas": [
+     "ue-rgpd",
+     "ue-aia"
+    ],
+    "q": "¿Cómo montarías desde cero el programa de cumplimiento de IA y datos de una empresa?",
+    "claves": "Inventario y clasificación por riesgo, roles, políticas, EIPD y evaluaciones del art. 27, alfabetización, contratos con proveedores, seguimiento de cambios normativos y auditoría periódica."
+   }
+  ]
+ }
 }

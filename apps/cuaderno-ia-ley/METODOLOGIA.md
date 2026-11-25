@@ -56,3 +56,8 @@ Las dos primeras sesiones mostraron el patrón: reconstrucción 1/10 y 2/10 y ca
 - **Actualidad.** Las novedades del radar se estudian en sesiones adaptadas a su nivel: lo que ya domina sirve de gancho, y lo que aún no ha visto se explica en una frase y se indica en qué bloque llegará.
 - **Apuntes automáticos.** Al cerrar cada sesión se guarda una ficha corta con las reglas clave, las normas, su error a evitar y su gancho. Así no hace falta tomar apuntes a mano.
 - **Modo exámenes** (enero-febrero y junio): con la puerta basta y la ruta espera.
+
+## Ajustes del 25-11-2026
+
+- **Reconstrucción por reglas clave.** Antes la corrección comparaba la reconstrucción con la ficha entera, y eso pedía repetir ejemplos y detalles imposibles de retener. Ahora cada ficha marca sus 3-5 reglas clave («lo esencial»), y la reconstrucción se evalúa solo contra ellas. Cada regla cuenta como ✓ (idea correcta con su norma, y el artículo si la regla gira en torno a uno), ~ (incompleta) o ✗ (falta o está mal). El resultado es RECUPERADO = 10 × (✓ + 0,5 × ~) / número de reglas. Los ejemplos y la redacción literal no cuentan, pero los errores de concepto se señalan siempre. La exigencia se mantiene: lo que se evalúa es lo esencial y la precisión normativa.
+- **Radar mensual y por eventos.** El radar se revisa el día 1 de cada mes y al día siguiente de cada acto importante previsto. La agenda de actos aparece en la pestaña Radar.

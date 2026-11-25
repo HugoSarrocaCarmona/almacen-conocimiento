@@ -488,7 +488,7 @@ function planPrompt(s){
     +'- titulo: 8 palabras como máximo.\n'
     +'- subpregunta: la pregunta concreta de hoy, en una frase.\n'
     +'- ficha: 250-400 palabras en Markdown sencillo (párrafos cortos, guiones, **negritas**), dirigida a Hugo. Explica la regla, a quién obliga y desde cuándo (según el estado verificado), y un proceso de empresa antes y después de adaptarlo. Termina con «**Qué haría una empresa mañana:**» y tres pasos.\n'
-    +'- claves: de 3 a 5 reglas clave, una frase cada una.\n'
+    +'- claves: de 3 a 5 reglas clave, una frase cada una, con su norma y artículo cuando los tengan. Son lo único que Hugo tendrá que reconstruir de memoria: lo esencial de la ficha, no ejemplos ni detalles.\n'
     +'- normas: de 1 a 4 referencias exactas. En "radar" pon el id entre corchetes del estado verificado si corresponde, o "".\n'
     +'- caso: una empresa concreta (sector, tamaño y lo que quiere hacer con IA o datos). "pide": qué debe responder Hugo en 8-12 líneas. "criterios": de 3 a 5 puntos que debe tener una buena respuesta (Hugo no los verá).\n'
     +(wantF?'- fuente: el artículo oficial que Hugo debe abrir y leer; "preguntas": 2 preguntas que solo se responden leyendo el texto literal de ese artículo.\n':'')
@@ -505,7 +505,17 @@ function sanitizePlan(r){
 }
 function fbPrompt(s,kind,ans){
   var p=s.plan||{},B=baseCtx(s)+'\n\nSubpregunta de hoy: «'+(p.subpregunta||s.qtext)+'»\n\n';
-  if(kind==='rebuild')return B+'Ficha que Hugo leyó:\n"""\n'+p.ficha+'\n"""\nReglas clave:\n- '+arr(p.claves).join('\n- ')+'\n\nHugo ha cerrado la ficha y la ha reconstruido de memoria:\n"""\n'+ans+'\n"""\n\nCompara su versión con la ficha, como hacía Franklin con sus ensayos: 1) **Lo que has recuperado bien** (breve); 2) **Lo que falta o está mal**, con la regla correcta; 3) **Tu hueco**: en una frase, lo que todavía tienes que aprender. No reescribas la ficha entera. Termina con una línea exacta "RECUPERADO: n/10" según la proporción de reglas clave que recuperó correctamente.';
+  if(kind==='rebuild'){
+    var cl=arr(p.claves),n=cl.length||1;
+    return B+'Ficha que Hugo leyó (solo como referencia):\n"""\n'+p.ficha+'\n"""\nLas '+n+' reglas clave que debía reconstruir. Es lo ÚNICO que se evalúa:\n'+cl.map(function(c,i){return (i+1)+'. '+c}).join('\n')
+      +'\n\nHugo ha cerrado la ficha y ha escrito de memoria:\n"""\n'+ans+'\n"""\n\n'
+      +'Evalúa como hacía Franklin, comparando con las reglas clave y no con toda la ficha:\n'
+      +'- Cada regla clave es ✓ (completa: la idea correcta con su norma y, si la regla gira en torno a un artículo concreto, también el artículo), ~ (parcial: idea incompleta o imprecisa, o falta la norma) o ✗ (falta, o la dice mal o confunde conceptos).\n'
+      +'- NO penalices que omita ejemplos, el «antes y después», los pasos de «qué haría una empresa», matices secundarios ni la redacción literal: se busca que lo diga con sus palabras.\n'
+      +'- Un error de concepto pesa más que una omisión: señálalo siempre, aunque esté fuera de las reglas clave.\n'
+      +'Formato: 1) **Reglas clave**: una línea por regla con ✓, ~ o ✗ y, si no es ✓, en una frase qué faltaba o qué era incorrecto, con la regla correcta; 2) **Errores**: solo si escribió algo incorrecto fuera de las reglas clave; 3) **Tu hueco**: en una frase, lo más importante que aún tiene que aprender. No reescribas la ficha ni pidas detalles que no estén en las reglas clave.\n'
+      +'Termina con una línea exacta "RECUPERADO: n/10", donde n = 10 × (reglas ✓ + 0,5 × reglas ~) / '+n+', con una cifra decimal como máximo.';
+  }
   if(kind==='fuente'){var f=p.fuente||{};return B+'Hugo ha abierto el texto oficial ('+f.norma+', '+f.articulo+') para contrastarlo con lo que reconstruyó. Preguntas:\n- '+arr(f.preguntas).join('\n- ')+'\n\nSus respuestas:\n"""\n'+ans+'\n"""\n\nComprueba si reflejan lo que dice el artículo. Si no estás seguro de la literalidad exacta, dilo. Señala un matiz del texto oficial que no estaba en la ficha. Termina con una línea exacta "NOTA: n/10".'}
   if(kind==='case'){var c=p.caso||{};return B+'Caso:\n"""\n'+c.enunciado+'\n"""\nSe pide: '+c.pide+'\nCriterios de una buena respuesta (no los conoce):\n- '+arr(c.criterios).join('\n- ')+'\n\nRespuesta de Hugo:\n"""\n'+ans+'\n"""\nAntes de ver la corrección, Hugo cree que sacará un '+s.conf+'/10.\n\nCorrige: 1) lo que está bien; 2) lo que falla o falta, citando la norma; 3) cómo mejorarla sin reescribirla entera; 4) una pregunta para seguir pensando. Comenta en una línea su calibración (si se ha sobrestimado o subestimado y por qué importa). Termina con una línea exacta "NOTA: n/10".'}
   if(kind==='humo'){var h=p.humo||{};return B+'Afirmación de '+h.quien+':\n"""\n'+h.afirmacion+'\n"""\nErrores que contiene (Hugo no los conoce):\n- '+arr(h.errores).join('\n- ')+'\n\nHugo explica qué está mal y por qué:\n"""\n'+ans+'\n"""\n\nEvalúa si ha detectado los errores reales y si los justifica con la norma. Explica los que se le escaparon. Termina con una línea exacta "NOTA: n/10".'}
@@ -964,7 +974,7 @@ function methodHtml(){
   +'<li><b>El conocimiento se acumula.</b> Lo que ya sabes decide cuánto entiendes de lo nuevo (Recht y Leslie, 1988; efecto Mateo). Tus ganchos vuelven en la puerta a los 1, 3, 7 y 16 días, y Claude conecta cada ficha con ellos. Las primeras semanas son las más caras.</li>'
   +'<li><b>Sin puntos ni premios.</b> Premiar una actividad que ya interesa reduce las ganas de hacerla (efecto de sobrejustificación; Lepper, Greene y Nisbett, 1973). Aquí solo ves información sobre lo que sabes. La curiosidad pone al cerebro en modo aprender (Gruber, Gelman y Ranganath, 2014).</li>'
   +'<li><b>Primero la base, luego en espiral.</b> Quien empieza aprende mejor con explicaciones ordenadas y ejemplos resueltos que resolviendo problemas a ciegas (Kirschner, Sweller y Clark, 2006). Lo nuevo se ancla en lo que ya sabes (Ausubel), así que la ruta va en orden y solo avanzas al dominar cada bloque (Bloom). Después se repite todo más a fondo. Tus preguntas siguen mandando: cada una es el caso final del último bloque que necesita.</li>'
-  +'<li><b>Lo que cambia es la ley.</b> El radar se revisa cada semana y Claude usa ese estado verificado para fechas y vigencia. Así es más difícil que te cuelen una afirmación falsa.</li>'
+  +'<li><b>Lo que cambia es la ley.</b> El radar se revisa cada mes y al día siguiente de cada acto importante, y Claude usa ese estado verificado para fechas y vigencia. Así es más difícil que te cuelen una afirmación falsa.</li>'
   +'</ol><blockquote>La mente no es un vaso que haya que llenar, sino leña que hay que encender. — Plutarco</blockquote></details>';
 }
 /* Si una pieza falla, se avisa en su sitio y el resto de la pantalla sigue funcionando. */
@@ -1019,10 +1029,11 @@ function stepBody(s,k){
     else h+='<div class="actions"><button type="button" class="btn" data-act="plan" data-id="'+s.id+'">Preparar la lectura</button>'+(S.ai==='off'?'<button type="button" class="link" data-act="copy-plan" data-id="'+s.id+'">Copiar para un chat</button>':'')+'</div>'+copyBoxHtml('plan');
     return h;
   }
-  if(k==='ficha')return '<h3 class="fichaT">'+esc(p.titulo)+'</h3><p class="sub">'+esc(p.subpregunta)+'</p><div class="prose">'+md(p.ficha)+'</div>'+normasHtml(p.normas)+'<p class="muted small">Lee con calma. Al pasar, la ficha se cierra y la reconstruyes de memoria.</p><div class="actions"><button type="button" class="btn" data-act="next" data-id="'+s.id+'">Cerrar la ficha y reconstruir</button></div>';
+  if(k==='ficha')return '<h3 class="fichaT">'+esc(p.titulo)+'</h3><p class="sub">'+esc(p.subpregunta)+'</p><div class="prose">'+md(p.ficha)+'</div>'+normasHtml(p.normas)+(arr(p.claves).length?'<div class="refs"><p class="kicker">Lo esencial · es lo que reconstruirás de memoria</p><ol class="qs">'+arr(p.claves).map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ol></div>':'')+'<p class="muted small">Lee con calma. Al pasar, la ficha se cierra y reconstruyes de memoria las reglas clave.</p><div class="actions"><button type="button" class="btn" data-act="next" data-id="'+s.id+'">Cerrar la ficha y reconstruir</button></div>';
   if(k==='reconstruir'){
     var orig='<details class="orig"><summary>Ver la ficha original</summary><div class="prose">'+md(p.ficha)+'</div></details>';
-    var task=s.rebuildFb?'':'<p class="task">La ficha está cerrada. Escribe de memoria la idea principal y las reglas clave, con tus palabras.</p>';
+    var nk=arr(p.claves).length;
+    var task=s.rebuildFb?'':'<p class="task">La ficha está cerrada. Escribe de memoria '+(nk?'las '+nk+' reglas clave':'las reglas clave')+', con tus palabras y con su norma (y el artículo cuando la regla gire en torno a uno). No hace falta repetir los ejemplos ni los pasos.</p>';
     return task+xchg(s,'rebuild','Tu reconstrucción','Comparar con la ficha',7,'',s.rebuildScore!=null?'<p class="grade"><span class="score">Recuperado '+fmtNum(s.rebuildScore,1)+'/10</span></p>':'',orig);
   }
   if(k==='fuente'){
@@ -1188,13 +1199,15 @@ function radarHtml(){
   var m=S.meta.radar||{},rs=radarList().filter(function(r){return S.juris==='all'||r.juris===S.juris});
   var h='<section class="hero"><div class="heroText"><p class="eyebrow">Regulación vigente</p><h2>Radar</h2><p>'+(m.ultimaRevision?'Revisado el '+esc(fmtDate(m.ultimaRevision))+(m.proxima?' · próxima revisión el '+esc(fmtDate(m.proxima)):''):'Aún no hay revisión registrada.')+(freshNov().length?' · '+freshNov().length+' sin estudiar':'')+'</p></div></section>';
   if(m.resumen)h+='<section class="card"><p class="kicker">Resumen de la última revisión</p><div class="prose">'+md(m.resumen)+'</div></section>';
+  var ag=arr(m.agenda).filter(function(a){return a&&a.f&&a.t&&a.f>=shift(S.today,-7)}).sort(function(a,b){return a.f<b.f?-1:a.f>b.f?1:0});
+  if(ag.length)h+='<section class="card"><h3>Actos previstos que vigilar</h3><p class="muted small">El radar se revisa cada mes y, además, al día siguiente de cada acto importante.</p><ul class="timeline">'+ag.map(function(a){return '<li class="'+(a.f<=shift(S.today,14)?'soon':'')+'"><span class="mono">'+esc(fmtDate(a.f))+'</span><span class="tlText"><b>'+esc(a.t)+'</b><span>'+esc(a.por||'')+(a.revision?(a.por?' · ':'')+(a.revision==='hecha'?'ya revisado':'revisión el '+esc(fmtDate(a.revision))):'')+'</span></span></li>'}).join('')+'</ul></section>';
   var up=upcoming(10);
   if(up.length)h+='<section class="card"><h3>Próximas fechas</h3><ul class="timeline">'+up.map(function(u){var soon=u.f<=shift(S.today,45);return '<li class="'+(soon?'soon':'')+'"><span class="mono">'+esc(fmtDate(u.f))+'</span><span class="tlText"><b>'+esc(u.t)+'</b><span>'+esc(u.r.corto||u.r.titulo)+' · '+esc(JURIS[u.r.juris]||'')+'</span></span></li>'}).join('')+'</ul></section>';
   var nv=novList();
   if(nv.length){var shown=S.showAllNov?nv:nv.slice(0,5);
     h+='<section class="card"><h3>Novedades</h3>'+shown.map(function(n){var u=n.fuente&&safeUrl(n.fuente.url);return '<div class="nov"><p class="small"><span class="mono">'+esc(fmtDate(n.fecha))+'</span> · '+pill(JURIS[n.juris]||n.juris||'')+'</p><b>'+esc(n.titulo)+'</b><p>'+esc(n.resumen||'')+'</p>'+(n.impacto?'<p class="muted small"><b>Impacto:</b> '+esc(n.impacto)+'</p>':'')+(arr(n.bloques).length&&rutaList().length?'<p class="pathline">Relacionada con los bloques '+bkBadges(arr(n.bloques))+'</p>':'')+'<p class="small">'+(u?'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(n.fuente.t||'Fuente')+'</a> · ':'')+(novStudied(n.id)?pill('Estudiada','ok'):'<button type="button" class="link" data-act="study-nov" data-id="'+esc(n.id)+'">Estudiar esta novedad</button>')+'</p></div>'}).join('')+(nv.length>5?'<button type="button" class="link" data-act="allnov">'+(S.showAllNov?'Ver menos':'Ver las '+nv.length)+'</button>':'')+'</section>';}
   h+='<div class="chips" role="group" aria-label="Filtrar por ámbito"><button type="button" class="chip" data-act="juris" data-v="all" aria-pressed="'+(S.juris==='all')+'">Todo</button>'+Object.keys(JURIS).map(function(k){return '<button type="button" class="chip" data-act="juris" data-v="'+k+'" aria-pressed="'+(S.juris===k)+'">'+esc(JURIS[k])+'</button>'}).join('')+'</div>';
-  h+=rs.length?rs.map(regCard).join(''):'<p class="empty">'+(list('radar').length?'Nada en este ámbito.':'El radar se está cargando. Si sigue vacío, la revisión semanal lo rellenará.')+'</p>';
+  h+=rs.length?rs.map(regCard).join(''):'<p class="empty">'+(list('radar').length?'Nada en este ámbito.':'El radar se está cargando. Si sigue vacío, la próxima revisión lo rellenará.')+'</p>';
   return h;
 }
 

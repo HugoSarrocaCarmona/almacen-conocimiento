@@ -4,7 +4,7 @@ App de sesiones diarias para aprender cómo deben adaptar las empresas sus proce
 
 - **App publicada (privada):** https://claude.ai/artifact/N3EPgH3Lw97WTuonbo2kZ2
 - **Hora:** 19:00 todos los días. Hay un evento recurrente en Google Calendar y el hábito «Cuaderno IA y Ley» en Puertas Diarias.
-- **Revisión de la regulación:** tarea programada «Revisión semanal del radar regulatorio», los domingos a las 9:54 (Europe/Madrid). Abre una sesión nueva que busca cambios, los contrasta en las fuentes oficiales y actualiza la base de datos de la app.
+- **Revisión de la regulación:** tarea programada «Revisión mensual del radar regulatorio», el día 1 de cada mes a las 9:54 (Europe/Madrid). Busca cambios, los contrasta en las fuentes oficiales, actualiza la base de datos de la app y apunta en `meta/radar.agenda` los actos importantes de las 6 semanas siguientes. Al día siguiente de cada acto de impacto alto hay una **revisión puntual** (ya programadas: 3 y 10 de diciembre de 2026).
 
 ## Ruta, pregunta o actualidad
 
@@ -40,10 +40,10 @@ METODOLOGIA.md    El método del vídeo y cómo lo aplica cada parte de la app.
 
 | Colección | Quién la escribe | Contenido |
 |---|---|---|
-| `radar/{id}` | Revisión semanal | Una ficha por norma: `titulo, corto, juris (UE/ES/CAT/GLOBAL), estado, estadoTxt, resumen, empresa, fechas[{f,t}], procesos[], fuente{t,url}, fuentes[], verificado, confianza, orden` |
-| `novedades/{id}` | Revisión semanal | `fecha, juris, tipo, titulo, resumen, impacto, normas[], bloques[], fuente` |
-| `banco/{id}` | Revisión semanal | Preguntas de empresa: `texto, area, normas[], orden` |
-| `meta/radar` | Revisión semanal | `ultimaRevision, proxima, resumen` |
+| `radar/{id}` | Revisión mensual o puntual | Una ficha por norma: `titulo, corto, juris (UE/ES/CAT/GLOBAL), estado, estadoTxt, resumen, empresa, fechas[{f,t}], procesos[], fuente{t,url}, fuentes[], verificado, confianza, orden` |
+| `novedades/{id}` | Revisión mensual o puntual | `fecha, juris, tipo, titulo, resumen, impacto, normas[], bloques[], fuente` |
+| `banco/{id}` | Revisión mensual o puntual | Preguntas de empresa: `texto, area, normas[], orden` |
+| `meta/radar` | Revisión mensual o puntual | `ultimaRevision, proxima, resumen, agenda[{f, t, por, revision}]` |
 | `meta/settings` | La app | `hora, ancla, puerta, minutos, umbral, examenes, diaLibre` |
 | `ruta/{b0…b9}` | Claude (a mano, con Hugo) | Bloques: `orden, titulo, objetivo, semanas, conceptos[{id, t, q, claves, art, normas, area}]` |
 | `mapa/{concepto}` | La app | Estado de cada concepto: `estado (visto/repasar/dominado), sesiones, nota, hueco, apuntes, via` |
