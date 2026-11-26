@@ -2,7 +2,7 @@
 // Solo funciona en https (o localhost); en otros casos la app sigue
 // funcionando igual, simplemente necesita conexión para cargarse.
 export function registerServiceWorker() {
-  if (!import.meta.env.PROD) return;
+  if (!import.meta.env.PROD || import.meta.env.MODE === 'artifact') return;
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./sw.js').catch(() => {

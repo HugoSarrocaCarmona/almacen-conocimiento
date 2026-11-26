@@ -22,14 +22,39 @@ function stampServiceWorker() {
   };
 }
 
+// Versión para claude.ai (`npm run build:claude`): cambia el almacenamiento
+// local por la base de datos de claude.ai. El resto de la app es igual.
+function useCloudStorage() {
+  const cloud = resolve('src/data/storage-cloud.js');
+  return {
+    name: 'use-cloud-storage',
+    enforce: 'pre',
+    async resolveId(source, importer, options) {
+      if (!source.endsWith('/data/storage.js')) return null;
+      const resolved = await this.resolve(source, importer, { ...options, skipSelf: true });
+      return resolved && resolved.id.endsWith('/src/data/storage.js') ? cloud : null;
+    },
+  };
+}
+
 // base './' hace que la app funcione en cualquier carpeta del servidor
 // (por ejemplo, GitHub Pages en usuario.github.io/almacen/).
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: './',
-  plugins: [react(), stampServiceWorker()],
-  build: { target: 'es2020' },
+  plugins: mode === 'artifact' ? [react(), useCloudStorage()] : [react(), stampServiceWorker()],
+  build:
+    mode === 'artifact'
+      ? {
+          target: 'es2020',
+          outDir: 'dist-claude',
+          emptyOutDir: true,
+          copyPublicDir: false,
+          cssCodeSplit: false,
+          rollupOptions: { output: { inlineDynamicImports: true } },
+        }
+      : { target: 'es2020' },
   test: {
     environment: 'node',
     include: ['src/**/*.test.js'],
   },
-});
+}));

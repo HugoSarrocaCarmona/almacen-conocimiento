@@ -4,6 +4,7 @@ import { sanitizeResource, newId } from './lib/model.js';
 import { EMPTY_FILTERS, collectCategories, collectTags } from './lib/search.js';
 import { describeImportResult } from './lib/backup.js';
 import { daysSince } from './lib/format.js';
+import { IS_CLOUD } from './lib/cloud.js';
 import { useRoute, navigate, paths } from './lib/route.js';
 import LibraryView from './views/LibraryView.jsx';
 import ResourceForm from './views/ResourceForm.jsx';
@@ -70,6 +71,13 @@ export default function App() {
   useEffect(() => {
     load();
   }, [load]);
+
+  // En la versión de claude.ai, los cambios hechos desde otro dispositivo
+  // o por Claude aparecen solos.
+  useEffect(() => {
+    if (status !== 'ready') return undefined;
+    return storage.subscribe((all) => setResources(all.map((r) => sanitizeResource(r)).filter(Boolean)));
+  }, [status]);
 
   // Cada vez que cambias de pantalla, vuelve arriba (salvo en la biblioteca,
   // donde se conserva la posición al volver de un recurso).
@@ -209,7 +217,7 @@ export default function App() {
         <div className="empty">
           <h1 className="empty__title">No se puede abrir tu almacén</h1>
           <p className="empty__text">{loadError}</p>
-          <p className="empty__text">Si estás en navegación privada, ábrelo en una pestaña normal. Tus datos no se han borrado.</p>
+          <p className="empty__text">{IS_CLOUD ? 'Tus datos no se han borrado: siguen guardados en claude.ai.' : 'Si estás en navegación privada, ábrelo en una pestaña normal. Tus datos no se han borrado.'}</p>
           <button type="button" className="btn btn--primary" onClick={load}>Reintentar</button>
         </div>
       </div>
@@ -271,7 +279,7 @@ export default function App() {
         break;
       default: {
         const exportAge = lastExport ? daysSince(lastExport) : Infinity;
-        const remindBackup = resources.length >= BACKUP_REMINDER_MIN && exportAge >= BACKUP_REMINDER_DAYS;
+        const remindBackup = !IS_CLOUD && resources.length >= BACKUP_REMINDER_MIN && exportAge >= BACKUP_REMINDER_DAYS;
         screen = (
           <LibraryView
             resources={resources}

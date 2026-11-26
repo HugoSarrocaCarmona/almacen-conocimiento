@@ -10,6 +10,7 @@ import {
 import { formatDateTime, daysSince } from '../lib/format.js';
 import Icon from '../components/Icon.jsx';
 import { ConfirmDialog } from '../components/Feedback.jsx';
+import { IS_CLOUD, saveFileFromClaude } from '../lib/cloud.js';
 
 function makeFile(resources) {
   const json = JSON.stringify(buildBackup(resources), null, 2);
@@ -18,6 +19,7 @@ function makeFile(resources) {
 }
 
 function canShareFiles() {
+  if (IS_CLOUD) return false;
   try {
     const probe = new File(['{}'], 'test.json', { type: 'application/json' });
     return !!navigator.canShare?.({ files: [probe] });
@@ -34,7 +36,17 @@ export default function DataView({ resources, lastExport, persisted, onExported,
   const [confirmReplace, setConfirmReplace] = useState(false);
   const shareFiles = canShareFiles();
 
-  const download = () => {
+  const download = async () => {
+    if (IS_CLOUD) {
+      const { json, name } = makeFile(resources);
+      try {
+        await saveFileFromClaude(name, json);
+        onExported(`Copia guardada: ${name}`);
+      } catch (err) {
+        if (err?.code !== 'declined') notify('No se pudo guardar la copia. Prueba desde el navegador del ordenador.', 'error');
+      }
+      return;
+    }
     const { blob, name } = makeFile(resources);
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -91,7 +103,11 @@ export default function DataView({ resources, lastExport, persisted, onExported,
     <div className="page">
       <header className="page-head">
         <h1 className="page-title">Copias</h1>
-        <p className="page-sub">Tus datos se guardan solo en este navegador. Exporta una copia de vez en cuando para no perderlos y para pasarlos a otro dispositivo.</p>
+        <p className="page-sub">
+          {IS_CLOUD
+            ? 'Tus datos se guardan en tu cuenta de claude.ai. Puedes exportar una copia cuando quieras o importar una que ya tengas.'
+            : 'Tus datos se guardan solo en este navegador. Exporta una copia de vez en cuando para no perderlos y para pasarlos a otro dispositivo.'}
+        </p>
       </header>
 
       <section className="panel" aria-labelledby="d-export">
@@ -180,12 +196,21 @@ export default function DataView({ resources, lastExport, persisted, onExported,
 
       <section className="panel panel--quiet" aria-labelledby="d-about">
         <h2 id="d-about" className="section-title">Dónde están tus datos</h2>
-        <ul className="plain-list">
-          <li>Se guardan en este navegador y este dispositivo. No hay cuenta ni nube.</li>
-          <li>Safari y la app instalada en la pantalla de inicio tienen almacenes separados: usa siempre la misma.</li>
-          <li>Si borras los datos de navegación de Safari, se borrarán también. Exporta antes.</li>
-          {persisted === true && <li>El navegador ha marcado tus datos como persistentes: no los borrará por falta de espacio.</li>}
-        </ul>
+        {IS_CLOUD ? (
+          <ul className="plain-list">
+            <li>Se guardan en tu cuenta de claude.ai: ves lo mismo en el iPhone y en el ordenador.</li>
+            <li>Claude puede leerlos y añadir recursos cuando se lo pidas en una conversación.</li>
+            <li>Son privados: solo los ves tú, salvo que compartas esta página.</li>
+            <li>Necesitas conexión y tener la sesión de claude.ai iniciada.</li>
+          </ul>
+        ) : (
+          <ul className="plain-list">
+            <li>Se guardan en este navegador y este dispositivo. No hay cuenta ni nube.</li>
+            <li>Safari y la app instalada en la pantalla de inicio tienen almacenes separados: usa siempre la misma.</li>
+            <li>Si borras los datos de navegación de Safari, se borrarán también. Exporta antes.</li>
+            {persisted === true && <li>El navegador ha marcado tus datos como persistentes: no los borrará por falta de espacio.</li>}
+          </ul>
+        )}
       </section>
 
       <ConfirmDialog

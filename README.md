@@ -8,6 +8,17 @@ Biblioteca personal para guardar, organizar y recuperar enlaces, vídeos, artíc
 
 **App publicada:** https://hugosarrocacarmona.github.io/almacen-conocimiento/ (se actualiza sola con cada cambio que se sube a `main`).
 
+## Versión en claude.ai
+
+**Almacén en claude.ai (privada):** https://claude.ai/artifact/2dsFMgLPLe8W3gRs8PZBgc
+
+Es la misma app, pero guarda los recursos en la base de datos de claude.ai en lugar de en el navegador:
+- Ves lo mismo en el iPhone y en el ordenador, sin exportar nada.
+- Claude puede leer tu almacén y añadir recursos cuando se lo pides en una conversación.
+- Necesita conexión y la sesión de claude.ai iniciada. Solo tú puedes leer y cambiar los datos.
+
+Se genera con `npm run build:claude`, que crea `dist-claude/almacen.html`. El único cambio de fondo es `src/data/storage-cloud.js`, que sustituye a `storage.js` en esta versión. En la base de datos, cada recurso es un documento de `recursos/<id>` con los mismos campos que el modelo, y `meta/estado` guarda la fecha de la última copia.
+
 ## Comandos
 
 Hacen falta [Node.js](https://nodejs.org) 18 o superior.
@@ -17,6 +28,7 @@ npm install        # solo la primera vez
 npm run dev        # abre la app en modo desarrollo (http://localhost:5173)
 npm test           # ejecuta las pruebas automáticas
 npm run build      # genera la versión final en la carpeta dist/
+npm run build:claude  # genera la versión para claude.ai (dist-claude/almacen.html)
 npm run preview    # sirve dist/ para probarla (http://localhost:4173)
 ```
 

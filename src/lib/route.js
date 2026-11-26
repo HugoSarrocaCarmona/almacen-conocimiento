@@ -2,8 +2,17 @@
 // Atrás del navegador y abrir un recurso con un enlace directo.
 import { useEffect, useState } from 'react';
 
+// Las direcciones usan nombres simples (#nuevo, #r-<id>) porque claude.ai
+// solo conserva ese formato en los enlaces. Las antiguas (#/nuevo, #/r/<id>)
+// se siguen entendiendo.
 export function parseHash(hash) {
-  const path = (hash || '').replace(/^#/, '') || '/';
+  const raw = (hash || '').replace(/^#/, '');
+  const simple = raw.match(/^(r|e)-(.+)$/);
+  if (simple) {
+    const id = decodeURIComponent(simple[2]);
+    return simple[1] === 'e' ? { name: 'edit', id } : { name: 'detail', id };
+  }
+  const path = raw || '/';
   const parts = path.split('/').filter(Boolean);
   if (parts.length === 0) return { name: 'library' };
   if (parts[0] === 'nuevo') return { name: 'new' };
@@ -17,12 +26,12 @@ export function parseHash(hash) {
 }
 
 export const paths = {
-  library: '#/',
-  new: '#/nuevo',
-  review: '#/revisar',
-  data: '#/datos',
-  detail: (id) => `#/r/${encodeURIComponent(id)}`,
-  edit: (id) => `#/r/${encodeURIComponent(id)}/editar`,
+  library: '#biblioteca',
+  new: '#nuevo',
+  review: '#revisar',
+  data: '#datos',
+  detail: (id) => `#r-${encodeURIComponent(id)}`,
+  edit: (id) => `#e-${encodeURIComponent(id)}`,
 };
 
 // `replace` evita que el botón Atrás vuelva a un formulario ya guardado.

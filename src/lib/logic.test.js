@@ -186,5 +186,9 @@ describe('rutas', () => {
     expect(parseHash('#/r/abc/editar')).toEqual({ name: 'edit', id: 'abc' });
     expect(parseHash('#/datos')).toEqual({ name: 'data' });
     expect(parseHash('#/cualquiercosa')).toEqual({ name: 'library' });
+    expect(parseHash('#nuevo')).toEqual({ name: 'new' });
+    expect(parseHash('#r-abc-123')).toEqual({ name: 'detail', id: 'abc-123' });
+    expect(parseHash('#e-abc-123')).toEqual({ name: 'edit', id: 'abc-123' });
+    expect(parseHash('#biblioteca')).toEqual({ name: 'library' });
   });
 });

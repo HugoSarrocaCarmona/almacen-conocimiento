@@ -101,7 +101,7 @@ export default function ResourceDetail({ resource, onStatusChange, onDelete, onF
       <ConfirmDialog
         open={confirmDelete}
         title="¿Eliminar este recurso?"
-        message={`«${resource.title}» se borrará de este dispositivo. Podrás deshacerlo durante unos segundos.`}
+        message={`«${resource.title}» se borrará de tu almacén. Podrás deshacerlo durante unos segundos.`}
         confirmLabel="Eliminar"
         danger
         onConfirm={() => {

@@ -171,3 +171,10 @@ export async function _closeForTests() {
   if (dbPromise) (await dbPromise).close();
   dbPromise = null;
 }
+
+// La versión local no recibe cambios de otros dispositivos.
+export function subscribe() {
+  return () => {};
+}
+
+export const isCloud = false;

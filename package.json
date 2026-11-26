@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+    "build:claude": "vite build --mode artifact && node scripts/build-claude.mjs",
     "preview": "vite preview --host",
     "test": "vitest run"
   },
